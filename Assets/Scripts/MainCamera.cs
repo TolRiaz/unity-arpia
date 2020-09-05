@@ -28,7 +28,7 @@ public class MainCamera : MonoBehaviour
         cameraPosition.z = playerTransform.position.z + offsetZ;
 
         transform.position = 
-            Vector3.Lerp(transform.position, cameraPosition, followSpeed * Time.deltaTime);
+            Vector3.Lerp(transform.position, cameraPosition, followSpeed * Time.deltaTime * 2);
     }
 
     private void FixCameraPositionX()
@@ -55,6 +55,21 @@ public class MainCamera : MonoBehaviour
         else if (player_location.Equals(Map.SCHOOL) && player_position.x < -5.8f)
         {
             cameraPosition.x = -5.8f;
+            return;
+        }
+        else if (player_location.Equals(Map.Dungeon1))
+        {
+            cameraPosition.x = -300f;
+            return;
+        }
+        else if (player_location.Equals(Map.Dungeon2))
+        {
+            cameraPosition.x = -200f;
+            return;
+        }
+        else if (player_location.Equals(Map.Dungeon3))
+        {
+            cameraPosition.x = -100f;
             return;
         }
 
@@ -85,6 +100,21 @@ public class MainCamera : MonoBehaviour
         else if (player_location.Equals(Map.SCHOOL) && player_position.y < 23.6f)
         {
             cameraPosition.y = 23.6f;
+            return;
+        }
+        else if (player_location.Equals(Map.Dungeon1))
+        {
+            cameraPosition.y = 199f;
+            return;
+        }
+        else if (player_location.Equals(Map.Dungeon2))
+        {
+            cameraPosition.y = 199f;
+            return;
+        }
+        else if (player_location.Equals(Map.Dungeon3))
+        {
+            cameraPosition.y = 199f;
             return;
         }
 

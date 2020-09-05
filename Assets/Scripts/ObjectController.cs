@@ -16,8 +16,11 @@ public class ObjectController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        //Move
+        //rigid.velocity = new Vector2(h * horizontalSpeed / doSomething, v * verticalSpeed);
+
         Vector2 speed = new Vector2(value.joyTouch.x / 100 * joystickSpeed, value.joyTouch.y / 100 * joystickSpeed);
         transform.Translate(speed);
         SetAnimator();

@@ -8,10 +8,11 @@ public class MainSceneController : MonoBehaviour
 {
     public GameObject main_scene;
     public GameObject book_scene;
+    public GameObject loading_scene;
 
     private Button _game_start_button;
 
-    public int type;
+    public int type = 7;
     public GameObject[] character_type;
 
     // Start is called before the first frame update
@@ -19,6 +20,7 @@ public class MainSceneController : MonoBehaviour
     {
         main_scene.SetActive(true);
         book_scene.SetActive(false);
+        loading_scene.SetActive(false);
 
         _game_start_button = main_scene.transform.GetChild(0).gameObject.GetComponent<Button>();
     }
@@ -43,6 +45,13 @@ public class MainSceneController : MonoBehaviour
 
     public void MoveNextBook()
     {
+        if (type.Equals(7))
+        {
+            return;
+        }
+
+        loading_scene.gameObject.SetActive(true);
+
         SceneManager.LoadScene(1);
     }
 

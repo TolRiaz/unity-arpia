@@ -6,6 +6,7 @@ using System;
 public class SoundManager : MonoBehaviour
 {
     public BGM[] bgm;
+    public BGM[] effectSound;
     public int mapCode;
     public bool isMapChanged;
     public static SoundManager instance;
@@ -36,6 +37,11 @@ public class SoundManager : MonoBehaviour
     public void playMusic(int num)
     {
         bgm[num].playBGM();
+    }
+
+    public void playEffectSound(int num)
+    {
+        effectSound[num].playBGM();
     }
 
     public void refreshSounds()
