@@ -51,6 +51,6 @@ public class SkillSet : MonoBehaviour
 
     public void uiOnOff()
     {
-        GameObject.Find("Canvas").GetComponent<SkillUI>().informationUIOnOff(skill, symbol);
+        //GameObject.Find("Canvas").GetComponent<SkillUI>().informationUIOnOff(skill, symbol);
     }
 }

@@ -58,7 +58,7 @@ public class SkillUI : MonoBehaviour
         }
     }
 
-    public void informationUIOnOff(Skill skill, Image skillImage)
+/*    public void informationUIOnOff(Skill skill, Image skillImage)
     {
         if (infoSet.gameObject.activeSelf)
         {
@@ -75,5 +75,5 @@ public class SkillUI : MonoBehaviour
             infoSet.content.text = skill.information;
             infoSet.skillImage.sprite = skillImage.sprite;
         }
-    }
+    }*/
 }

@@ -7,27 +7,8 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance;
     public Map location;
 
-    private float h;
-    private float v;
-    private float verticalSpeed;
-    private float horizontalSpeed = 5.0f;
-    private float motionStop = 0.1f;
-    private int flipReverse = -1;
-    private float footPosition = 0.59f;
-    private float armPosition = 0.3f;
-    private float rayRange = 0.8f;
-    public float attackRange;
-    private string[] layers = new string[3];
-    private int removeMessageTimer;
-
-    public JoystickValue value;
-    public float joystickSpeed = 0.03f;
-
-    private Vector3 direction;
-
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
-    private Animator animator;
 
     private AudioSource playerAudioSource;
 
@@ -36,10 +17,7 @@ public class PlayerManager : MonoBehaviour
     public Transform posLeft;
     public GameObject monster;
     public Vector2 boxSize;
-    public bool isAttacking;
     public int damageTimer;
-    public GameObject meleeRight;
-    public GameObject meleeLeft;
 
     //levelUp
     public GameObject hudDamageText;
@@ -53,7 +31,7 @@ public class PlayerManager : MonoBehaviour
     public StatUI statUI;
 
     //equipment
-    public GameObject leftHand;
+/*    public GameObject leftHand;
     public GameObject[] leftHands;
     public int activeLeftHand;
 
@@ -95,14 +73,9 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject hair;
     public GameObject[] hairs;
-    public int activeHair;
+    public int activeHair;*/
 
     [SerializeField] private AudioClip[] clip;
-
-    public GameObject joystick;
-    public bool isKnockDown;
-    public GameObject knockDownSet;
-    public GameObject popUp;
 
     // Object Controller
     public ObjectController objectController;
@@ -118,22 +91,14 @@ public class PlayerManager : MonoBehaviour
         instance = this;
         location = Map.VILLAGE;
 
-        rigid = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-        statUI = GameObject.Find("Canvas").GetComponent<StatUI>();
-        verticalSpeed = horizontalSpeed / 3;
-        layers[0] = "Entity";
-        layers[1] = "Item";
-        layers[2] = "Enemy";
-        removeMessageTimer = 0;
+        //rigid = GetComponent<Rigidbody2D>();
+        //spriteRenderer = GetComponent<SpriteRenderer>();
+        //animator = GetComponent<Animator>();
+        //statUI = GameObject.Find("Canvas").GetComponent<StatUI>();
         damageTimer = 0;
-        knockDownSet.SetActive(false);
-        popUp = knockDownSet.transform.GetChild(1).gameObject;
 
-        attackRange = 1.5f;
 
-        setEquipmentGameObject();
+/*        setEquipmentGameObject();
 
         activeLeftHand = -1;
         activeRightHand = -1;
@@ -145,7 +110,7 @@ public class PlayerManager : MonoBehaviour
         activeNeckless = -1;
         activeEaring = -1;
         activeRing = -1;
-        activeHair = -1;
+        activeHair = -1;*/
 
         objectController = GetComponent<ObjectController>();
     }
@@ -153,7 +118,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        setEquipmentMotion();
+        //setEquipmentMotion();
 
         //levelUpSign
         if (isLevelUp)
@@ -174,7 +139,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     // 장비 아이템 모션 적용
-    public void setEquipmentMotion()
+/*    public void setEquipmentMotion()
     {
         if (spriteRenderer.flipX)
         {
@@ -328,19 +293,7 @@ public class PlayerManager : MonoBehaviour
         {
             hairs[i] = hair.transform.GetChild(i).gameObject;
         }
-    }
-
-    private void rayControllerAttack(bool hDown, bool hUp)
-    {
-        if (hDown && h == -1)
-        {
-            direction = Vector3.left;
-        }
-        else if (hDown && h == 1)
-        {
-            direction = Vector3.right;
-        }
-    }
+    }*/
 
     void onDamaged(Vector2 targetPos, bool isMiss, float damageValue)
     {
@@ -395,33 +348,5 @@ public class PlayerManager : MonoBehaviour
         }
 
         return true;
-    }
-
-    public void viewPopUp()
-    {
-        popUp.SetActive(true);
-    }
-
-    public void repeatKnockDown()
-    {
-        if (!isKnockDown)
-        {
-            return;
-        }
-
-        animator.SetBool("repeatKnockDown", true);
-    }
-
-    public void uiOnOffKnockDownSet()
-    {
-        GameManager.instance.playerData.healthPoint = GameManager.instance.playerData.healthPointMax;
-        animator.SetBool("repeatKnockDown", false);
-        isKnockDown = false;
-        transform.position = new Vector2(-0.3f, -1f);
-        GetComponent<Camera>().transform.position = new Vector2(-0.3f, -1f);
-        GameObject.Find("SoundManager").GetComponent<SoundManager>().mapCode = 0;
-        GameObject.Find("SoundManager").GetComponent<SoundManager>().refreshSounds();
-
-        knockDownSet.SetActive(false);
     }
 }

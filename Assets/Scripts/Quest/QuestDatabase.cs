@@ -238,6 +238,11 @@ public class QuestDatabase : MonoBehaviour
 
     public string findNpcNameByCode(int code)
     {
+        if (code == 1)
+        {
+            return "George";
+        }
+
         if (code == 100000)
         {
             return "ViciniGirl";

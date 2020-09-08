@@ -35,7 +35,7 @@ public class ReinforceUI : MonoBehaviour
     public float particleTimer;
     public int particleCount;
 
-    public float successPercent;
+    public float successRate;
 
     //when doing buttons
     public Button reinforce;
@@ -126,18 +126,18 @@ public class ReinforceUI : MonoBehaviour
             return;
         }
 
-        successPercent = (100 - reinforceSlot.item.reinforce * 9);
+        successRate = (100 - reinforceSlot.item.reinforce * 9);
 
-        if (successPercent < 0)
+        if (successRate < 0)
         {
-            successPercent = 0;
+            successRate = 0;
         }
 
         doIt.SetActive(true);
         doItMessage.text = "강화를 진행하시겠습니까?" + NEW_LINE
             + "비용 : " + (reinforceSlot.item.reinforce + 1) * 2 + " Money" + NEW_LINE
             + "보유금액 : " + GameManager.instance.playerData.money + " Money" + NEW_LINE
-            + "성공확률 (기본) : " + successPercent + "%";
+            + "성공확률 (기본) : " + successRate + "%";
     }
 
     public void doItOff()
@@ -226,22 +226,22 @@ public class ReinforceUI : MonoBehaviour
 
     public void doReinforce()
     {
-        successPercent = 100 - item.reinforce * 9;
+        successRate = 100 - item.reinforce * 9;
 
-        if (successPercent < 0)
+        if (successRate < 0)
         {
-            successPercent = 0;
+            successRate = 0;
         }
 
         // 파티클 수량 조절 시 3
-        successPercent += ((100 - successPercent) / 63) * particleScore;
-        successPercent = Mathf.Round(successPercent * 100) / 100;
+        successRate += ((100 - successRate) / 63) * particleScore;
+        successRate = Mathf.Round(successRate * 100) / 100;
 
-        if (generateRandom(successPercent))
+        if (generateRandom(successRate))
         {
             item = progressReinforce(item);
             popUp.SetActive(true);
-            popUpMessage.text = "장비 강화에 성공했습니다!" + NEW_LINE + "(최종확률 : " + successPercent + "%)";
+            popUpMessage.text = "장비 강화에 성공했습니다!" + NEW_LINE + "(최종확률 : " + successRate + "%)";
 
             settings();
             PlayerInventory.instance.removeItem(slotNumber);
@@ -254,7 +254,7 @@ public class ReinforceUI : MonoBehaviour
         else
         {
             popUp.SetActive(true);
-            popUpMessage.text = "장비 강화에 실패했습니다!" + NEW_LINE + "(최종확률 : " + successPercent + "%)";
+            popUpMessage.text = "장비 강화에 실패했습니다!" + NEW_LINE + "(최종확률 : " + successRate + "%)";
 
             settings();
         }

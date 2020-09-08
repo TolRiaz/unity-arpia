@@ -25,7 +25,7 @@ public class QuestSelect : MonoBehaviour
         GameManager.instance.isQuestTalk = true;
         GameManager.instance.talkIndex = 0;
         GameManager.instance.talkQuestPanel.SetActive(false);
-        GameManager.instance.interactObject.questTalkStart();
+        GameManager.instance.objectData.questTalkStart();
 
         /*        for (int i = 0; i < GameManager.instance.playerData.startQuest.Count; i++)
                 {
@@ -67,7 +67,7 @@ public class QuestSelect : MonoBehaviour
         GameManager.instance.isQuestTalk = true;
         GameManager.instance.talkIndex = 0;
         GameManager.instance.talkQuestPanel.SetActive(false);
-        GameManager.instance.interactObject.questTalkStart();
+        GameManager.instance.objectData.questTalkStart();
 
         /*        for (int i = 0; i < GameManager.instance.playerData.startQuest.Count; i++)
                 {

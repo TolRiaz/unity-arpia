@@ -92,9 +92,10 @@ public class ObjectData : MonoBehaviour, IPointerUpHandler
 
     public void questTalkStart()
     {
+        Debug.Log("퀘스트 대화 버튼 누름");
         GameManager.instance.setNPCName(getName());
         GameManager.instance.action(gameObject);
-        GameManager.instance.interactObject = this;
+        GameManager.instance.objectData = this;
     }
 
     public void OnPointerUp(PointerEventData eventData)

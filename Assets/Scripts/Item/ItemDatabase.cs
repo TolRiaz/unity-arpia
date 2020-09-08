@@ -28,8 +28,8 @@ public class ItemDatabase : MonoBehaviour
         itemDataFile = new ItemDataFile();
         itemDataFile.itemDatas = new List<Item>();
 
-        loadItemData();
-        //saveItemData();
+        //loadItemData();
+        saveItemData();
 
         //spawnItem();
 

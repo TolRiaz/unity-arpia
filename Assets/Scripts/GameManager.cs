@@ -19,22 +19,14 @@ public class GameManager : MonoBehaviour
     public Sprite prevPortrait;
     private TypeEffect talkEffect;
     private Text NPCName;
-    public Text questText;
 
-    public GameObject scanObject;
     public int talkIndex;
     public bool isAction;
 
     //gameManager
-    public GameObject player;
+    public PlayerManager playerManager;
     public PlayerData playerData;
-    public SkillDataFile playerSkillData;
-
-    public GameObject menuSet;
-
-    //joystick
-    public JoystickValue value;
-    public GameObject ButtonsTop;
+    //public SkillDataFile playerSkillData;
 
     //pcOrMobile, SaveOrLoad
     public bool isMobile = false;
@@ -67,31 +59,30 @@ public class GameManager : MonoBehaviour
     public bool isLevelUp;
     public bool isEquipedTool;
     public bool isPointUp;
-    public ObjectData interactObject = null;
+    public ObjectData objectData = null;
 
     void Start()
     {
         loadPlayerDataFromJson();
-        loadSkillDataFromJson();
+        //loadSkillDataFromJson();
         loadExpTable();
 
         talkManager = GameObject.Find("TalkManager").GetComponent<TalkManager>();
         questManager = GameObject.Find("QuestManager").GetComponent<QuestManager>();
         talkPanel = GameObject.Find("TalkSet").GetComponent<Animator>();
-        portraitAnim = GameObject.Find("Portrait").GetComponent<Animator>();
+        portraitAnim = GameObject.Find("PortraitME").GetComponent<Animator>();
         talkEffect = GameObject.Find("Interaction").GetComponent<TypeEffect>();
         NPCName = GameObject.Find("NPCName").GetComponent<Text>();
-        playerInventory = GetComponent<PlayerInventory>();
-        playerInventoryItemsTemp.items = playerInventory.items;
-        playerEquipment = GetComponent<PlayerEquipment>();
-        statUI = GameObject.Find("Canvas").GetComponent<StatUI>();
+        playerManager = PlayerManager.instance;
+        playerInventory = PlayerInventory.instance;
+        //playerInventoryItemsTemp.items = playerInventory.items;
+        //playerEquipment = PlayerEquipment.instance;
+        //statUI = GameObject.Find("Canvas").GetComponent<StatUI>();
 
-        questText.text = questManager.checkQuest();  // 여기를 수정해야 퀘스트 오류 고침
         questManager.questId = playerData.questId;
         questManager.questActionIndex = playerData.questActionIndex;
 
-        menuSet.SetActive(false);
-        player.transform.position = new Vector3(playerData.playerX, playerData.playerY, 0);
+        //playerManager.gameObject.transform.position = new Vector3(playerData.playerX, playerData.playerY, 0);
 
         talkPanel.SetBool("isShow", isAction);
 
@@ -161,7 +152,6 @@ public class GameManager : MonoBehaviour
 
         talk(objData.id, objData.isNpc, objData);
         //talkBackground.SetActive(isAction);
-        ButtonsTop.SetActive(!isAction);
         talkPanel.SetBool("isShow", isAction);
     }
 
@@ -169,7 +159,6 @@ public class GameManager : MonoBehaviour
     {
         ObjectData objData = tempScanObjectData.GetComponent<ObjectData>();
         talk(objData.id, objData.isNpc, objData);
-        ButtonsTop.SetActive(!isAction);
         talkPanel.SetBool("isShow", isAction);
     }
 
@@ -412,7 +401,7 @@ public class GameManager : MonoBehaviour
             DestroyImmediate(content.transform.GetChild(i).gameObject);
         }
 
-        int newQuestCount = GameObject.Find(scanObject.name).GetComponent<ObjectData>().questStart.Count;
+        int newQuestCount = GameObject.Find(objectData.name).GetComponent<ObjectData>().questStart.Count;
         //int doneQuestCount = GameObject.Find(scanObject.name).GetComponent<ObjectData>().questEnd.Count;
 
         for (int i = newQuestCount - 1; i >= 0; i--)
@@ -422,7 +411,7 @@ public class GameManager : MonoBehaviour
 
             // 타이틀 제목
             GameObject title = go.transform.GetChild(0).gameObject;
-            title.GetComponent<Text>().text = QuestDatabase.instance.questDB[GameObject.Find(scanObject.name).GetComponent<ObjectData>().questStart[i]].questTitle;
+            title.GetComponent<Text>().text = QuestDatabase.instance.questDB[GameObject.Find(objectData.name).GetComponent<ObjectData>().questStart[i]].questTitle;
         }
     }
 
@@ -482,8 +471,8 @@ public class GameManager : MonoBehaviour
     public void savePlayerDataToJson()
     {
         Debug.Log("저장 성공");
-        playerData.playerX = player.transform.position.x;
-        playerData.playerY = player.transform.position.y;
+        playerData.playerX = playerManager.transform.position.x;
+        playerData.playerY = playerManager.transform.position.y;
         playerData.questId = questManager.questId;
         playerData.questActionIndex = questManager.questActionIndex;
         playerData.inventorySize = GetComponent<PlayerInventory>().slotCount;
@@ -496,8 +485,6 @@ public class GameManager : MonoBehaviour
         // 모바일 저장
         //string path = Path.Combine(Application.persistentDataPath, "playerData.json");
         File.WriteAllText(saveOrLoad(isMobile, true, "playerData"), jsonData);
-
-        menuSet.SetActive(false);
     }
 
     public void saveAndLoadPlayerInventoryTemp()
@@ -576,8 +563,6 @@ public class GameManager : MonoBehaviour
             playerData.manaPointMax = 100;
             playerData.healthPoint = 100;
             playerData.manaPoint = 100;
-            playerData.toolEff = 0;
-            playerData.skillEff = 0;
             playerData.expEff = 0;
             playerData.fame = 0;
             playerData.charm = 0;
@@ -602,7 +587,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("To Json Data")]
+    /*[ContextMenu("To Json Data")]
     public void saveSkillDataToJson()
     {
         Debug.Log("스킬 저장 성공");
@@ -631,7 +616,7 @@ public class GameManager : MonoBehaviour
             File.WriteAllText(saveOrLoad(isMobile, true, "playerSkillData"), jsonData);
             loadSkillDataFromJson();
         }
-    }
+    }*/
 
     public void putItemsFromInventoryData()
     {
@@ -715,7 +700,7 @@ public class GameManager : MonoBehaviour
         expTextAsset = Resources.Load<TextAsset>("GameData/expTable");
         expTable = JsonUtility.FromJson<ExpTable>(expTextAsset.ToString());
         playerData.nextExp = expTable.expTable[playerData.level - 1];
-        GameObject.Find("Canvas").GetComponent<StatUI>().isDataChanged = true;
+        //GameObject.Find("Canvas").GetComponent<StatUI>().isDataChanged = true;
     }
 
     public void levelUp()
@@ -757,7 +742,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < playerData.startQuest.Count; i++)
         {
             string npcName = QuestDatabase.instance.findNpcNameByCode(QuestDatabase.instance.questDB[playerData.startQuest[i]].npcIdStart);
-
+            Debug.Log("NPCNAME = " + npcName);
             GameObject.Find(npcName).GetComponent<ObjectData>().tempQuestStart.Add(playerData.startQuest[i]);
             GameObject.Find(npcName).GetComponent<ObjectData>().setNewQuestOn();
             GameObject.Find(npcName).GetComponent<ObjectData>().isChangeData = true;

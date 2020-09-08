@@ -23,7 +23,7 @@ public class TalkManager : MonoBehaviour
     public TalkResources underwearBoy;
     public TalkResources survival;
 
-    public GameObject questRewordPanel;
+    //public GameObject questRewordPanel;
 
     private QuestType type;
 
@@ -36,7 +36,7 @@ public class TalkManager : MonoBehaviour
         survival = new TalkResources();
         survival.talkData = new List<string>();
 
-        questRewordPanel.SetActive(false);
+        //questRewordPanel.SetActive(false);
     }
     void Awake()
     {
@@ -52,6 +52,12 @@ public class TalkManager : MonoBehaviour
     // Update is called once per frame
     void GenerateData()
     {
+        // 기본캐릭
+        portraitData.Add(1 + 0, portraitArray[30]);
+        portraitData.Add(1 + 1, portraitArray[31]);
+        portraitData.Add(1 + 2, portraitArray[32]);
+        portraitData.Add(1 + 3, portraitArray[33]);
+
         // 생존자
         portraitData.Add(120000 + 0, portraitArray[0]);
         portraitData.Add(120000 + 1, portraitArray[1]);
@@ -77,6 +83,9 @@ public class TalkManager : MonoBehaviour
 
         switch (id)
         {
+            case 1:
+                talk = "마법은 어렵고 청소는 쉽지...$0";
+                break;
             case 120000:
                 talk = "필요한 물건은 사가고 필요없는 물건은 나한테 팔아!$0";
                 break;
@@ -259,7 +268,7 @@ public class TalkManager : MonoBehaviour
 
     public void rewordPanelOff()
     {
-        questRewordPanel.SetActive(false);
+        //questRewordPanel.SetActive(false);
     }
 }
 

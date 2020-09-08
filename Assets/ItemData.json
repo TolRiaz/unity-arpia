@@ -1,0 +1,72 @@
+{
+    "itemDatas": [
+        {
+            "count": 1,
+            "code": 3000001,
+            "itemName": "나뭇가지",
+            "type": 2,
+            "equipmentType": 0,
+            "spritePath": "Images/Items/Images/3000001",
+            "rating": "평범",
+            "weight": 0.10000000149011612,
+            "countLimit": 100,
+            "price": 0,
+            "itemInfo": "불피우기에 유용한 잔가지이다.",
+            "itemEffect": {
+                "healthPoint": 0,
+                "manaPoint": 0,
+                "isHPPercent": false,
+                "isMPPercent": false
+            },
+            "sprite": {
+                "instanceID": 22430
+            },
+            "size": 0.0,
+            "levelLimit": 0,
+            "reinforce": 0,
+            "power": 0,
+            "armor": 0,
+            "accuracy": 0,
+            "avoid": 0,
+            "critRate": 0.0,
+            "critDam": 0.0,
+            "intellectPoint": 0.0,
+            "wisdomPoint": 0.0,
+            "dexterityPoint": 0.0,
+            "concentrationPoint": 0.0,
+            "healthPoint": 0.0,
+            "manaPoint": 0.0,
+            "toolEff": 0.0,
+            "skillEff": 0.0,
+            "expEff": 0.0,
+            "powerReinforce": 0,
+            "armorReinforce": 0,
+            "accuracyReinforce": 0,
+            "avoidReinforce": 0,
+            "critRateReinforce": 0.0,
+            "critDamReinforce": 0.0,
+            "intellectPointReinforce": 0.0,
+            "wisdomPointReinforce": 0.0,
+            "dexterityPointReinforce": 0.0,
+            "concentrationPointReinforce": 0.0,
+            "healthPointReinforce": 0.0,
+            "manaPointReinforce": 0.0,
+            "expEffReinforce": 0.0,
+            "effecienty": 0.0,
+            "speed": 0.0,
+            "luck": 0.0,
+            "bonus": 0.0,
+            "ability": 0.0,
+            "effecientyReinforce": 0.0,
+            "speedReinforce": 0.0,
+            "luckReinforce": 0.0,
+            "bonusReinforce": 0.0,
+            "abilityReinforce": 0.0,
+            "handType": 0,
+            "spriteAnimatorPath": "",
+            "spriteAnimator": {
+                "instanceID": 0
+            }
+        }
+    ]
+}

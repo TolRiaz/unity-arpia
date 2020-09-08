@@ -48,7 +48,7 @@ public class PlayerEquipment : MonoBehaviour
         previousItem = null;
     }
 
-    private void registerMotion()
+    /*private void registerMotion()
     {
         // 장비모션등록
 
@@ -310,7 +310,7 @@ public class PlayerEquipment : MonoBehaviour
             PlayerManager.instance.hairs[PlayerManager.instance.activeHair].SetActive(false);
             PlayerManager.instance.activeHair = -1;
         }
-    }
+    }*/
 
     /*    public void removeMotion(EquipmentType slotType)
         {
@@ -337,7 +337,7 @@ public class PlayerEquipment : MonoBehaviour
             previousItem = items[typeNumber];
             Debug.Log("이전 아이템 이름 : " + previousItem.itemName);
 
-            disregisterMotion(getEquipmentIndex(item.equipmentType));
+            //disregisterMotion(getEquipmentIndex(item.equipmentType));
         }
         items[typeNumber] = item;
 
@@ -349,8 +349,8 @@ public class PlayerEquipment : MonoBehaviour
         }
 
         instance.onChangeItem.Invoke();
-        //PlayerInventory.instance.onChangeItem.Invoke();
-        registerMotion();
+            //PlayerInventory.instance.onChangeItem.Invoke();
+        //registerMotion();
 
         return true;
     }
@@ -361,8 +361,8 @@ public class PlayerEquipment : MonoBehaviour
         items[typeNumber] = item;
 
         instance.onChangeItem.Invoke();
-        //PlayerInventory.instance.onChangeItem.Invoke();
-        registerMotion();
+            //PlayerInventory.instance.onChangeItem.Invoke();
+        //registerMotion();
 
         return true;
     }
@@ -456,7 +456,7 @@ public class PlayerEquipment : MonoBehaviour
         if (items[slotNumber] != null)
         {
             previousItem = items[slotNumber];
-            disregisterMotion(slotNumber);
+            //disregisterMotion(slotNumber);
             PlayerInventory.instance.addItem(previousItem);
         }
         items[slotNumber] = null;
