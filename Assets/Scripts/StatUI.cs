@@ -10,8 +10,25 @@ public class StatUI : MonoBehaviour
 
     public Image[] statPointUp;
 
+    public Text nameText;
+    public Text typeText;
     public Text levelText;
+    public Text jobText;
+    public Text money;
+    public Text beneficenceScoreText;
+
+    public Text hpText;
+    public Text mpText;
     public Text expText;
+
+    public Text powerText;
+    public Text armorText;
+    public Text magicPowerText;
+    public Text magicArmorText;
+    public Text critRateText;
+    public Text critDamText;
+    public Text accuracyText;
+    public Text avoidText;
 
     public Text statPointText;
     public Text intellectText;
@@ -19,18 +36,6 @@ public class StatUI : MonoBehaviour
     public Text dexterityText;
     public Text concentrationText;
 
-    public Text powerTextText;
-    public Text armorTextText;
-    public Text accuracyText;
-    public Text avoidText;
-    public Text critRateText;
-    public Text critDamText;
-
-    public Text healthPointText;
-    public Text manaPointText;
-
-    public Text toolEffText;
-    public Text skillEffText;
     public Text expEffText;
 
     public Text fameTextText;
@@ -46,7 +51,6 @@ public class StatUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        statSet.SetActive(false);
         isDataChanged = true;
     }
 
@@ -69,23 +73,16 @@ public class StatUI : MonoBehaviour
 
     public void uiOnOff()
     {
+        SoundManager.instance.playButtonEffectSound();
+
         if (statSet.activeSelf)
         {
             statSet.SetActive(false);
         }
         else
         {
-            if (GetComponent<InventoryUI>().inventorySet.activeSelf)
-            {
-                GetComponent<InventoryUI>().inventorySet.SetActive(false);
-            }
-            if (GetComponent<EquipmentUI>().equipmentSet.activeSelf)
-            {
-                GetComponent<EquipmentUI>().equipmentSet.SetActive(false);
-            }
-
+            refresh();
             statSet.SetActive(true);
-            buttonMenuAnimator.SetBool("isUIOn", true);
         }
     }
 
@@ -126,43 +123,57 @@ public class StatUI : MonoBehaviour
     public void refresh()
     {
         isDataChanged = false;
-        GameManager.instance.playerEquipment.updateTotalStats();
-        GameManager.instance.playerData = Calculator.calcAll(GameManager.instance.playerData);
 
-        setPlayerEquipedTool();
-
-        levelText.text = "레벨 : " + GameManager.instance.playerData.level;
-        statPointText.text = "남은 스탯포인트 : " + GameManager.instance.playerData.statPoint;
+        levelText.text = "레 벨 : " + GameManager.instance.playerData.level;
+        hpText.text = GameManager.instance.playerData.healthPoint + " / " + GameManager.instance.playerData.healthPointMax;
+        mpText.text = GameManager.instance.playerData.manaPoint + " / " + GameManager.instance.playerData.manaPointMax;
         expText.text = GameManager.instance.playerData.exp + " / " + GameManager.instance.playerData.nextExp;
-        intellectText.text = "" + GameManager.instance.playerData.intellectPoint;
-        wisdomText.text = "" + GameManager.instance.playerData.wisdomPoint;
-        dexterityText.text = "" + GameManager.instance.playerData.dexterityPoint;
-        concentrationText.text = "" + GameManager.instance.playerData.concentrationPoint;
+        powerText.text = "" + GameManager.instance.playerData.power;
+        armorText.text = "" + GameManager.instance.playerData.armor;
+        magicPowerText.text = "" + GameManager.instance.playerData.power;
+        magicArmorText.text = "" + GameManager.instance.playerData.armor;
+        accuracyText.text = "" + GameManager.instance.playerData.accuracy;
+        avoidText.text = "" + GameManager.instance.playerData.avoid;
+        critRateText.text = "" + Mathf.Round(GameManager.instance.playerData.critRate * 10) / 10 + "%";
+        critDamText.text = "" + Mathf.Round(GameManager.instance.playerData.critDam * 10) / 10 + "%";
 
-        if (GameManager.instance.playerData.powerEquipment > 0)
+        /*        GameManager.instance.playerEquipment.updateTotalStats();
+                GameManager.instance.playerData = Calculator.calcAll(GameManager.instance.playerData);
+
+                setPlayerEquipedTool();
+
+                levelText.text = "레벨 : " + GameManager.instance.playerData.level;
+                statPointText.text = "남은 스탯포인트 : " + GameManager.instance.playerData.statPoint;
+                expText.text = GameManager.instance.playerData.exp + " / " + GameManager.instance.playerData.nextExp;
+                intellectText.text = "" + GameManager.instance.playerData.intellectPoint;
+                wisdomText.text = "" + GameManager.instance.playerData.wisdomPoint;
+                dexterityText.text = "" + GameManager.instance.playerData.dexterityPoint;
+                concentrationText.text = "" + GameManager.instance.playerData.concentrationPoint;*/
+
+        /*if (GameManager.instance.playerData.powerEquipment > 0)
         {
-            powerTextText.text = "공격력 : " + GameManager.instance.playerData.power + NEW_LINE + " ( + " + GameManager.instance.playerData.powerEquipment + " )";
+            powerText.text = "공격력 : " + GameManager.instance.playerData.power + NEW_LINE + " ( + " + GameManager.instance.playerData.powerEquipment + " )";
         }
         else if (GameManager.instance.playerData.powerEquipment < 0)
         {
-            powerTextText.text = "공격력 : " + GameManager.instance.playerData.power + NEW_LINE + " ( " + GameManager.instance.playerData.powerEquipment + " )";
+            powerText.text = "공격력 : " + GameManager.instance.playerData.power + NEW_LINE + " ( " + GameManager.instance.playerData.powerEquipment + " )";
         }
         else
         {
-            powerTextText.text = "공격력 : " + GameManager.instance.playerData.power;
+            powerText.text = "공격력 : " + GameManager.instance.playerData.power;
         }
 
         if (GameManager.instance.playerData.armorEquipment > 0)
         {
-            armorTextText.text = "방어력 : " + GameManager.instance.playerData.armor + NEW_LINE + " ( + " + GameManager.instance.playerData.armorEquipment + " )";
+            armorText.text = "방어력 : " + GameManager.instance.playerData.armor + NEW_LINE + " ( + " + GameManager.instance.playerData.armorEquipment + " )";
         }
         else if (GameManager.instance.playerData.armorEquipment < 0)
         {
-            armorTextText.text = "방어력 : " + GameManager.instance.playerData.armor + NEW_LINE + " ( " + GameManager.instance.playerData.armorEquipment + " )";
+            armorText.text = "방어력 : " + GameManager.instance.playerData.armor + NEW_LINE + " ( " + GameManager.instance.playerData.armorEquipment + " )";
         }
         else
         {
-            armorTextText.text = "방어력 : " + GameManager.instance.playerData.armor;
+            armorText.text = "방어력 : " + GameManager.instance.playerData.armor;
         }
 
         if (GameManager.instance.playerData.accuracyEquipment > 0)
@@ -221,8 +232,8 @@ public class StatUI : MonoBehaviour
             critDamText.text = "치명 피해 : " + Mathf.Round(GameManager.instance.playerData.critDam * 10) / 10 + "%";
         }
 
-        healthPointText.text = "체력" + NEW_LINE + (int)GameManager.instance.playerData.healthPoint + " / " + GameManager.instance.playerData.healthPointMax;
-        manaPointText.text = "마력" + NEW_LINE + (int)GameManager.instance.playerData.manaPoint + " / " + GameManager.instance.playerData.manaPointMax;
+        hpText.text = "체력" + NEW_LINE + (int)GameManager.instance.playerData.healthPoint + " / " + GameManager.instance.playerData.healthPointMax;
+        mpText.text = "마력" + NEW_LINE + (int)GameManager.instance.playerData.manaPoint + " / " + GameManager.instance.playerData.manaPointMax;
 
         expEffText.text = "경험치 보너스" + NEW_LINE + Mathf.Round(GameManager.instance.playerData.expEff * 10) / 10 + "%";
 
@@ -239,7 +250,7 @@ public class StatUI : MonoBehaviour
             {
                 statPointUp[i].color = new Color(1, 1, 1, 0);
             }
-        }
+        }*/
     }
 
     private bool pointUp()

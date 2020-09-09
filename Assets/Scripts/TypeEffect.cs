@@ -19,7 +19,7 @@ public class TypeEffect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        charPerSeconds = 0.1f;
+        //charPerSeconds = 0.1f;
     }
 
     private void Awake()
@@ -48,7 +48,7 @@ public class TypeEffect : MonoBehaviour
         messageText.text = "";
         index = 0;
         isAnimation = true;
-        touchCursor.SetActive(false);
+        //touchCursor.SetActive(false); // 대사가 다 끝나야 다음 대사를 볼 수 있는 기능
 
         Invoke("effecting", charPerSeconds);
     }

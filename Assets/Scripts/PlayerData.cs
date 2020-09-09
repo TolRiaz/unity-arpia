@@ -11,7 +11,7 @@ public class PlayerData
     public int questActionIndex;
     public string name;
     public int level;
-    public int exp;
+    public int exp = 5;
     public int nextExp;
     public int money;
     public int gold;

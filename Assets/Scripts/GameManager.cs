@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private Animator portraitAnim;
     public Sprite prevPortrait;
     private TypeEffect talkEffect;
-    private Text NPCName;
+    public Text NPCName;
 
     public int talkIndex;
     public bool isAction;
@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        instance = this;
         loadPlayerDataFromJson();
         //loadSkillDataFromJson();
         loadExpTable();
@@ -141,10 +142,11 @@ public class GameManager : MonoBehaviour
 
     public void action(GameObject scanObj)
     {
-        if (GameObject.Find("Canvas").GetComponent<ShopUI>().shopSet.activeSelf)
+        // 상점 처리
+/*        if (GameObject.Find("Canvas").GetComponent<ShopUI>().shopSet.activeSelf)
         {
             return;
-        }
+        }*/
 
         tempScanObjectData = scanObj;
 

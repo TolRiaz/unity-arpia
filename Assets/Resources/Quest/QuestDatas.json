@@ -2,16 +2,16 @@
   "quests": [
     {
       "questId": 0,
-      "questTitle": "불피울 방법을 알아내자",
-      "questExplainStart": "비키니걸이 무슨 문제가 있는듯 하다.",
-      "questExplainCurrent": "'비키니걸'이 말하길 '팬티보이'에게 가면 불피울 방법을 알려준다고 한다.",
-      "questExplainComplete": "비키니걸이 말한대로 팬티보이에게 말을 걸어보았다.",
+      "questTitle": "마법학교 입문하기!",
+      "questExplainStart": "마법학교에 들어가기전 청소부 '조지'와 대화해보자!",
+      "questExplainCurrent": "조지에게 들은 이야기를 마음에 담고, 학교 안으로 들어가보자!",
+      "questExplainComplete": "마법학교 입문 성공!!",
       "questType": 1,
       "questState": 0,
       "npcIdStart": 1,
       "npcIdEnd": 1,
-      "talkStart": "일단은 몸을 데워야하지 않겠어?$0#설마 이상한 생각을 한 것은 아니겠지?$1#옆에 팬티보이에게 어떻게하면 좋을지 물어보도록 해!$0",
-      "talkEnd": "무슨 일이지?$0",
+      "talkStart": "우와! 이곳이 마법학교??$0#저기 청소부 아저씨가 있잖아?$1#한 번 대화를 시도해보자!$0",
+      "talkEnd": "청소하는데 방해되니깐 저리 가있거라!$0",
       "questReword": {
         "rewordExp": 10,
         "rewordMoney": 5,
@@ -93,7 +93,7 @@
     },
     {
       "questId": 1,
-      "questTitle": "불피울 재료를 줍자",
+      "questTitle": "선생님 만나보기",
       "questExplainStart": "팬티보이에게 다시 말을 걸어보자",
       "questExplainCurrent": "불을 피우기위한 기초 준비물로 나무가지 2개와 마른 나뭇잎 2개가 필요하다고 한다. \n해당 재료를 구하려면 해변가에 떨어진 재료를 주워서 모아보자.",
       "questExplainComplete": "불을 피우기 위한 재료를 구해다 주었다.",

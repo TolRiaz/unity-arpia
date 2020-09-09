@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ObjectData : MonoBehaviour, IPointerUpHandler
 {
@@ -27,6 +28,8 @@ public class ObjectData : MonoBehaviour, IPointerUpHandler
 
     public int itemCode;
     public int itemCount;
+
+    public Image portrait;
 
     public string getName()
     {
@@ -90,9 +93,25 @@ public class ObjectData : MonoBehaviour, IPointerUpHandler
         isChangeData = false;
     }
 
+    public void scanObjectData()
+    {
+        SoundManager.instance.playButtonEffectSound();
+        PlayerManager.instance.progressTalk(gameObject);
+
+        if (portrait != null)
+        {
+            GameObject.Find("PortraitNPC").GetComponent<Image>().sprite = portrait.sprite;
+            GameObject.Find("PortraitNPC").GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+        }
+        else
+        {
+            GameObject.Find("PortraitNPC").GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+        }
+    }
+
     public void questTalkStart()
     {
-        Debug.Log("퀘스트 대화 버튼 누름");
+        Debug.Log("퀘스트 대화 버튼 누름 : " + getName());
         GameManager.instance.setNPCName(getName());
         GameManager.instance.action(gameObject);
         GameManager.instance.objectData = this;

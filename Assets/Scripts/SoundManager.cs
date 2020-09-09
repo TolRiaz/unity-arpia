@@ -17,10 +17,10 @@ public class SoundManager : MonoBehaviour
     {
         instance = this;
 
-        for (int i = 0; i < bgm.Length; i++)
+/*        for (int i = 0; i < bgm.Length; i++)
         {
-            bgm[i] = transform.GetChild(i).gameObject.GetComponent<BGM>();
-        }
+            bgm[i] = transform.GetChild(0).GetChild(i).gameObject.GetComponent<BGM>();
+        }*/
 
         try
         {
@@ -34,14 +34,14 @@ public class SoundManager : MonoBehaviour
         isMapChanged = true;
     }
 
-    public void playMusic(int num)
+    public void playMusic(int index)
     {
-        bgm[num].playBGM();
+        bgm[index].playBGM();
     }
 
-    public void playEffectSound(int num)
+    public void playEffectSound(int index)
     {
-        effectSound[num].playBGM();
+        effectSound[index].playBGM();
     }
 
     public void refreshSounds()
@@ -57,5 +57,10 @@ public class SoundManager : MonoBehaviour
         {
             bgm[i].stopBGM();
         }
+    }
+
+    public void playButtonEffectSound()
+    {
+        playEffectSound(0);
     }
 }

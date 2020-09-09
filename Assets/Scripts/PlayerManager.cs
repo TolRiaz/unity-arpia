@@ -30,6 +30,9 @@ public class PlayerManager : MonoBehaviour
     private bool isMiss;
     public StatUI statUI;
 
+    // Quest
+    public GameObject scanObject;
+
     //equipment
 /*    public GameObject leftHand;
     public GameObject[] leftHands;
@@ -139,161 +142,161 @@ public class PlayerManager : MonoBehaviour
     }
 
     // 장비 아이템 모션 적용
-/*    public void setEquipmentMotion()
-    {
-        if (spriteRenderer.flipX)
+    /*    public void setEquipmentMotion()
         {
-            if (activeLeftHand != -1)
+            if (spriteRenderer.flipX)
             {
-                leftHands[activeLeftHand].GetComponent<SpriteRenderer>().flipX = true;
+                if (activeLeftHand != -1)
+                {
+                    leftHands[activeLeftHand].GetComponent<SpriteRenderer>().flipX = true;
+                }
+                if (activeRightHand != -1)
+                {
+                    rightHands[activeRightHand].GetComponent<SpriteRenderer>().flipX = true;
+                }
+                if (activeHead != -1)
+                {
+                    heads[activeHead].GetComponent<SpriteRenderer>().flipX = true;
+                }
+                if (activeTop != -1)
+                {
+                    tops[activeTop].GetComponent<SpriteRenderer>().flipX = true;
+                }
+                if (activePants != -1)
+                {
+                    pants[activePants].GetComponent<SpriteRenderer>().flipX = true;
+                }
+                if (activeGloves != -1)
+                {
+                    gloves[activeGloves].GetComponent<SpriteRenderer>().flipX = true;
+                }
+                if (activeShoes != -1)
+                {
+                    shoes[activeShoes].GetComponent<SpriteRenderer>().flipX = true;
+                }
+                if (activeNeckless != -1)
+                {
+                    necklesses[activeNeckless].GetComponent<SpriteRenderer>().flipX = true;
+                }
+                if (activeEaring != -1)
+                {
+                    earings[activeEaring].GetComponent<SpriteRenderer>().flipX = true;
+                }
+                if (activeRing != -1)
+                {
+                    rings[activeRing].GetComponent<SpriteRenderer>().flipX = true;
+                }
+                if (activeHair != -1)
+                {
+                    hairs[activeHair].GetComponent<SpriteRenderer>().flipX = true;
+                }
             }
-            if (activeRightHand != -1)
+            else
             {
-                rightHands[activeRightHand].GetComponent<SpriteRenderer>().flipX = true;
+                if (activeLeftHand != -1)
+                {
+                    leftHands[activeLeftHand].GetComponent<SpriteRenderer>().flipX = false;
+                }
+                if (activeRightHand != -1)
+                {
+                    rightHands[activeRightHand].GetComponent<SpriteRenderer>().flipX = false;
+                }
+                if (activeHead != -1)
+                {
+                    heads[activeHead].GetComponent<SpriteRenderer>().flipX = false;
+                }
+                if (activeTop != -1)
+                {
+                    tops[activeTop].GetComponent<SpriteRenderer>().flipX = false;
+                }
+                if (activePants != -1)
+                {
+                    pants[activePants].GetComponent<SpriteRenderer>().flipX = false;
+                }
+                if (activeGloves != -1)
+                {
+                    gloves[activeGloves].GetComponent<SpriteRenderer>().flipX = false;
+                }
+                if (activeShoes != -1)
+                {
+                    shoes[activeShoes].GetComponent<SpriteRenderer>().flipX = false;
+                }
+                if (activeNeckless != -1)
+                {
+                    necklesses[activeNeckless].GetComponent<SpriteRenderer>().flipX = false;
+                }
+                if (activeEaring != -1)
+                {
+                    earings[activeEaring].GetComponent<SpriteRenderer>().flipX = false;
+                }
+                if (activeRing != -1)
+                {
+                    rings[activeRing].GetComponent<SpriteRenderer>().flipX = false;
+                }
+                if (activeHair != -1)
+                {
+                    hairs[activeHair].GetComponent<SpriteRenderer>().flipX = false;
+                }
             }
-            if (activeHead != -1)
-            {
-                heads[activeHead].GetComponent<SpriteRenderer>().flipX = true;
-            }
-            if (activeTop != -1)
-            {
-                tops[activeTop].GetComponent<SpriteRenderer>().flipX = true;
-            }
-            if (activePants != -1)
-            {
-                pants[activePants].GetComponent<SpriteRenderer>().flipX = true;
-            }
-            if (activeGloves != -1)
-            {
-                gloves[activeGloves].GetComponent<SpriteRenderer>().flipX = true;
-            }
-            if (activeShoes != -1)
-            {
-                shoes[activeShoes].GetComponent<SpriteRenderer>().flipX = true;
-            }
-            if (activeNeckless != -1)
-            {
-                necklesses[activeNeckless].GetComponent<SpriteRenderer>().flipX = true;
-            }
-            if (activeEaring != -1)
-            {
-                earings[activeEaring].GetComponent<SpriteRenderer>().flipX = true;
-            }
-            if (activeRing != -1)
-            {
-                rings[activeRing].GetComponent<SpriteRenderer>().flipX = true;
-            }
-            if (activeHair != -1)
-            {
-                hairs[activeHair].GetComponent<SpriteRenderer>().flipX = true;
-            }
-        }
-        else
-        {
-            if (activeLeftHand != -1)
-            {
-                leftHands[activeLeftHand].GetComponent<SpriteRenderer>().flipX = false;
-            }
-            if (activeRightHand != -1)
-            {
-                rightHands[activeRightHand].GetComponent<SpriteRenderer>().flipX = false;
-            }
-            if (activeHead != -1)
-            {
-                heads[activeHead].GetComponent<SpriteRenderer>().flipX = false;
-            }
-            if (activeTop != -1)
-            {
-                tops[activeTop].GetComponent<SpriteRenderer>().flipX = false;
-            }
-            if (activePants != -1)
-            {
-                pants[activePants].GetComponent<SpriteRenderer>().flipX = false;
-            }
-            if (activeGloves != -1)
-            {
-                gloves[activeGloves].GetComponent<SpriteRenderer>().flipX = false;
-            }
-            if (activeShoes != -1)
-            {
-                shoes[activeShoes].GetComponent<SpriteRenderer>().flipX = false;
-            }
-            if (activeNeckless != -1)
-            {
-                necklesses[activeNeckless].GetComponent<SpriteRenderer>().flipX = false;
-            }
-            if (activeEaring != -1)
-            {
-                earings[activeEaring].GetComponent<SpriteRenderer>().flipX = false;
-            }
-            if (activeRing != -1)
-            {
-                rings[activeRing].GetComponent<SpriteRenderer>().flipX = false;
-            }
-            if (activeHair != -1)
-            {
-                hairs[activeHair].GetComponent<SpriteRenderer>().flipX = false;
-            }
-        }
-    }
-
-    private void setEquipmentGameObject()
-    {
-        for (int i = 0; i < leftHands.Length; i++)
-        {
-            leftHands[i] = leftHand.transform.GetChild(i).gameObject;
         }
 
-        for (int i = 0; i < rightHands.Length; i++)
+        private void setEquipmentGameObject()
         {
-            rightHands[i] = rightHand.transform.GetChild(i).gameObject;
-        }
+            for (int i = 0; i < leftHands.Length; i++)
+            {
+                leftHands[i] = leftHand.transform.GetChild(i).gameObject;
+            }
 
-        for (int i = 0; i < heads.Length; i++)
-        {
-            heads[i] = head.transform.GetChild(i).gameObject;
-        }
+            for (int i = 0; i < rightHands.Length; i++)
+            {
+                rightHands[i] = rightHand.transform.GetChild(i).gameObject;
+            }
 
-        for (int i = 0; i < tops.Length; i++)
-        {
-            tops[i] = top.transform.GetChild(i).gameObject;
-        }
+            for (int i = 0; i < heads.Length; i++)
+            {
+                heads[i] = head.transform.GetChild(i).gameObject;
+            }
 
-        for (int i = 0; i < pants.Length; i++)
-        {
-            pants[i] = pant.transform.GetChild(i).gameObject;
-        }
+            for (int i = 0; i < tops.Length; i++)
+            {
+                tops[i] = top.transform.GetChild(i).gameObject;
+            }
 
-        for (int i = 0; i < gloves.Length; i++)
-        {
-            gloves[i] = glove.transform.GetChild(i).gameObject;
-        }
+            for (int i = 0; i < pants.Length; i++)
+            {
+                pants[i] = pant.transform.GetChild(i).gameObject;
+            }
 
-        for (int i = 0; i < shoes.Length; i++)
-        {
-            shoes[i] = shoe.transform.GetChild(i).gameObject;
-        }
+            for (int i = 0; i < gloves.Length; i++)
+            {
+                gloves[i] = glove.transform.GetChild(i).gameObject;
+            }
 
-        for (int i = 0; i < necklesses.Length; i++)
-        {
-            necklesses[i] = neckless.transform.GetChild(i).gameObject;
-        }
+            for (int i = 0; i < shoes.Length; i++)
+            {
+                shoes[i] = shoe.transform.GetChild(i).gameObject;
+            }
 
-        for (int i = 0; i < earings.Length; i++)
-        {
-            earings[i] = earing.transform.GetChild(i).gameObject;
-        }
+            for (int i = 0; i < necklesses.Length; i++)
+            {
+                necklesses[i] = neckless.transform.GetChild(i).gameObject;
+            }
 
-        for (int i = 0; i < rings.Length; i++)
-        {
-            rings[i] = ring.transform.GetChild(i).gameObject;
-        }
+            for (int i = 0; i < earings.Length; i++)
+            {
+                earings[i] = earing.transform.GetChild(i).gameObject;
+            }
 
-        for (int i = 0; i < hairs.Length; i++)
-        {
-            hairs[i] = hair.transform.GetChild(i).gameObject;
-        }
-    }*/
+            for (int i = 0; i < rings.Length; i++)
+            {
+                rings[i] = ring.transform.GetChild(i).gameObject;
+            }
+
+            for (int i = 0; i < hairs.Length; i++)
+            {
+                hairs[i] = hair.transform.GetChild(i).gameObject;
+            }
+        }*/
 
     void onDamaged(Vector2 targetPos, bool isMiss, float damageValue)
     {
@@ -348,5 +351,34 @@ public class PlayerManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void progressTalk(GameObject gameObject)
+    {
+        if (scanObject != null)
+        {
+            scanObject = gameObject;
+            GameManager.instance.setNPCName(scanObject.GetComponent<ObjectData>().getName());
+            GameManager.instance.action(scanObject);
+        }
+
+        if (scanObject == null && GameManager.instance.isAction)
+        {
+            GameManager.instance.action();
+        }
+    }
+
+    public void progressTalk()
+    {
+        if (GameManager.instance.isAction)
+        {
+            GameManager.instance.action();
+        }
+    }
+
+    public void questTalkStart()
+    {
+        GameManager.instance.setNPCName(scanObject.GetComponent<ObjectData>().getName());
+        GameManager.instance.action(scanObject);
     }
 }
