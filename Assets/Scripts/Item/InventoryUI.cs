@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    private PlayerInventory playerInventory;
+    public PlayerInventory playerInventory;
     public GameObject inventorySet;
 
     public JoystickValue value;
@@ -52,6 +52,8 @@ public class InventoryUI : MonoBehaviour
 
     public void uiOnOff()
     {
+        SoundManager.instance.playButtonEffectSound();
+
         if (GameObject.Find("Canvas").GetComponent<ItemMenuSet>().isReinforceProgressing)
         {
             return;
@@ -71,13 +73,8 @@ public class InventoryUI : MonoBehaviour
             {
                 GetComponent<StatUI>().statSet.SetActive(false);
             }
-            if (GetComponent<EquipmentUI>().equipmentSet.activeSelf)
-            {
-                GetComponent<EquipmentUI>().equipmentSet.SetActive(false);
-            }
 
             inventorySet.SetActive(true);
-            buttonMenuAnimator.SetBool("isUIOn", true);
         }
     }
 

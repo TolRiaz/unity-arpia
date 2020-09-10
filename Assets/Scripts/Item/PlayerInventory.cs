@@ -43,6 +43,7 @@ public class PlayerInventory : MonoBehaviour
 
     void Start()
     {
+        playerData = GameManager.instance.playerData;
         slotCount = playerData.inventorySize;
         Debug.Log("슬롯크기 : " + slotCount);
     }

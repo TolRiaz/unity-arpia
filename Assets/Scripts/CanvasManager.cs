@@ -87,6 +87,14 @@ public class CanvasManager : MonoBehaviour, IPointerClickHandler
     public void offUI()
     {
         SoundManager.instance.playButtonEffectSound();
-        GetComponent<StatUI>().gameObject.SetActive(false);
+
+        if (GetComponent<StatUI>().statSet.activeSelf)
+        {
+            GetComponent<StatUI>().statSet.SetActive(false);
+        }
+        if (GetComponent<InventoryUI>().inventorySet.activeSelf)
+        {
+            GetComponent<InventoryUI>().inventorySet.SetActive(false);
+        }
     }
 }

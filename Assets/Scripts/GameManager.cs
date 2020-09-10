@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     //public SkillDataFile playerSkillData;
 
     //pcOrMobile, SaveOrLoad
-    public bool isMobile = false;
+    public bool isMobile = true;
     public bool doLoadInventory;
     public PlayerInventory playerInventory;
     public PlayerData playerInventoryItemsTemp;
@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         instance = this;
+        //savePlayerDataToJson();
         loadPlayerDataFromJson();
         //loadSkillDataFromJson();
         loadExpTable();
@@ -74,11 +75,10 @@ public class GameManager : MonoBehaviour
         portraitAnim = GameObject.Find("PortraitME").GetComponent<Animator>();
         talkEffect = GameObject.Find("Interaction").GetComponent<TypeEffect>();
         NPCName = GameObject.Find("NPCName").GetComponent<Text>();
-        playerManager = PlayerManager.instance;
-        playerInventory = PlayerInventory.instance;
+        playerInventory = GetComponent<PlayerInventory>();
         //playerInventoryItemsTemp.items = playerInventory.items;
-        //playerEquipment = PlayerEquipment.instance;
-        //statUI = GameObject.Find("Canvas").GetComponent<StatUI>();
+        //playerEquipment = GetComponent<PlayerEquipment>();
+        statUI = GameObject.Find("Canvas").GetComponent<StatUI>();
 
         questManager.questId = playerData.questId;
         questManager.questActionIndex = playerData.questActionIndex;
@@ -503,14 +503,14 @@ public class GameManager : MonoBehaviour
 
     public void saveAndLoadPlayerEquipmentTemp()
     {
-        playerEquipmentItemsTemp.equipments = GetComponent<PlayerEquipment>().items;
+/*        playerEquipmentItemsTemp.equipments = GetComponent<PlayerEquipment>().items;
 
         string jsonData = JsonUtility.ToJson(playerEquipmentItemsTemp, true);
         File.WriteAllText(saveOrLoad(isMobile, true, "playerEquipmentItemsTemp"), jsonData);
 
         jsonData = File.ReadAllText(saveOrLoad(isMobile, false, "playerEquipmentItemsTemp"));
         playerEquipmentItemsTemp = JsonUtility.FromJson<PlayerData>(jsonData);
-        GetComponent<PlayerEquipment>().items = playerEquipmentItemsTemp.equipments;
+        GetComponent<PlayerEquipment>().items = playerEquipmentItemsTemp.equipments;*/
     }
 
     [ContextMenu("From Json Data")]
@@ -543,8 +543,8 @@ public class GameManager : MonoBehaviour
         catch (FileNotFoundException)
         {
             Debug.Log("로드 오류");
-            playerData.playerX = -7f;
-            playerData.playerY = -3f;
+            playerData.playerX = -1f;
+            playerData.playerY = 0f;
             playerData.questId = 100;
             playerData.questActionIndex = 0;
             playerData.inventorySize = 2;

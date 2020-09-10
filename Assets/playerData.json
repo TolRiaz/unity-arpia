@@ -1,6 +1,6 @@
 {
-    "playerX": -7.0,
-    "playerY": -3.0,
+    "playerX": -1.0,
+    "playerY": 0.0,
     "questId": 100,
     "questActionIndex": 0,
     "name": "",
@@ -9,7 +9,7 @@
     "nextExp": 0,
     "money": 0,
     "gold": 0,
-    "inventorySize": 2,
+    "inventorySize": 20,
     "items": [],
     "equipments": [
         {
