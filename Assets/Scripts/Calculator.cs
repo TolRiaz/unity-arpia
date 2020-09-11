@@ -27,7 +27,7 @@ public class Calculator
         datas[1] = data.level;
         datas[2] = data.intellectPoint;
         datas[3] = data.concentrationPoint;
-        datas[4] = data.powerEquipment;
+        datas[4] = 0; // data.powerEquipment;
         return (int)(datas[0] * 3 + datas[1] * 2 + datas[2] / 2 + datas[3] / 5 + datas[4]);
     }
 
@@ -38,7 +38,7 @@ public class Calculator
         datas[0] = data.concentrationPoint;
         datas[1] = data.level;
         datas[2] = data.concentrationPoint;
-        datas[3] = data.armorEquipment;
+        datas[3] = 0; // data.armorEquipment;
         return (int)(datas[0] * 2 + datas[1] * 1 + datas[2] / 2 + datas[3]);
     }
 
@@ -49,7 +49,7 @@ public class Calculator
         datas[0] = data.wisdomPoint;
         datas[1] = data.level;
         datas[2] = data.intellectPoint;
-        datas[3] = data.accuracyEquipment;
+        datas[3] = 0; // data.accuracyEquipment;
         return (int)(datas[0] * 2 + datas[1] * 0.5 + datas[2] / 4 + datas[3]);
     }
 
@@ -60,7 +60,7 @@ public class Calculator
         datas[0] = data.concentrationPoint;
         datas[1] = data.concentrationPoint;
         datas[2] = data.level;
-        datas[3] = data.avoidEquipment;
+        datas[3] = 0; // data.avoidEquipment;
         return (int)(datas[0] / 3 + datas[1] * 2 + datas[2] / 5 + datas[3]);
     }
 
@@ -71,7 +71,7 @@ public class Calculator
         datas[0] = data.concentrationPoint;
         datas[1] = data.level;
         datas[2] = data.accuracy;
-        datas[3] = data.critRateEquipment;
+        datas[3] = 0; // data.critRateEquipment;
         return (int)(datas[0] / 10 + datas[1] / 20 + datas[2] / 20 + datas[3]);
     }
 
@@ -82,7 +82,7 @@ public class Calculator
         datas[0] = data.intellectPoint;
         datas[1] = data.level;
         datas[2] = data.intellectPoint;
-        datas[3] = data.critDamEquipment;
+        datas[3] = 0; // data.critDamEquipment;
         return (int)(datas[0] / 3 + datas[1] / 5 + datas[2] / 4 + datas[3]);
     }
 
@@ -92,7 +92,7 @@ public class Calculator
 
         datas[0] = data.concentrationPoint;
         datas[1] = data.level;
-        datas[2] = data.healthPointEquipment;
+        datas[2] = 0; // data.healthPointEquipment;
 
         return 100 + (int)(datas[0] * 3 + datas[1] + datas[2] - 1);
     }
@@ -103,7 +103,7 @@ public class Calculator
 
         datas[0] = data.wisdomPoint;
         datas[1] = data.level;
-        datas[2] = data.manaPointEquipment;
+        datas[2] = 0; // data.manaPointEquipment;
 
         return 100 + (int)(datas[0] * 3 + datas[1] + datas[2] - 1);
     }

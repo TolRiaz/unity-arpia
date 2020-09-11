@@ -47,10 +47,10 @@ public class ItemMenuSet : MonoBehaviour
         isQuickSlotDataChanged = false;
         instance = this;
 
-        itemMenuSet.SetActive(false);
-        itemInfomationUI.gameObject.SetActive(false);
-        infoTag.SetActive(false);
-        isPlayerInventory = false;
+        //itemMenuSet.SetActive(false);
+        //itemInfomationUI.gameObject.SetActive(false);
+        //infoTag.SetActive(false);
+        //isPlayerInventory = false;
     }
 
     // Update is called once per frame

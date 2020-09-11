@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.IO;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -61,47 +61,127 @@ public class GameManager : MonoBehaviour
     public bool isPointUp;
     public ObjectData objectData = null;
 
+    // Test
+    public TestData testData;
+    public Text testText;
+
     void Start()
     {
         instance = this;
+        loadPlayerDataFromJsonMobile();
         //savePlayerDataToJson();
-        loadPlayerDataFromJson();
+        //loadPlayerDataFromJson();
         //loadSkillDataFromJson();
+
         loadExpTable();
 
-        talkManager = GameObject.Find("TalkManager").GetComponent<TalkManager>();
-        questManager = GameObject.Find("QuestManager").GetComponent<QuestManager>();
-        talkPanel = GameObject.Find("TalkSet").GetComponent<Animator>();
-        portraitAnim = GameObject.Find("PortraitME").GetComponent<Animator>();
-        talkEffect = GameObject.Find("Interaction").GetComponent<TypeEffect>();
-        NPCName = GameObject.Find("NPCName").GetComponent<Text>();
-        playerInventory = GetComponent<PlayerInventory>();
+        try
+        {
+            talkManager = GameObject.Find("TalkManager").GetComponent<TalkManager>();
+        }
+        catch (Exception)
+        {
+            saveBugReportToJson("talkManager");
+        }
+
+        try
+        {
+            questManager = GameObject.Find("QuestManager").GetComponent<QuestManager>();
+        }
+        catch (Exception)
+        {
+            saveBugReportToJson("questManager");
+        }
+        try
+        {
+            talkPanel = GameObject.Find("TalkSet").GetComponent<Animator>();
+        }
+        catch (Exception)
+        {
+            saveBugReportToJson("talkPanel");
+        }
+        try
+        {
+            portraitAnim = GameObject.Find("PortraitME").GetComponent<Animator>();
+        }
+        catch (Exception)
+        {
+            saveBugReportToJson("portraitAnim");
+        }
+        try
+        {
+            talkEffect = GameObject.Find("Interaction").GetComponent<TypeEffect>();
+        }
+        catch (Exception)
+        {
+            saveBugReportToJson("talkEffect");
+        }
+        try
+        {
+            playerInventory = GetComponent<PlayerInventory>();
+        }
+        catch (Exception)
+        {
+            saveBugReportToJson("playerInventory");
+        }
+        try
+        {
+            statUI = GameObject.Find("Canvas").GetComponent<StatUI>();
+        }
+        catch (Exception)
+        {
+            saveBugReportToJson("statUI");
+        }
+
         //playerInventoryItemsTemp.items = playerInventory.items;
         //playerEquipment = GetComponent<PlayerEquipment>();
-        statUI = GameObject.Find("Canvas").GetComponent<StatUI>();
 
-        questManager.questId = playerData.questId;
-        questManager.questActionIndex = playerData.questActionIndex;
+        try
+        {
+            questManager.questId = playerData.questId;
+        }
+        catch (Exception)
+        {
+            saveBugReportToJson("questManagerQuestId");
+        }
+        try
+        {
+            questManager.questActionIndex = playerData.questActionIndex;
+        }
+        catch (Exception)
+        {
+            saveBugReportToJson("questManager_questActionIndex");
+        }
 
         //playerManager.gameObject.transform.position = new Vector3(playerData.playerX, playerData.playerY, 0);
 
-        talkPanel.SetBool("isShow", isAction);
+        try
+        {
+            talkPanel.SetBool("isShow", isAction);
 
-        doLoadInventory = false;
+            doLoadInventory = false;
 
-        talkIndex = 0;
-        isQuestTalk = false;
-        isDataChanged = false;
-
-        questSettings();
-
-        isLevelUp = false;
+            talkIndex = 0;
+            isQuestTalk = false;
+            isDataChanged = false;
+            isLevelUp = false;
+        }
+        catch (Exception)
+        {
+            saveBugReportToJson("talkPanelSettings");
+        }
+        try
+        {
+            questSettings();
+        }
+        catch (Exception)
+        {
+            saveBugReportToJson("questSettingsMethod");
+        }
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        levelUp();
-
         if (isDataChanged)
         {
             questSettings();
@@ -138,6 +218,9 @@ public class GameManager : MonoBehaviour
         {
             questSettings();
         }
+
+        // Test
+        //testActive();
     }
 
     public void action(GameObject scanObj)
@@ -479,14 +562,18 @@ public class GameManager : MonoBehaviour
         playerData.questActionIndex = questManager.questActionIndex;
         playerData.inventorySize = GetComponent<PlayerInventory>().slotCount;
         playerData.items = PlayerInventory.instance.items;
-        playerData.equipments = GetComponent<PlayerEquipment>().items;
+        //playerData.equipments = GetComponent<PlayerEquipment>().items;
+
+        /*        string jsonData = JsonUtility.ToJson(playerData, true);
+                // pc 저장
+                //string path = Path.Combine(Application.dataPath, "playerData.json");
+                // 모바일 저장
+                string path = Path.Combine(Application.persistentDataPath, "playerData.json");
+                File.WriteAllText(saveOrLoad(isMobile, true, path), jsonData);*/
 
         string jsonData = JsonUtility.ToJson(playerData, true);
-        // pc 저장
-        //string path = Path.Combine(Application.dataPath, "playerData.json");
-        // 모바일 저장
-        //string path = Path.Combine(Application.persistentDataPath, "playerData.json");
-        File.WriteAllText(saveOrLoad(isMobile, true, "playerData"), jsonData);
+        string path = Path.Combine(Application.persistentDataPath, "playerData.json");
+        File.WriteAllText(path, jsonData);
     }
 
     public void saveAndLoadPlayerInventoryTemp()
@@ -516,20 +603,29 @@ public class GameManager : MonoBehaviour
     [ContextMenu("From Json Data")]
     public void loadPlayerDataFromJson()
     {
+        string sDirPath;
+
+        sDirPath = Application.persistentDataPath + "/Json";
+        DirectoryInfo di = new DirectoryInfo(sDirPath);
+        if (di.Exists == false)
+        {
+            di.Create();
+        }
+
         try
         {
             Debug.Log("플레이어 정보 로드 성공");
             // pc 로드
-            //string path = Path.Combine(Application.dataPath, "playerData.json");
+            //string path = Path.Combine(Application.dataPath, "playerData");
             // 모바일 로드
-            //string path = Path.Combine(Application.persistentDataPath, "playerData.json");
+            //string path = Path.Combine(Application.persistentDataPath, "playerData");
             string jsonData = File.ReadAllText(saveOrLoad(isMobile, false, "playerData"));
             playerData = JsonUtility.FromJson<PlayerData>(jsonData);
 
             playerData = Calculator.calcAll(playerData);
 
             // 버전 변경 시 스프라이트 이미지 코드가 변경되는 현상 막기
-            for (int i = 0; i < playerData.items.Count; i++)
+/*            for (int i = 0; i < playerData.items.Count; i++)
             {
                 playerData.items[i].spritePath = ItemDatabase.instance.findItemByCode(playerData.items[i].code).spritePath;
                 playerData.items[i].sprite = playerData.items[i].loadSprite(playerData.items[i].spritePath);
@@ -538,7 +634,7 @@ public class GameManager : MonoBehaviour
                 {
                     playerData.items[i].spriteAnimator = playerData.items[i].loadAnimator(playerData.items[i].spriteAnimatorPath);
                 }
-            }
+            }*/
         }
         catch (FileNotFoundException)
         {
@@ -572,8 +668,7 @@ public class GameManager : MonoBehaviour
             playerData.weightMax = 10;
 
             playerData.items = new List<Item>();
-            playerData.equipments = new Item[11];
-            playerData.fishingItems = new List<Item>();
+            //playerData.equipments = new Item[11];
 
             playerData.startQuest = new List<int>();
             playerData.currentQuest = new List<Quest>();
@@ -581,12 +676,80 @@ public class GameManager : MonoBehaviour
 
             string jsonData = JsonUtility.ToJson(playerData, true);
             // pc 로드
-            //string path = Path.Combine(Application.dataPath, "playerData.json");
+            //string path = Path.Combine(Application.dataPath, "playerData");
             // 모바일 로드
-            //string path = Path.Combine(Application.persistentDataPath, "playerData.json");
-            File.WriteAllText(saveOrLoad(isMobile, false, "playerData"), jsonData);
+            //string path = Path.Combine(Application.persistentDataPath, "playerData");
+            File.WriteAllText(saveOrLoad(isMobile, true, "playerData"), jsonData);
+
             loadPlayerDataFromJson();
         }
+    }
+
+    void savePlayerDataToJsonMobile()
+    {
+        PlayerData playerData = new PlayerData();
+
+        playerData.accuracy = 0;
+        playerData.armor = 1;
+        playerData.avoid = 2;
+        playerData.charm = 3;
+        playerData.clearQuest = null;
+        playerData.concentrationPoint = 4;
+        playerData.critDam = 5;
+        playerData.critRate = 6;
+        playerData.currentQuest = null;
+        playerData.startQuest = null;
+        playerData.statPoint = 7;
+        playerData.weight = 8;
+        playerData.weightMax = 9;
+        playerData.wisdomPoint = 10;
+        playerData.dexterityPoint = 11;
+        playerData.exp = 12;
+        playerData.expEff = 13;
+        playerData.fame = 14;
+        playerData.gold = 15;
+        playerData.healthPoint = 16;
+        playerData.healthPointMax = 17;
+        playerData.intellectPoint = 18;
+        playerData.level = 1;
+        playerData.manaPoint = 20;
+        playerData.manaPointMax = 21;
+        playerData.money = 22;
+        playerData.name = "HI";
+        playerData.nextExp = 20;
+        playerData.power = 23;
+        playerData.questId = 100;
+        playerData.questActionIndex = 0;
+        playerData.inventorySize = 10;
+
+        string jsonData = JsonUtility.ToJson(playerData, true);
+        string path = Path.Combine(Application.persistentDataPath, "playerData.json");
+        File.WriteAllText(path, jsonData);
+    }
+
+    void loadPlayerDataFromJsonMobile()
+    {
+        try
+        {
+            Debug.Log("로드");
+            string jsonData = File.ReadAllText(Path.Combine(Application.persistentDataPath, "playerData.json"));
+            playerData = JsonUtility.FromJson<PlayerData>(jsonData);
+
+            playerData = Calculator.calcAll(playerData);
+            PlayerManager.instance.gameObject.transform.position = new Vector2(playerData.playerX, playerData.playerY);
+        }
+        catch (FileNotFoundException)
+        {
+            Debug.Log("세이브");
+            savePlayerDataToJsonMobile();
+        }
+    }
+
+    void saveBugReportToJson(string message)
+    {
+        string jsonData = JsonUtility.ToJson(new BugReport(message), true);
+        string path = Path.Combine(Application.persistentDataPath, "BugReport_" + message + ".json");
+        File.WriteAllText(path, jsonData);
     }
 
     /*[ContextMenu("To Json Data")]
@@ -632,7 +795,7 @@ public class GameManager : MonoBehaviour
 
     public void putItemsFromEquipmentData()
     {
-        try
+        /*try
         {
             for (int i = 0; i < playerData.equipments.Length; i++)
             {
@@ -646,7 +809,7 @@ public class GameManager : MonoBehaviour
         catch (NullReferenceException)
         {
             Debug.Log("저장된 장비데이터가 없습니다!");
-        }
+        }*/
     }
 
     public void environmentSettings()
@@ -702,7 +865,7 @@ public class GameManager : MonoBehaviour
         expTextAsset = Resources.Load<TextAsset>("GameData/expTable");
         expTable = JsonUtility.FromJson<ExpTable>(expTextAsset.ToString());
         playerData.nextExp = expTable.expTable[playerData.level - 1];
-        //GameObject.Find("Canvas").GetComponent<StatUI>().isDataChanged = true;
+        GameObject.Find("Canvas").GetComponent<StatUI>().isDataChanged = true;
     }
 
     public void levelUp()
@@ -714,6 +877,9 @@ public class GameManager : MonoBehaviour
             isLevelUp = true;
             playerData.statPoint += 3;
             statUI.isDataChanged = true;
+
+            playerData.healthPoint = playerData.healthPointMax;
+            playerData.manaPoint = playerData.manaPointMax;
         }
     }
 
@@ -721,6 +887,7 @@ public class GameManager : MonoBehaviour
     {
         playerData.exp += exp;
         statUI.isDataChanged = true;
+        levelUp();
     }
 
     // 시작조건에 부합하는 퀘스트를 정렬
@@ -785,4 +952,15 @@ public enum Map
 public class ExpTable
 {
     public List<int> expTable;
+}
+
+[System.Serializable]
+public class BugReport
+{
+    public String message;
+
+    public BugReport(string message)
+    {
+        this.message = message;
+    }
 }

@@ -23,7 +23,10 @@ public class InventoryUI : MonoBehaviour
         slots = slotHolder.GetComponentsInChildren<Slot>();
         playerInventory.onSlotCountChange += slotChange;
         playerInventory.onChangeItem += redrawSlotUI;
-        inventorySet.SetActive(false);
+        if (inventorySet.activeSelf)
+        {
+            inventorySet.SetActive(false);
+        }
     }
 
     private void slotChange(int val)
@@ -54,14 +57,14 @@ public class InventoryUI : MonoBehaviour
     {
         SoundManager.instance.playButtonEffectSound();
 
-        if (GameObject.Find("Canvas").GetComponent<ItemMenuSet>().isReinforceProgressing)
+/*        if (GameObject.Find("Canvas").GetComponent<ItemMenuSet>().isReinforceProgressing)
         {
             return;
         }
         GameManager.instance.saveAndLoadPlayerInventoryTemp();
         GameManager.instance.saveAndLoadPlayerEquipmentTemp();
 
-        itemMenuSet.SetActive(false);
+        itemMenuSet.SetActive(false);*/
 
         if (inventorySet.activeSelf)
         {

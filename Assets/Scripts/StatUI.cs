@@ -42,8 +42,6 @@ public class StatUI : MonoBehaviour
     public Text fameTextText;
     public Text charmTextText;
 
-    public Animator buttonMenuAnimator;
-
     // 추후 delegate로 변경해야함
     public bool isDataChanged;
 
@@ -53,6 +51,11 @@ public class StatUI : MonoBehaviour
     void Start()
     {
         isDataChanged = true;
+
+        if (statSet.activeSelf)
+        {
+            statSet.SetActive(false);
+        }
     }
 
     // Update is called once per frame

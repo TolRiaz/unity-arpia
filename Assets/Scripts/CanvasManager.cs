@@ -67,20 +67,20 @@ public class CanvasManager : MonoBehaviour, IPointerClickHandler
 
     private void statusRefresh()
     {
-        statusSet.transform.GetChild(1).GetChild(2).GetComponent<Text>().text = "" + GameManager.instance.playerData.level;
+        statusSet.transform.GetChild(2).GetChild(2).GetComponent<Text>().text = "" + GameManager.instance.playerData.level;
 
-        statusSet.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = 
+        statusSet.transform.GetChild(3).GetChild(0).GetComponent<Text>().text = 
             GameManager.instance.playerData.healthPoint + " / " + GameManager.instance.playerData.healthPointMax;
-        statusSet.transform.GetChild(3).GetChild(0).GetComponent<Text>().text =
-            GameManager.instance.playerData.manaPoint + " / " + GameManager.instance.playerData.manaPointMax;
         statusSet.transform.GetChild(4).GetChild(0).GetComponent<Text>().text =
+            GameManager.instance.playerData.manaPoint + " / " + GameManager.instance.playerData.manaPointMax;
+        statusSet.transform.GetChild(5).GetChild(0).GetComponent<Text>().text =
             GameManager.instance.playerData.exp + " / " + GameManager.instance.playerData.nextExp;
 
-        statusSet.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Image>().fillAmount = 
+        statusSet.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Image>().fillAmount = 
             GameManager.instance.playerData.healthPoint / GameManager.instance.playerData.healthPointMax;
-        statusSet.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Image>().fillAmount =
-            GameManager.instance.playerData.manaPoint / GameManager.instance.playerData.manaPointMax;
         statusSet.transform.GetChild(4).GetChild(1).GetChild(0).GetComponent<Image>().fillAmount =
+            GameManager.instance.playerData.manaPoint / GameManager.instance.playerData.manaPointMax;
+        statusSet.transform.GetChild(5).GetChild(1).GetChild(0).GetComponent<Image>().fillAmount =
             (float)GameManager.instance.playerData.exp / (float)GameManager.instance.playerData.nextExp;
     }
 

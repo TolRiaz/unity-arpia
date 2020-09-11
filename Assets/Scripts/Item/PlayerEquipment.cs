@@ -512,7 +512,7 @@ public class PlayerEquipment : MonoBehaviour
 
     public void putStatsToPlayerData()
     {
-        GameManager.instance.playerData.powerEquipment = power;
+/*        GameManager.instance.playerData.powerEquipment = power;
         GameManager.instance.playerData.armorEquipment = armor;
         GameManager.instance.playerData.accuracyEquipment = accuracy;
         GameManager.instance.playerData.avoidEquipment = avoid;
@@ -524,6 +524,6 @@ public class PlayerEquipment : MonoBehaviour
         GameManager.instance.playerData.wisdomEquipment = wisdom;
         GameManager.instance.playerData.dexterityEquipment = dexterity;
         GameManager.instance.playerData.concentrationEquipment = concentration;
-        GameManager.instance.playerData.expEffEquipment = expEff;
+        GameManager.instance.playerData.expEffEquipment = expEff;*/
     }
 }

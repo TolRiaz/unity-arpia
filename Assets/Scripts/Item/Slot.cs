@@ -48,17 +48,24 @@ public class Slot : MonoBehaviour, IPointerUpHandler
 
     public void itemMenuOnOff()
     {
-        if (itemMenuSet.itemMenuSet.activeSelf || item == null || item.count < 1)
+        try
         {
-            itemMenuSet.itemMenuSet.SetActive(false);
-        }
-        else
-        {
-            itemMenuSet.item = item;
-            itemMenuSet.slotNumber = slotNumber;
+            if (itemMenuSet.itemMenuSet.activeSelf || item == null || item.count < 1)
+            {
+                itemMenuSet.itemMenuSet.SetActive(false);
+            }
+            else
+            {
+                itemMenuSet.item = item;
+                itemMenuSet.slotNumber = slotNumber;
 
-            itemMenuSet.buttonsOnOff();
-            itemMenuSet.setButton(item, new Vector2(transform.position.x + 290, transform.position.y - 340));
+                itemMenuSet.buttonsOnOff();
+                itemMenuSet.setButton(item, new Vector2(transform.position.x + 290, transform.position.y - 340));
+            }
+        }
+        catch (NullReferenceException)
+        {
+            Debug.Log("빈 아이템 슬롯");
         }
     }
 }

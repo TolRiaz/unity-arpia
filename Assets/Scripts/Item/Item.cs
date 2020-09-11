@@ -131,8 +131,6 @@ public class Item
             this.concentrationPoint = concentrationPoint;
             this.healthPoint = healthPoint;
             this.manaPoint = manaPoint;
-            this.toolEff = toolEff;
-            this.skillEff = skillEff;
             this.expEff = expEff;
 
             this.powerReinforce = powerReinforce;

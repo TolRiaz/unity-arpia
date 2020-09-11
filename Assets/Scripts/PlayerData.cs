@@ -18,8 +18,7 @@ public class PlayerData
     public int inventorySize;
     //public List<QuestInformation> questInformation;
     public List<Item> items;
-    public Item[] equipments;
-    public List<Item> fishingItems;
+    //public Item[] equipments;
 
     //Quest
     public List<int> startQuest;
@@ -45,8 +44,6 @@ public class PlayerData
     public float manaPoint;
     public float manaPointMax;
 
-    public float toolEff;
-    public float skillEff;
     public float expEff;
 
     public int fame;
@@ -55,7 +52,7 @@ public class PlayerData
     public float weightMax;
 
     //Equipments
-    public int reinforce;
+/*    public int reinforce;
 
     public int powerEquipment;
     public int armorEquipment;
@@ -72,5 +69,5 @@ public class PlayerData
     public float dexterityEquipment;
     public float concentrationEquipment;
 
-    public float expEffEquipment;
+    public float expEffEquipment;*/
 }

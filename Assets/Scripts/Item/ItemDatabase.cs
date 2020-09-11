@@ -28,8 +28,8 @@ public class ItemDatabase : MonoBehaviour
         itemDataFile = new ItemDataFile();
         itemDataFile.itemDatas = new List<Item>();
 
-        //loadItemData();
-        saveItemData();
+        //saveItemData();
+        loadItemData();
 
         //spawnItem();
 
@@ -110,6 +110,7 @@ public class ItemDatabase : MonoBehaviour
     [ContextMenu("From Json Data")]
     public void loadItemData()
     {
+        return;
         try
         {
             Debug.Log("아이템 정보 로드 성공");
