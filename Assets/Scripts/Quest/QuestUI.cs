@@ -9,7 +9,6 @@ public class QuestUI : MonoBehaviour
     private static string NEW_LINE = "\n";
 
     public GameObject questSet;
-    public Animator buttonMenuAnimator;
 
     public GameObject questTitlePanel;
     public GameObject content;
@@ -57,13 +56,12 @@ public class QuestUI : MonoBehaviour
             {
                 GetComponent<StatUI>().statSet.SetActive(false);
             }
-            if (GetComponent<EquipmentUI>().equipmentSet.activeSelf)
+            if (GetComponent<InventoryUI>().inventorySet.activeSelf)
             {
-                GetComponent<EquipmentUI>().equipmentSet.SetActive(false);
+                GetComponent<InventoryUI>().inventorySet.SetActive(false);
             }
 
             questSet.SetActive(true);
-            buttonMenuAnimator.SetBool("isUIOn", true);
         }
     }
 
@@ -136,8 +134,8 @@ public class QuestUI : MonoBehaviour
 
         reword.GetComponent<Text>().text = "";
 
-        reword.GetComponent<Text>().text += Calculator.numberToFormatting(quest.questReword.rewordMoney) + " 코인" + NEW_LINE;
         reword.GetComponent<Text>().text += Calculator.numberToFormatting(quest.questReword.rewordExp) + " 경험치" + NEW_LINE;
+        reword.GetComponent<Text>().text += Calculator.numberToFormatting(quest.questReword.rewordMoney) + " 핀" + NEW_LINE;
 
         for (int i = 0; i < quest.questReword.itemCode.Count; i++)
         {
@@ -166,25 +164,26 @@ public class QuestUI : MonoBehaviour
 
         if (buttonState == QuestState.Startable)
         {
-            questInformationPanel.transform.Find("Panel").transform.Find("QuestTitle").GetComponent<Text>().text = QuestDatabase.instance.questDB[questId].questTitle;
-            questInformationPanel.transform.Find("Panel").transform.Find("QuestType").GetComponent<Text>().text = showQuestType(QuestDatabase.instance.questDB[questId].questType);
-            questInformationPanel.transform.Find("Panel").transform.Find("QuestNPC").GetComponent<Text>().text = QuestDatabase.instance.findNpcNameByCode(QuestDatabase.instance.questDB[questId].npcIdStart);
-            questInformationPanel.transform.Find("Panel").transform.Find("QuestContent").GetComponent<Text>().text = QuestDatabase.instance.questDB[questId].questExplainStart;
+            questInformationPanel.transform.Find("QuestTitle").GetComponent<Text>().text = QuestDatabase.instance.questDB[questId].questTitle;
+            questInformationPanel.transform.Find("QuestType").GetComponent<Text>().text = showQuestType(QuestDatabase.instance.questDB[questId].questType);
+            questInformationPanel.transform.Find("QuestNPC").GetComponent<Text>().text = QuestDatabase.instance.findNpcNameByCode(QuestDatabase.instance.questDB[questId].npcIdStart, false);
+            questInformationPanel.transform.Find("QuestContent").GetComponent<Text>().text = QuestDatabase.instance.questDB[questId].questExplainStart;
+            questInformationPanel.transform.Find("QuestReword").GetComponent<Text>().text = QuestDatabase.instance.questDB[questId].questReword.toString();
         }
 
         if (buttonState == QuestState.Proceeding)
         {
-            questInformationPanel.transform.Find("Panel").transform.Find("QuestTitle").GetComponent<Text>().text = QuestDatabase.instance.questDB[questId].questTitle;
-            questInformationPanel.transform.Find("Panel").transform.Find("QuestType").GetComponent<Text>().text = showQuestType(QuestDatabase.instance.questDB[questId].questType);
-            questInformationPanel.transform.Find("Panel").transform.Find("QuestNPC").GetComponent<Text>().text = QuestDatabase.instance.findNpcNameByCode(QuestDatabase.instance.questDB[questId].npcIdEnd);
-            questInformationPanel.transform.Find("Panel").transform.Find("QuestContent").GetComponent<Text>().text = QuestDatabase.instance.questDB[questId].questExplainCurrent;
+            questInformationPanel.transform.Find("QuestTitle").GetComponent<Text>().text = QuestDatabase.instance.questDB[questId].questTitle;
+            questInformationPanel.transform.Find("QuestType").GetComponent<Text>().text = showQuestType(QuestDatabase.instance.questDB[questId].questType);
+            questInformationPanel.transform.Find("QuestNPC").GetComponent<Text>().text = QuestDatabase.instance.findNpcNameByCode(QuestDatabase.instance.questDB[questId].npcIdEnd);
+            questInformationPanel.transform.Find("QuestContent").GetComponent<Text>().text = QuestDatabase.instance.questDB[questId].questExplainCurrent;
 
-            questInformationPanel.transform.Find("Panel").transform.Find("QuestLimit").GetComponent<Text>().text = "";
+            questInformationPanel.transform.Find("QuestLimit").GetComponent<Text>().text = "";
 
             // 요구 아이템 수량
             for (int i = 0; i < QuestDatabase.instance.questDB[questId].questClearLimit.itemCode.Count; i++)
             {
-                questInformationPanel.transform.Find("Panel").transform.Find("QuestLimit").GetComponent<Text>().text += ItemDatabase.instance.findItemByCode(QuestDatabase.instance.questDB[questId].questClearLimit.itemCode[i]).itemName
+                questInformationPanel.transform.Find("QuestLimit").GetComponent<Text>().text += ItemDatabase.instance.findItemByCode(QuestDatabase.instance.questDB[questId].questClearLimit.itemCode[i]).itemName
                     + "  " + PlayerInventory.instance.totalItemAmount(ItemDatabase.instance.findItemByCode(QuestDatabase.instance.questDB[questId].questClearLimit.itemCode[i]))
                     + " / " + QuestDatabase.instance.questDB[questId].questClearLimit.itemCount[i] + NEW_LINE;
 
@@ -209,7 +208,7 @@ public class QuestUI : MonoBehaviour
             // 요구 사냥
             for (int i = 0; i < QuestDatabase.instance.questDB[questId].questClearLimit.mobName.Count; i++)
             {
-                questInformationPanel.transform.Find("Panel").transform.Find("QuestLimit").GetComponent<Text>().text += QuestDatabase.instance.questDB[questId].questClearLimit.mobName[i]
+                questInformationPanel.transform.Find("QuestLimit").GetComponent<Text>().text += QuestDatabase.instance.questDB[questId].questClearLimit.mobName[i]
                     + " 처치  " + currentQuest.questClearLimit.killCount[i]
                     + " / " + QuestDatabase.instance.questDB[questId].questClearLimit.killCount[i];
 
@@ -223,17 +222,17 @@ public class QuestUI : MonoBehaviour
             //요구 방문지역
 
             // 보상 아이템 목록
-            questInformationPanel.transform.Find("Panel").transform.Find("QuestReword").GetComponent<Text>().text = "";
+            questInformationPanel.transform.Find("QuestReword").GetComponent<Text>().text = "";
 
             for (int i = 0; i < QuestDatabase.instance.questDB[questId].questReword.itemCount.Count; i++)
             {
-                questInformationPanel.transform.Find("Panel").transform.Find("QuestReword").GetComponent<Text>().text += ItemDatabase.instance.findItemByCode(QuestDatabase.instance.questDB[questId].questReword.itemCode[i]).itemName
+                questInformationPanel.transform.Find("QuestReword").GetComponent<Text>().text += ItemDatabase.instance.findItemByCode(QuestDatabase.instance.questDB[questId].questReword.itemCode[i]).itemName
                     + " " + QuestDatabase.instance.questDB[questId].questReword.itemCount[i] + "개" + NEW_LINE;
             }
 
             for (int i = 0; i < QuestDatabase.instance.questDB[questId].questReword.rewordItem.Count; i++)
             {
-                questInformationPanel.transform.Find("Panel").transform.Find("QuestReword").GetComponent<Text>().text += QuestDatabase.instance.questDB[questId].questReword.rewordItem[i].itemName
+                questInformationPanel.transform.Find("QuestReword").GetComponent<Text>().text += QuestDatabase.instance.questDB[questId].questReword.rewordItem[i].itemName
                     + " " + QuestDatabase.instance.questDB[questId].questReword.itemCount[i] + "개" + NEW_LINE;
             }
 
@@ -241,10 +240,10 @@ public class QuestUI : MonoBehaviour
 
         if (buttonState == QuestState.Complete)
         {
-            questInformationPanel.transform.Find("Panel").transform.Find("QuestTitle").GetComponent<Text>().text = QuestDatabase.instance.questDB[questId].questTitle;
-            questInformationPanel.transform.Find("Panel").transform.Find("QuestType").GetComponent<Text>().text = showQuestType(QuestDatabase.instance.questDB[questId].questType);
-            questInformationPanel.transform.Find("Panel").transform.Find("QuestNPC").GetComponent<Text>().text = QuestDatabase.instance.findNpcNameByCode(QuestDatabase.instance.questDB[questId].npcIdStart) + " ~ " + QuestDatabase.instance.findNpcNameByCode(QuestDatabase.instance.questDB[questId].npcIdEnd);
-            questInformationPanel.transform.Find("Panel").transform.Find("QuestContent").GetComponent<Text>().text = QuestDatabase.instance.questDB[questId].questExplainComplete;
+            questInformationPanel.transform.Find("QuestTitle").GetComponent<Text>().text = QuestDatabase.instance.questDB[questId].questTitle;
+            questInformationPanel.transform.Find("QuestType").GetComponent<Text>().text = showQuestType(QuestDatabase.instance.questDB[questId].questType);
+            questInformationPanel.transform.Find("QuestNPC").GetComponent<Text>().text = QuestDatabase.instance.findNpcNameByCode(QuestDatabase.instance.questDB[questId].npcIdStart) + " ~ " + QuestDatabase.instance.findNpcNameByCode(QuestDatabase.instance.questDB[questId].npcIdEnd);
+            questInformationPanel.transform.Find("QuestContent").GetComponent<Text>().text = QuestDatabase.instance.questDB[questId].questExplainComplete;
         }
     }
 

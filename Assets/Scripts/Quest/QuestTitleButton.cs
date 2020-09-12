@@ -8,7 +8,7 @@ public class QuestTitleButton : MonoBehaviour
 
     private void Start()
     {
-        transform.Find("Mark").Find("Done").gameObject.SetActive(false);
+        // transform.Find("Mark").Find("Done").gameObject.SetActive(false);
     }
 
     public void showQuestInformation()

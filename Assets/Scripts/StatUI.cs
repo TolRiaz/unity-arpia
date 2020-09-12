@@ -8,6 +8,7 @@ public class StatUI : MonoBehaviour
 {
     public string NEW_LINE = "\n";
     public GameObject statSet;
+    public StatUI instance;
 
     public Image[] statPointUp;
 
@@ -15,7 +16,7 @@ public class StatUI : MonoBehaviour
     public Text typeText;
     public Text levelText;
     public Text jobText;
-    public Text money;
+    public Text moneyText;
     public Text beneficenceScoreText;
 
     public Text hpText;
@@ -51,6 +52,8 @@ public class StatUI : MonoBehaviour
     void Start()
     {
         isDataChanged = true;
+
+        instance = this;
 
         if (statSet.activeSelf)
         {
@@ -88,6 +91,10 @@ public class StatUI : MonoBehaviour
             if (GetComponent<InventoryUI>().inventorySet.activeSelf)
             {
                 GetComponent<InventoryUI>().inventorySet.SetActive(false);
+            }
+            if (GetComponent<QuestUI>().questSet.activeSelf)
+            {
+                GetComponent<QuestUI>().questSet.SetActive(false);
             }
 
             refresh();
@@ -135,7 +142,13 @@ public class StatUI : MonoBehaviour
         {
             isDataChanged = false;
 
+            nameText.text = "닉네임 : " + GameManager.instance.playerData.name;
+            typeText.text = "종 족 : " + GameManager.instance.playerData.getElementName() + "종족";
             levelText.text = "레 벨 : " + GameManager.instance.playerData.level;
+            jobText.text = "직 업 : " + GameManager.instance.playerData.getJobName();
+            moneyText.text = "보유 핀 : " + GameManager.instance.playerData.money;
+            beneficenceScoreText.text = "선행 점수 : " + GameManager.instance.playerData.fame;
+
             hpText.text = GameManager.instance.playerData.healthPoint + " / " + GameManager.instance.playerData.healthPointMax;
             mpText.text = GameManager.instance.playerData.manaPoint + " / " + GameManager.instance.playerData.manaPointMax;
             expText.text = GameManager.instance.playerData.exp + " / " + GameManager.instance.playerData.nextExp;

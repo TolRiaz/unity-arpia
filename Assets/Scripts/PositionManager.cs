@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PositionManager : MonoBehaviour
 {
-    public Sprite[] button_sprite;
-    public Map move_position;
-    public Vector2 teleport_postion;
-    public int change_music;
+    public Sprite[] buttonSprite;
+    public Map movePosition;
+    public Vector2 teleportPostion;
+    public int changeMusic;
 
     // Start is called before the first frame update
     void Start()
@@ -23,16 +23,16 @@ public class PositionManager : MonoBehaviour
 
     private void OnMouseDown()
     {
-        GetComponent<SpriteRenderer>().sprite = button_sprite[1];
+        GetComponent<SpriteRenderer>().sprite = buttonSprite[1];
     }
 
     private void OnMouseUp()
     {
-        GetComponent<SpriteRenderer>().sprite = button_sprite[0];
-        PlayerManager.instance.location = move_position;
-        PlayerManager.instance.transform.position = teleport_postion;
-        GameObject.Find("Main Camera").GetComponent<Transform>().position = teleport_postion;
+        GetComponent<SpriteRenderer>().sprite = buttonSprite[0];
+        PlayerManager.instance.location = movePosition;
+        PlayerManager.instance.transform.position = teleportPostion;
+        GameObject.Find("Main Camera").GetComponent<Transform>().position = teleportPostion;
         SoundManager.instance.stopAllSounds();
-        SoundManager.instance.playMusic(change_music);
+        SoundManager.instance.playMusic(changeMusic);
     }
 }

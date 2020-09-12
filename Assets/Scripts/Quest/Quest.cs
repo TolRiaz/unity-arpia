@@ -111,6 +111,48 @@ public class QuestReword
         this.itemCount = itemCount;
         this.rewordItem = rewordItem;
     }
+
+    public string toString()
+    {
+        string reword = "";
+
+        if (rewordExp != 0)
+        {
+            reword += rewordExp + " 경험치";
+        }
+        if (rewordMoney != 0)
+        {
+            if (!reword.Equals(""))
+            {
+                reword += ", ";
+            }
+            reword += rewordMoney + " 핀";
+        }
+        if (itemCode != null)
+        {
+            for (int i = 0; i < itemCode.Count; i++)
+            {
+                if (!reword.Equals(""))
+                {
+                    reword += ", ";
+                }
+                reword += itemCode[i] + " " + itemCount[i] + "개";
+            }
+        }
+        if (itemCode != null)
+        {
+            for (int i = 0; i < rewordItem.Count; i++)
+            {
+                if (!reword.Equals(""))
+                {
+                    reword += ", ";
+                }
+                reword += rewordItem[i].itemName + " " + rewordItem[i].count + "개";
+            }
+        }
+
+        return reword;
+    }
 }
 
 [System.Serializable]

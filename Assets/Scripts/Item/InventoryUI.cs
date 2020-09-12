@@ -76,6 +76,10 @@ public class InventoryUI : MonoBehaviour
             {
                 GetComponent<StatUI>().statSet.SetActive(false);
             }
+            if (GetComponent<QuestUI>().questSet.activeSelf)
+            {
+                GetComponent<QuestUI>().questSet.SetActive(false);
+            }
 
             inventorySet.SetActive(true);
         }

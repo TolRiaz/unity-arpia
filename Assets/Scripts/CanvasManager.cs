@@ -67,6 +67,8 @@ public class CanvasManager : MonoBehaviour, IPointerClickHandler
 
     private void statusRefresh()
     {
+        statusSet.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = "" + GameManager.instance.playerData.name;
+        statusSet.transform.GetChild(2).GetChild(1).GetComponent<Text>().text = "" + GameManager.instance.playerData.getJobName();
         statusSet.transform.GetChild(2).GetChild(2).GetComponent<Text>().text = "" + GameManager.instance.playerData.level;
 
         statusSet.transform.GetChild(3).GetChild(0).GetComponent<Text>().text = 
@@ -95,6 +97,10 @@ public class CanvasManager : MonoBehaviour, IPointerClickHandler
         if (GetComponent<InventoryUI>().inventorySet.activeSelf)
         {
             GetComponent<InventoryUI>().inventorySet.SetActive(false);
+        }
+        if (GetComponent<QuestUI>().questSet.activeSelf)
+        {
+            GetComponent<QuestUI>().questSet.SetActive(false);
         }
     }
 }

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private Animator talkPanel;
     private Animator portraitAnim;
     public Sprite prevPortrait;
+    private Text talker;
     private TypeEffect talkEffect;
     public Text NPCName;
 
@@ -110,6 +111,7 @@ public class GameManager : MonoBehaviour
         }
         try
         {
+            talker = GameObject.Find("Talker").GetComponent<Text>();
             talkEffect = GameObject.Find("Interaction").GetComponent<TypeEffect>();
         }
         catch (Exception)
@@ -355,6 +357,11 @@ public class GameManager : MonoBehaviour
 
                 if (isNpc)
                 {
+                    // NPC 이름과 플레이어 이름중 선택하는 기능
+                    setTalker(talkData, id);
+                    talkData = talkData.Split('@')[0];
+
+                    // 초상화 선택하는 기능
                     talkEffect.setMessage(talkData.Split('$')[0]);
 
                     try
@@ -410,6 +417,11 @@ public class GameManager : MonoBehaviour
 
                 if (isNpc)
                 {
+                    // NPC 이름과 플레이어 이름중 선택하는 기능
+                    setTalker(talkData, id);
+                    talkData = talkData.Split('@')[0];
+
+                    // 초상화 선택하는 기능
                     talkEffect.setMessage(talkData.Split('$')[0]);
 
                     portraitImg.sprite = talkManager.getPortrait(id, int.Parse(talkData.Split('$')[1]));
@@ -458,6 +470,11 @@ public class GameManager : MonoBehaviour
 
         if (isNpc)
         {
+            // NPC 이름과 플레이어 이름중 선택하는 기능
+            setTalker(talkData, id);
+            talkData = talkData.Split('@')[0];
+
+            // 초상화 선택하는 기능
             talkEffect.setMessage(talkData.Split('$')[0]);
 
             portraitImg.sprite = talkManager.getPortrait(id, int.Parse(talkData.Split('$')[1]));
@@ -552,6 +569,19 @@ public class GameManager : MonoBehaviour
         NPCName.text = name;
     }
 
+    public void setTalker(string talkData, int id)
+    {
+        if (talkData.Split('@')[1].Equals("1"))
+        {
+            talker.text = playerData.name;
+
+        }
+        else
+        {
+            talker.text = QuestDatabase.instance.findNpcNameByCode(id, false);
+        }
+    }
+
     [ContextMenu("To Json Data")]
     public void savePlayerDataToJson()
     {
@@ -643,8 +673,11 @@ public class GameManager : MonoBehaviour
             playerData.playerY = 0f;
             playerData.questId = 100;
             playerData.questActionIndex = 0;
-            playerData.inventorySize = 2;
+            playerData.inventorySize = 10;
 
+            playerData.name = "내이름은여덟글자";
+            playerData.job = Job.APPRENTICE;
+            playerData.element = Element.ICE;
             playerData.level = 1;
             playerData.statPoint = 3;
             playerData.intellectPoint = 0;

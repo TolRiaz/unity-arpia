@@ -53,6 +53,7 @@ public class MainSceneController : MonoBehaviour
         }
 
         loading_scene.gameObject.SetActive(true);
+        startFromNew();
 
         SceneManager.LoadScene(1);
     }
@@ -132,6 +133,9 @@ public class MainSceneController : MonoBehaviour
 
         PlayerData playerData = new PlayerData();
 
+        playerData.job = Job.APPRENTICE;
+        playerData.element = Element.ICE;
+
         playerData.accuracy = 0;
         playerData.armor = 1;
         playerData.avoid = 2;
@@ -158,7 +162,7 @@ public class MainSceneController : MonoBehaviour
         playerData.manaPoint = 20;
         playerData.manaPointMax = 21;
         playerData.money = 22;
-        playerData.name = "HI";
+        playerData.name = "닉네임은여덟글자";
         playerData.nextExp = 20;
         playerData.power = 23;
         playerData.questId = 100;
@@ -167,6 +171,7 @@ public class MainSceneController : MonoBehaviour
 
         string jsonData = JsonUtility.ToJson(playerData, true);
         string path = Path.Combine(Application.persistentDataPath, "playerData.json");
+        //File.Delete(path);
         File.WriteAllText(path, jsonData);
 
 /*        playerData.items = new List<Item>();

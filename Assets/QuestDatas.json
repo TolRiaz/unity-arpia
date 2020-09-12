@@ -1,0 +1,159 @@
+{
+    "quests": [
+        {
+            "questId": 0,
+            "questTitle": "불피울 방법을 알아내자",
+            "questExplainStart": "비키니걸이 무슨 문제가 있는듯 하다.",
+            "questExplainCurrent": "'비키니걸'이 말하길 '팬티보이'에게 가면 불피울 방법을 알려준다고 한다.",
+            "questExplainComplete": "비키니걸이 말한대로 팬티보이에게 말을 걸어보았다.",
+            "questType": 1,
+            "questState": 0,
+            "npcIdStart": 100000,
+            "npcIdEnd": 110000,
+            "talkStart": "일단은 몸을 데워야하지 않겠어 ?$0#설마 이상한 생각을 한 것은 아니겠지?$1#옆에 팬티보이에게 어떻게하면 좋을지 물어보도록 해!$0",
+            "talkEnd": "무슨 일이지?$0",
+            "questReword": {
+                "rewordExp": 10,
+                "rewordMoney": 5,
+                "itemCode": [],
+                "itemCount": [],
+                "rewordItem": []
+            },
+            "questClearLimit": {
+                "itemCode": [],
+                "itemCount": [],
+                "mobName": [],
+                "killCount": [],
+                "visitLocation": [],
+                "isVisit": []
+            },
+            "questStartLimit": {
+                "beforeQuestLimit": [],
+                "playerDataLimit": {
+                    "playerX": 0.0,
+                    "playerY": 0.0,
+                    "questId": 0,
+                    "questActionIndex": 0,
+                    "name": "",
+                    "job": 0,
+                    "element": 0,
+                    "level": 0,
+                    "exp": 5,
+                    "nextExp": 0,
+                    "money": 0,
+                    "gold": 0,
+                    "inventorySize": 0,
+                    "items": [],
+                    "startQuest": [],
+                    "currentQuest": [],
+                    "clearQuest": [],
+                    "statPoint": 0,
+                    "intellectPoint": 0,
+                    "wisdomPoint": 0,
+                    "dexterityPoint": 0,
+                    "concentrationPoint": 0,
+                    "power": 0,
+                    "armor": 0,
+                    "accuracy": 0,
+                    "avoid": 0,
+                    "critRate": 0.0,
+                    "critDam": 0.0,
+                    "healthPoint": 0.0,
+                    "healthPointMax": 0.0,
+                    "manaPoint": 0.0,
+                    "manaPointMax": 0.0,
+                    "expEff": 0.0,
+                    "fame": 0,
+                    "charm": 0,
+                    "weight": 0.0,
+                    "weightMax": 0.0
+                }
+            }
+        },
+        {
+            "questId": 1,
+            "questTitle": "불피울 재료를 줍자",
+            "questExplainStart": "팬티보이에게 다시 말을 걸어보자",
+            "questExplainCurrent": "불을 피우기위한 기초 준비물로 나무가지 2개와 마른 나뭇잎 2개가 필요하다고 한다. \n해당 재료를 구하려면 해변가에 떨어진 재료를 주워서 모아보자.",
+            "questExplainComplete": "불을 피우기 위한 재료를 구해다 주었다.",
+            "questType": 1,
+            "questState": 0,
+            "npcIdStart": 110000,
+            "npcIdEnd": 110000,
+            "talkStart": "불을 피우겠다고?$1#어렵겠지만 그렇다면...$0#주변에 쓸만한 나뭇가지랑 불을 크게 만들 마른 나뭇잎을 주워오도록 해!$0#나뭇가지 2개와 마른 나뭇잎 2개 정도면 불씨를 만들 수 있을거야$0",
+            "talkEnd": "재료를 다 구해왔구나?$0",
+            "questReword": {
+                "rewordExp": 30,
+                "rewordMoney": 15,
+                "itemCode": [
+                    1000001,
+                    2000001
+                ],
+                "itemCount": [
+                    1,
+                    5
+                ],
+                "rewordItem": []
+            },
+            "questClearLimit": {
+                "itemCode": [
+                    3000001,
+                    3000002
+                ],
+                "itemCount": [
+                    2,
+                    2
+                ],
+                "mobName": [],
+                "killCount": [],
+                "visitLocation": [],
+                "isVisit": []
+            },
+            "questStartLimit": {
+                "beforeQuestLimit": [
+                    0,
+                    0
+                ],
+                "playerDataLimit": {
+                    "playerX": 0.0,
+                    "playerY": 0.0,
+                    "questId": 0,
+                    "questActionIndex": 0,
+                    "name": "",
+                    "job": 0,
+                    "element": 0,
+                    "level": 0,
+                    "exp": 5,
+                    "nextExp": 0,
+                    "money": 0,
+                    "gold": 0,
+                    "inventorySize": 0,
+                    "items": [],
+                    "startQuest": [],
+                    "currentQuest": [],
+                    "clearQuest": [],
+                    "statPoint": 0,
+                    "intellectPoint": 0,
+                    "wisdomPoint": 0,
+                    "dexterityPoint": 0,
+                    "concentrationPoint": 0,
+                    "power": 0,
+                    "armor": 0,
+                    "accuracy": 0,
+                    "avoid": 0,
+                    "critRate": 0.0,
+                    "critDam": 0.0,
+                    "healthPoint": 0.0,
+                    "healthPointMax": 0.0,
+                    "manaPoint": 0.0,
+                    "manaPointMax": 0.0,
+                    "expEff": 0.0,
+                    "fame": 0,
+                    "charm": 0,
+                    "weight": 0.0,
+                    "weightMax": 0.0
+                }
+            }
+        }
+    ]
+}

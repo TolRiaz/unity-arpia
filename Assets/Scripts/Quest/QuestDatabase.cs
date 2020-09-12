@@ -17,7 +17,7 @@ public class QuestDatabase : MonoBehaviour
     {
         instance = this;
 
-        //saveQuestResources();
+        saveQuestResources();
         loadQuestResources();
     }
 
@@ -236,26 +236,12 @@ public class QuestDatabase : MonoBehaviour
         return true;
     }
 
-    public string findNpcNameByCode(int code)
+    public string findNpcNameByCode(int code, bool isEnglish = true)
     {
-        if (code == 1)
+        switch (code)
         {
-            return "George";
-        }
-
-        if (code == 100000)
-        {
-            return "ViciniGirl";
-        }
-
-        if (code == 110000)
-        {
-            return "UnderwearBoy";
-        }
-
-        if (code == 120000)
-        {
-            return "Survival";
+            case 1:
+                return isEnglish ? "George" : "조지";
         }
 
         return null;

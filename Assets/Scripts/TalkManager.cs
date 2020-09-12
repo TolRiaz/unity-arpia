@@ -27,6 +27,8 @@ public class TalkManager : MonoBehaviour
 
     private QuestType type;
 
+    public GameObject questRewordPanel;
+
     private void Start()
     {
         viciniGirl = new TalkResources();
@@ -84,7 +86,7 @@ public class TalkManager : MonoBehaviour
         switch (id)
         {
             case 1:
-                talk = "마법은 어렵고 청소는 쉽지...$0";
+                talk = "마법은 어렵고 청소는 쉽지...$0@2";
                 break;
             case 120000:
                 talk = "필요한 물건은 사가고 필요없는 물건은 나한테 팔아!$0";
@@ -268,7 +270,7 @@ public class TalkManager : MonoBehaviour
 
     public void rewordPanelOff()
     {
-        //questRewordPanel.SetActive(false);
+        questRewordPanel.SetActive(false);
     }
 }
 

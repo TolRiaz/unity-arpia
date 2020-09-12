@@ -10,8 +10,8 @@
       "questState": 0,
       "npcIdStart": 1,
       "npcIdEnd": 1,
-      "talkStart": "우와! 이곳이 마법학교??$0#저기 청소부 아저씨가 있잖아?$1#한 번 대화를 시도해보자!$0",
-      "talkEnd": "청소하는데 방해되니깐 저리 가있거라!$0",
+      "talkStart": "우와! 이곳이 마법학교??$0@1#저기 청소부 아저씨가 있잖아?$1@1#한 번 대화를 시도해보자!$0@1",
+      "talkEnd": "청소하는데 방해되니깐 저리 가있거라!$0@2",
       "questReword": {
         "rewordExp": 10,
         "rewordMoney": 5,
@@ -94,9 +94,9 @@
     {
       "questId": 1,
       "questTitle": "선생님 만나보기",
-      "questExplainStart": "팬티보이에게 다시 말을 걸어보자",
-      "questExplainCurrent": "불을 피우기위한 기초 준비물로 나무가지 2개와 마른 나뭇잎 2개가 필요하다고 한다. \n해당 재료를 구하려면 해변가에 떨어진 재료를 주워서 모아보자.",
-      "questExplainComplete": "불을 피우기 위한 재료를 구해다 주었다.",
+      "questExplainStart": "청소부 '조지' 아저씨와 대화해보자!",
+      "questExplainCurrent": "선생님은 교내 1층 가운데 교실에 있다고 한다.\n학교 안에 들어가서 '!' 표시가 떠있는 1층 교실로 들어가보자!",
+      "questExplainComplete": "담임 선생님을 만나보았다.",
       "questType": 1,
       "questState": 0,
       "npcIdStart": 1,
