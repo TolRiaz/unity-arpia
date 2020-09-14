@@ -34,5 +34,6 @@ public class PositionManager : MonoBehaviour
         GameObject.Find("Main Camera").GetComponent<Transform>().position = teleportPostion;
         SoundManager.instance.stopAllSounds();
         SoundManager.instance.playMusic(changeMusic);
+        MouseMovement.instance.stopMovement();
     }
 }

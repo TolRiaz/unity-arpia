@@ -66,7 +66,9 @@
                     "fame": 0,
                     "charm": 0,
                     "weight": 0.0,
-                    "weightMax": 0.0
+                    "weightMax": 0.0,
+                    "expStack": 0.0,
+                    "sortingIndex": 0
                 }
             }
         },
@@ -151,7 +153,9 @@
                     "fame": 0,
                     "charm": 0,
                     "weight": 0.0,
-                    "weightMax": 0.0
+                    "weightMax": 0.0,
+                    "expStack": 0.0,
+                    "sortingIndex": 0
                 }
             }
         }

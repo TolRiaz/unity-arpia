@@ -95,6 +95,8 @@ public class ObjectData : MonoBehaviour, IPointerUpHandler
 
     public void scanObjectData()
     {
+        Debug.Log("클릭");
+        MouseMovement.instance.isMoving = false;
         SoundManager.instance.playButtonEffectSound();
         PlayerManager.instance.progressTalk(gameObject);
 

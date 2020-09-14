@@ -88,6 +88,7 @@ public class CanvasManager : MonoBehaviour, IPointerClickHandler
 
     public void offUI()
     {
+        MouseMovement.instance.isMoving = true;
         SoundManager.instance.playButtonEffectSound();
 
         if (GetComponent<StatUI>().statSet.activeSelf)
@@ -102,5 +103,10 @@ public class CanvasManager : MonoBehaviour, IPointerClickHandler
         {
             GetComponent<QuestUI>().questSet.SetActive(false);
         }
+    }
+
+    public void quitGame()
+    {
+        Application.Quit();
     }
 }

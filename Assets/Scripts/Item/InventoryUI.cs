@@ -68,10 +68,14 @@ public class InventoryUI : MonoBehaviour
 
         if (inventorySet.activeSelf)
         {
+            MouseMovement.instance.isMoving = true;
+
             inventorySet.SetActive(false);
         }
         else
         {
+            MouseMovement.instance.isMoving = false;
+
             if (GetComponent<StatUI>().statSet.activeSelf)
             {
                 GetComponent<StatUI>().statSet.SetActive(false);

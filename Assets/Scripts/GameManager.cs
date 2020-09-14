@@ -412,6 +412,8 @@ public class GameManager : MonoBehaviour
                     questSettings();
                     talkQuestPanel.SetActive(true);
 
+                    MouseMovement.instance.isMoving = true;
+
                     return;
                 }
 
@@ -456,6 +458,8 @@ public class GameManager : MonoBehaviour
             isAction = false;
             talkIndex = 0;
             talkQuestPanel.SetActive(true);
+
+            MouseMovement.instance.isMoving = true;
 
             // 상점 처리
             if (objData.isShop)
@@ -588,6 +592,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("저장 성공");
         playerData.playerX = playerManager.transform.position.x;
         playerData.playerY = playerManager.transform.position.y;
+        playerData.sortingIndex = PlayerManager.instance.GetComponent<SpriteRenderer>().sortingOrder;
         playerData.questId = questManager.questId;
         playerData.questActionIndex = questManager.questActionIndex;
         playerData.inventorySize = GetComponent<PlayerInventory>().slotCount;

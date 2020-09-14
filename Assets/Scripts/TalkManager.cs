@@ -270,6 +270,7 @@ public class TalkManager : MonoBehaviour
 
     public void rewordPanelOff()
     {
+        MouseMovement.instance.isMoving = true;
         questRewordPanel.SetActive(false);
     }
 }

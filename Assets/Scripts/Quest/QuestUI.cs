@@ -48,10 +48,14 @@ public class QuestUI : MonoBehaviour
 
         if (questSet.activeSelf)
         {
+            MouseMovement.instance.isMoving = true;
+
             questSet.SetActive(false);
         }
         else
         {
+            MouseMovement.instance.isMoving = false;
+
             if (GetComponent<StatUI>().statSet.activeSelf)
             {
                 GetComponent<StatUI>().statSet.SetActive(false);

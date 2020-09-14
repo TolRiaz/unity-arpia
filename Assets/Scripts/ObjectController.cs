@@ -8,11 +8,12 @@ public class ObjectController : MonoBehaviour
     public float joystickSpeed;
 
     public Animator animator;
+    public static ObjectController instance;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        instance = this;
     }
 
     // Update is called once per frame
@@ -23,10 +24,11 @@ public class ObjectController : MonoBehaviour
 
         Vector2 speed = new Vector2(value.joyTouch.x / 100 * joystickSpeed, value.joyTouch.y / 100 * joystickSpeed);
         transform.Translate(speed);
-        SetAnimator();
+
+        //SetAnimator(ViewDirection.NONE);
     }
 
-    public void SetAnimator()
+    public void SetAnimator(ViewDirection viewDirection)
     {
         if (value.joyTouch.x > 0)
         {
@@ -38,19 +40,19 @@ public class ObjectController : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = false;
         }
 
-        if (value.joyTouch.y > 0.6)
+        if (value.joyTouch.y > 0.6 || viewDirection == ViewDirection.UP)
         {
             animator.SetBool("isWalkingLeft", false);
             animator.SetBool("isWalkingDown", false);
             animator.SetBool("isWalkingUp", true);
         }
-        else if (value.joyTouch.y < -0.6)
+        else if (value.joyTouch.y < -0.6 || viewDirection == ViewDirection.DOWN)
         {
             animator.SetBool("isWalkingLeft", false);
             animator.SetBool("isWalkingDown", true);
             animator.SetBool("isWalkingUp", false);
         }
-        else if (value.joyTouch.x != 0 && value.joyTouch.y != 0)
+        else if (value.joyTouch.x != 0 && value.joyTouch.y != 0 || viewDirection == ViewDirection.LEFT || viewDirection == ViewDirection.RIGHT)
         {
             animator.SetBool("isWalkingLeft", true);
             animator.SetBool("isWalkingDown", false);
@@ -63,4 +65,13 @@ public class ObjectController : MonoBehaviour
             animator.SetBool("isWalkingUp", false);
         }
     }
+}
+
+public enum ViewDirection
+{
+    NONE,
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
 }

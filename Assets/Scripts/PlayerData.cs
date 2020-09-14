@@ -53,25 +53,29 @@ public class PlayerData
     public float weight;
     public float weightMax;
 
+    public float expStack;
+    public int sortingIndex;
+
+
     //Equipments
-/*    public int reinforce;
+    /*    public int reinforce;
 
-    public int powerEquipment;
-    public int armorEquipment;
-    public int accuracyEquipment;
-    public int avoidEquipment;
-    public float critRateEquipment;
-    public float critDamEquipment;
+        public int powerEquipment;
+        public int armorEquipment;
+        public int accuracyEquipment;
+        public int avoidEquipment;
+        public float critRateEquipment;
+        public float critDamEquipment;
 
-    public float healthPointEquipment;
-    public float manaPointEquipment;
+        public float healthPointEquipment;
+        public float manaPointEquipment;
 
-    public float intellectEquipment;
-    public float wisdomEquipment;
-    public float dexterityEquipment;
-    public float concentrationEquipment;
+        public float intellectEquipment;
+        public float wisdomEquipment;
+        public float dexterityEquipment;
+        public float concentrationEquipment;
 
-    public float expEffEquipment;*/
+        public float expEffEquipment;*/
 
     public string getJobName()
     {

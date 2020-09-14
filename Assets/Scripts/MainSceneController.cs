@@ -135,6 +135,9 @@ public class MainSceneController : MonoBehaviour
 
         playerData.job = Job.APPRENTICE;
         playerData.element = Element.ICE;
+        playerData.playerX = 2.5f;
+        playerData.playerY = -0.35f;
+        playerData.sortingIndex = 3;
 
         playerData.accuracy = 0;
         playerData.armor = 1;
