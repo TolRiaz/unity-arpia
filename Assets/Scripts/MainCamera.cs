@@ -14,7 +14,7 @@ public class MainCamera : MonoBehaviour
     private Vector3 cameraPosition;
 
     private Map player_location;
-    private Vector2 player_position;
+    private Vector3 player_position;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,12 +24,23 @@ public class MainCamera : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        if (GameManager.instance.isBattle)
+        {
+            FixCameraPositionBattle();
+            return;
+        }
+
         FixCameraPositionX();
         FixCameraPositionY();
         cameraPosition.z = playerTransform.position.z + offsetZ;
 
         transform.position = 
             Vector3.Lerp(transform.position, cameraPosition, followSpeed * Time.deltaTime * 2);
+    }
+
+    private void FixCameraPositionBattle()
+    {
+        transform.position = new Vector3(180, 1399, -12);
     }
 
     private void FixCameraPositionX()

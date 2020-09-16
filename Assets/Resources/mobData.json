@@ -1,0 +1,41 @@
+{
+    "mobDatas": [
+        {
+            "entityName": "대지 버섯",
+            "code": 0,
+            "job": 0,
+            "element": 2,
+            "level": 2,
+            "exp": 5,
+            "nextExp": 0,
+            "money": 5,
+            "gold": 0,
+            "items": [],
+            "statPoint": 0,
+            "intellectPoint": 0,
+            "wisdomPoint": 0,
+            "dexterityPoint": 0,
+            "concentrationPoint": 0,
+            "power": 5,
+            "armor": 5,
+            "magicPower": 3,
+            "magicArmor": 3,
+            "accuracy": 3,
+            "avoid": 2,
+            "critRate": 5.0,
+            "critDam": 30.0,
+            "healthPoint": 50.0,
+            "healthPointMax": 50.0,
+            "manaPoint": 20.0,
+            "manaPointMax": 20.0,
+            "fame": 0,
+            "charm": 0,
+            "expStack": 0.0,
+            "sortingIndex": 3,
+            "sprite": {
+                "instanceID": 68002
+            },
+            "spritePath": "Images/Items/Images/Mobs/mushroom_red_idle"
+        }
+    ]
+}

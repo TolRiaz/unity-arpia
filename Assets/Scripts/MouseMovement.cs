@@ -24,6 +24,15 @@ public class MouseMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        // EventSystem.current.IsPointerOverGameObject() UI 위에있을때 감지
+
+        // Debug.Log(Input.mousePosition);
+
+        if (GameManager.instance.isBattle)
+        {
+            return;
+        }
+
         if (!isMoving || GameManager.instance.isAction)
         {
             target = GetComponent<RectTransform>().position;

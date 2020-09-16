@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class BattleObject : MonoBehaviour
 {
+    public List<EntityData> entityDatas;
+    public int fieldType = 1;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        // 임시 테스트용
+        setEntity(MonsterDatabase.instance.mobDB[0]);
+        setEntity(MonsterDatabase.instance.mobDB[0]);
     }
 
     // Update is called once per frame
@@ -20,7 +25,23 @@ public class BattleObject : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-            Debug.Log("충돌");
+            // TODO 충돌 후 전투 처리
+            BattleManager.instance.setFieldEnemy(entityDatas, fieldType);
+            BattleManager.instance.setFieldTeam();
+
+            BattleManager.instance.setBattleField();
+
+            Destroy(gameObject);
         }
+    }
+
+    public void setEntity(EntityData entityData)
+    {
+        entityDatas.Add(entityData);
+    }
+
+    public void setFieldType(int fieldType)
+    {
+        this.fieldType = fieldType;
     }
 }

@@ -36,6 +36,8 @@ public class PlayerData
 
     public int power;
     public int armor;
+    public int magicPower;
+    public int magicArmor;
     public int accuracy;
     public int avoid;
     public float critRate;

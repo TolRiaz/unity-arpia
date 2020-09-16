@@ -66,8 +66,13 @@ public class GameManager : MonoBehaviour
     public TestData testData;
     public Text testText;
 
+    // Battle
+    public bool isBattle;
+
     void Start()
     {
+        isBattle = false;
+
         instance = this;
         loadPlayerDataFromJsonMobile();
         //savePlayerDataToJson();
