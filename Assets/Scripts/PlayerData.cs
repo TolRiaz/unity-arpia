@@ -126,6 +126,62 @@ public class PlayerData
                 return "무속";
         }
     }
+
+    public void setPlayerDataByBattleEntity(BattleEntity battleEntity)
+    {
+        this.playerX = battleEntity.playerX;
+        this.playerY = battleEntity.playerY;
+        this.questId = battleEntity.questId;
+        this.questActionIndex = battleEntity.questActionIndex;
+        this.name = battleEntity.entityName;
+        this.job = battleEntity.job;
+        this.element = battleEntity.element;
+        this.level = battleEntity.level;
+        this.exp = battleEntity.exp;
+        this.nextExp = battleEntity.nextExp;
+        this.money = battleEntity.money;
+        this.gold = battleEntity.gold;
+        this.inventorySize = battleEntity.inventorySize;
+        //this.questInformation = battleEntity.questInformation;
+        this.items = battleEntity.items;
+        //this.Item[] equipments = battleEntity.equipments;
+
+        //Quest
+        this.startQuest = battleEntity.startQuest;
+        this.currentQuest = battleEntity.currentQuest;
+        this.clearQuest = battleEntity.clearQuest;
+
+        //Stats
+        this.statPoint = battleEntity.statPoint;
+        this.intellectPoint = battleEntity.intellectPoint;
+        this.wisdomPoint = battleEntity.wisdomPoint;
+        this.dexterityPoint = battleEntity.dexterityPoint;
+        this.concentrationPoint = battleEntity.concentrationPoint;
+
+        this.power = battleEntity.power;
+        this.armor = battleEntity.armor;
+        this.magicPower = battleEntity.magicPower;
+        this.magicArmor = battleEntity.magicArmor;
+        this.accuracy = battleEntity.accuracy;
+        this.avoid = battleEntity.avoid;
+        this.critRate = battleEntity.critRate;
+        this.critDam = battleEntity.critDam;
+
+        this.healthPoint = battleEntity.healthPoint;
+        this.healthPointMax = battleEntity.healthPointMax;
+        this.manaPoint = battleEntity.manaPoint;
+        this.manaPointMax = battleEntity.manaPointMax;
+
+        this.expEff = battleEntity.expEff;
+
+        this.fame = battleEntity.fame;
+        this.charm = battleEntity.charm;
+        this.weight = battleEntity.weight;
+        this.weightMax = battleEntity.weightMax;
+
+        this.expStack = battleEntity.expStack;
+        this.sortingIndex = battleEntity.sortingIndex;
+    }
 }
 
 [System.Serializable]

@@ -72,10 +72,11 @@ public class StatUI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isDataChanged)
+/*        if (isDataChanged)
         {
             refresh();
-        }
+        }*/
+        refresh();
     }
 
     public void uiOnOff()

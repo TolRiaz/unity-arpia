@@ -54,6 +54,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -109,6 +110,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -122,7 +124,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479908
+    rgba: 4281545701
   m_fontColor: {r: 0.8962264, g: 0.1986917, b: 0.1986917, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -217,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b74feef053bef4f952b7330c1ce930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  alphaSpeed: 3
-  destroyTimer: 1
+  speed: 1
+  alphaSpeed: 2
+  destroyTimer: 5
   damage: 0

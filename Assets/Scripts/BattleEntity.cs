@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleEntity : MonoBehaviour
 {
+    public int transformIndex;
     public float cooldown;
     public float castingTimer;
     public bool isCasting;
     public Action action;
+    public GameObject target;
+    public GameObject[] targets;
 
     public float playerX;
     public float playerY;
@@ -62,10 +66,19 @@ public class BattleEntity : MonoBehaviour
     public float expStack;
     public int sortingIndex;
 
+    // HealthBar text
+    public int damagedTimer;
+    public GameObject healthBarBackground;
+    public Image healthBar;
+
+    // Damage text
+    public GameObject hudDamageText;
+    public Transform hudPos;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        healthBar.fillAmount = 1.0f;
     }
 
     // Update is called once per frame
@@ -162,6 +175,53 @@ public class BattleEntity : MonoBehaviour
 
         this.expStack = playerData.expStack;
         this.sortingIndex = playerData.sortingIndex;
+    }
+
+    public void sendThisGameObejct()
+    {
+        BattleManager.instance.selectedObject = gameObject;
+        BattleManager.instance.selectTargetMode();
+    }
+
+    public void takeDamage(int damage)
+    {
+        GameObject hudText = Instantiate(hudDamageText);
+        hudText.transform.position = hudPos.position;
+
+        //int avoidValue = avoid - playerdata.accuracy;
+        //int damage = -((armor - playerdata.power * Random.Range(600, 1010)) / 1000);
+
+        /*if (damage <= 0)
+        {
+            hudText.GetComponent<DamageText>().damage = 0;
+            return;
+        }
+
+        if (avoidValue > 0)
+        {
+            if (Random.Range(0, 30) < avoidValue)
+            {
+                hudText.GetComponent<DamageText>().damage = 0;
+                return;
+            }
+        }*/
+
+        healthPoint -= damage;
+        damagedTimer = 30;
+        //isDamaged = true;
+        Debug.Log("데미지 : " + damage + "  남은체력 : " + healthPoint);
+        healthBar.fillAmount = healthPoint / healthPointMax;
+        healthBarBackground.SetActive(true);
+
+        hudText.GetComponent<DamageText>().damage = damage;
+
+        // 뒤집기
+        // healthBar.transform.localScale = transform.localScale;
+    }
+
+    public void getTransformIndex()
+    {
+
     }
 }
 
