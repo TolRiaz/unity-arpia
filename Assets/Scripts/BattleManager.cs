@@ -20,10 +20,10 @@ public class BattleManager : MonoBehaviour
     public List<GameObject> enemyArrows = new List<GameObject>();
 
     // Battle casting bar position
-    private GameObject chargingPivot;
-    private Vector2 cooldownPosition;
-    private Vector2 castingPosition;
-    private Vector2 actionPosition;
+    private Vector2 chargingPivot;
+    private Vector2 cooldownPivot;
+    private Vector2 castingPivot;
+    private Vector2 actionPivot;
     private float teamPivot = 140;
     private float enemyPivot = -120;
 
@@ -60,7 +60,7 @@ public class BattleManager : MonoBehaviour
             actionMenu[i] = transform.GetChild(0).GetChild(0).GetChild(i + 4).gameObject;
             actionMenu[i].SetActive(false);
 
-            cooldownTeam[i] = 250 / term;
+            cooldownTeam[i] = (0.13f * Screen.width) / term;
         }
 
         // casting arrow register
@@ -69,18 +69,16 @@ public class BattleManager : MonoBehaviour
             teamArrows[i] = battleSet.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(i).gameObject;
             enemyArrows[i] = battleSet.transform.GetChild(0).GetChild(0).GetChild(1).GetChild(i).gameObject;
 
-            cooldownEnemy[i] = 120 / term;
+            cooldownEnemy[i] = (0.0625f * Screen.width) / term;
         }
 
-        cooldownEnemy[0] = 150 / term;
-        cooldownEnemy[1] = 100 / term;
+        cooldownEnemy[0] = (0.080f * Screen.width) / term;
+        cooldownEnemy[1] = (0.055f * Screen.width) / term;
 
-        chargingPivot = battleSet.transform.GetChild(0).GetChild(0).GetChild(2).gameObject;
-        cooldownPosition = chargingPivot.transform.position;
-        castingPosition = new Vector2(cooldownPosition.x + 600, cooldownPosition.y);
-        actionPosition = new Vector2(cooldownPosition.x + 900, cooldownPosition.y);
+        setResolution();
 
         castingBar = battleSet.transform.Find("CastingBar").gameObject;
+        setArrowPosition();
 
         battleSet.SetActive(false);
     }
@@ -95,12 +93,21 @@ public class BattleManager : MonoBehaviour
             dealCooldown();
         }
     }
+
+    // 해상도 별 캐스팅 바 포지션 세팅
+    public void setResolution()
+    {
+        chargingPivot = new Vector2(Screen.width / 2, Screen.height / 3);
+        cooldownPivot = new Vector2(Screen.width / 4, Screen.height / 3);
+        castingPivot = new Vector2(Screen.width / 12 * 7, Screen.height / 3);
+        actionPivot = new Vector2(Screen.width / 4 * 3, Screen.height / 3);
+    }
     
     public void dealActionTeam()
     {
         for (int i = 0; i < teamCount; i++)
         {
-            if (teams[i].GetComponent<BattleEntity>().isCasting && teamArrows[i].transform.position.x >= actionPosition.x)
+            if (teams[i].GetComponent<BattleEntity>().isCasting && teamArrows[i].transform.position.x >= actionPivot.x)
             {
                 int transformIndex = teams[i].GetComponent<BattleEntity>().target.GetComponent<BattleEntity>().transformIndex;
 
@@ -115,7 +122,7 @@ public class BattleManager : MonoBehaviour
                     if (teams[transformIndex].GetComponent<BattleEntity>().isCasting)
                     {
                         float previousPosition = teamArrows[transformIndex].transform.position.x;
-                        float cooldownAmount = teamArrows[transformIndex].transform.position.x - cooldownPosition.x;
+                        float cooldownAmount = teamArrows[transformIndex].transform.position.x - cooldownPivot.x;
                         float newPosition = previousPosition - (cooldownAmount / 3 * 2);
 
                         teamArrows[transformIndex].transform.position = new Vector2(newPosition, teamArrows[transformIndex].transform.position.y);
@@ -126,7 +133,7 @@ public class BattleManager : MonoBehaviour
 
                     teams[i].GetComponent<BattleEntity>().isCasting = false;
                     teams[i].GetComponent<BattleEntity>().action = Action.NONE;
-                    teamArrows[i].transform.position = new Vector2(cooldownPosition.x, teamArrows[i].transform.position.y);
+                    teamArrows[i].transform.position = new Vector2(cooldownPivot.x, teamArrows[i].transform.position.y);
                 }
                 else if (transformIndex >= 10 && teams[i].GetComponent<BattleEntity>().action == Action.ATTACK)
                 {
@@ -140,7 +147,7 @@ public class BattleManager : MonoBehaviour
                     if (enemies[transformIndex].GetComponent<BattleEntity>().isCasting)
                     {
                         float previousPosition = enemyArrows[transformIndex].transform.position.x;
-                        float cooldownAmount = enemyArrows[transformIndex].transform.position.x - cooldownPosition.x;
+                        float cooldownAmount = enemyArrows[transformIndex].transform.position.x - cooldownPivot.x;
                         float newPosition = previousPosition - (cooldownAmount / 3 * 2);
 
                         enemyArrows[transformIndex].transform.position = new Vector2(newPosition, enemyArrows[transformIndex].transform.position.y);
@@ -152,7 +159,7 @@ public class BattleManager : MonoBehaviour
 
                     teams[i].GetComponent<BattleEntity>().isCasting = false;
                     teams[i].GetComponent<BattleEntity>().action = Action.NONE;
-                    teamArrows[i].transform.position = new Vector2(cooldownPosition.x, teamArrows[i].transform.position.y);
+                    teamArrows[i].transform.position = new Vector2(cooldownPivot.x, teamArrows[i].transform.position.y);
                 }
             }
         }
@@ -162,7 +169,7 @@ public class BattleManager : MonoBehaviour
     {
         for (int i = 0; i < enemyCount; i++)
         {
-            if (enemies[i].GetComponent<BattleEntity>().isCasting && enemyArrows[i].transform.position.x >= actionPosition.x)
+            if (enemies[i].GetComponent<BattleEntity>().isCasting && enemyArrows[i].transform.position.x >= actionPivot.x)
             {
                 Debug.Log(enemies[i].name + "의 공격 준비 완료! 대상 : " + enemies[i].GetComponent<BattleEntity>().target.name);
 
@@ -179,7 +186,7 @@ public class BattleManager : MonoBehaviour
                     if (teams[transformIndex].GetComponent<BattleEntity>().isCasting)
                     {
                         float previousPosition = teamArrows[transformIndex].transform.position.x;
-                        float cooldownAmount = teamArrows[transformIndex].transform.position.x - cooldownPosition.x;
+                        float cooldownAmount = teamArrows[transformIndex].transform.position.x - cooldownPivot.x;
                         float newPosition = previousPosition - (cooldownAmount / 3 * 2);
 
                         teamArrows[transformIndex].transform.position = new Vector2(newPosition, teamArrows[transformIndex].transform.position.y);
@@ -190,7 +197,7 @@ public class BattleManager : MonoBehaviour
 
                     enemies[i].GetComponent<BattleEntity>().isCasting = false;
                     enemies[i].GetComponent<BattleEntity>().action = Action.NONE;
-                    enemyArrows[i].transform.position = new Vector2(cooldownPosition.x, enemyArrows[i].transform.position.y);
+                    enemyArrows[i].transform.position = new Vector2(cooldownPivot.x, enemyArrows[i].transform.position.y);
                 }
                 else if (transformIndex >= 10 && teams[i].GetComponent<BattleEntity>().action == Action.ATTACK)
                 {
@@ -204,7 +211,7 @@ public class BattleManager : MonoBehaviour
                     if (enemies[transformIndex].GetComponent<BattleEntity>().isCasting)
                     {
                         float previousPosition = enemyArrows[transformIndex].transform.position.x;
-                        float cooldownAmount = enemyArrows[transformIndex].transform.position.x - cooldownPosition.x;
+                        float cooldownAmount = enemyArrows[transformIndex].transform.position.x - cooldownPivot.x;
                         float newPosition = previousPosition - (cooldownAmount / 3 * 2);
 
                         enemyArrows[transformIndex].transform.position = new Vector2(newPosition, enemyArrows[transformIndex].transform.position.y);
@@ -216,13 +223,28 @@ public class BattleManager : MonoBehaviour
 
                     enemies[i].GetComponent<BattleEntity>().isCasting = false;
                     enemies[i].GetComponent<BattleEntity>().action = Action.NONE;
-                    enemyArrows[i].transform.position = new Vector2(cooldownPosition.x, enemyArrows[i].transform.position.y);
+                    enemyArrows[i].transform.position = new Vector2(cooldownPivot.x, enemyArrows[i].transform.position.y);
                 }
             }
         }
     }
 
-    // 공격 쿨타임 온
+    public void setArrowPosition()
+    {
+        for (int i = 0; i < teamArrows.Count; i++)
+        {
+            teamArrows[i].transform.position = new Vector2(cooldownPivot.x, chargingPivot.y * 2 + Screen.height / 4);
+            //teamArrows[i].transform.position = new Vector2(teamArrows[i].transform.position.x, Screen.height * 0.0740741f);
+        }
+
+        for (int i = 0; i < enemyArrows.Count; i++)
+        {
+            enemyArrows[i].transform.position = new Vector2(cooldownPivot.x, chargingPivot.y * 2);
+            //enemyArrows[i].transform.position = new Vector2(enemyArrows[i].transform.position.x, -(Screen.height * 0.055556f));
+        }
+    }
+
+    // 행동 쿨타임 컨트롤러
     public void dealCooldown()
     {
         if (isReachedCasting)
@@ -235,7 +257,7 @@ public class BattleManager : MonoBehaviour
         {
             teamArrows[i].transform.position = new Vector2(teamArrows[i].transform.position.x + cooldownTeam[i], teamArrows[i].transform.position.y);
 
-            if (teamArrows[i].transform.position.x >= castingPosition.x && !teams[i].GetComponent<BattleEntity>().isCasting)
+            if (teamArrows[i].transform.position.x >= castingPivot.x && !teams[i].GetComponent<BattleEntity>().isCasting)
             {
                 isReachedCasting = true;
                 actionMenu[i].SetActive(true);
@@ -248,7 +270,7 @@ public class BattleManager : MonoBehaviour
         {
             enemyArrows[i].transform.position = new Vector2(enemyArrows[i].transform.position.x + cooldownEnemy[i], enemyArrows[i].transform.position.y);
 
-            if (enemyArrows[i].transform.position.x >= castingPosition.x && !enemies[i].GetComponent<BattleEntity>().isCasting)
+            if (enemyArrows[i].transform.position.x >= castingPivot.x && !enemies[i].GetComponent<BattleEntity>().isCasting)
             {
                 // TODO 아래 정의해둔 것은 버튼안에서 이루어지는 동작임, 수정 필요
                 pushAttackButtonEnemy(i);
@@ -295,7 +317,7 @@ public class BattleManager : MonoBehaviour
         {
             teamArrows[i].SetActive(true);
             teamArrows[i].GetComponent<Image>().sprite = teams[i].GetComponent<SpriteRenderer>().sprite;
-            teamArrows[i].transform.position = new Vector2(cooldownPosition.x, cooldownPosition.y + teamPivot);
+            // teamArrows[i].transform.position = new Vector2(cooldownPivot.x, cooldownPivot.y + teamPivot);
         }
 
         for (int i = teamCount; i < teams.Count; i++)
@@ -308,7 +330,7 @@ public class BattleManager : MonoBehaviour
         {
             enemyArrows[i].SetActive(true);
             enemyArrows[i].GetComponent<Image>().sprite = enemies[i].GetComponent<SpriteRenderer>().sprite;
-            enemyArrows[i].transform.position = new Vector2(cooldownPosition.x, cooldownPosition.y + enemyPivot);
+            // enemyArrows[i].transform.position = new Vector2(cooldownPivot.x, cooldownPivot.y + enemyPivot);
         }
 
         for (int i = enemyCount; i < enemies.Count; i++)

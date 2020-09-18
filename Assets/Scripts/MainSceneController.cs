@@ -17,6 +17,9 @@ public class MainSceneController : MonoBehaviour
     public GameObject[] character_type;
 
     public PlayerData playerData;
+
+    public Text[] text;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +33,7 @@ public class MainSceneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Invoke("setTextAlpha", 5f);
     }
 
     public void DoStartGame()
@@ -88,6 +91,17 @@ public class MainSceneController : MonoBehaviour
                 type = 5;
                 character_type[5].SetActive(true);
                 break;
+        }
+    }
+
+    public void setTextAlpha()
+    {
+        for (int i = 0; i < text.Length; i++)
+        {
+            Color alpha;
+            alpha = text[i].color;
+            alpha.a = Mathf.Lerp(alpha.a, 1f, Time.deltaTime / 3);
+            text[i].color = alpha;
         }
     }
 
