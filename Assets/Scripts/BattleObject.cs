@@ -31,6 +31,9 @@ public class BattleObject : MonoBehaviour
 
             BattleManager.instance.setBattleField();
 
+            SoundManager.instance.stopAllSounds();
+            SoundManager.instance.playMusic(21);
+
             Destroy(gameObject);
         }
     }

@@ -94,7 +94,7 @@ public class Calculator
         datas[1] = data.level;
         datas[2] = 0; // data.healthPointEquipment;
 
-        return 100 + (int)(datas[0] * 3 + datas[1] + datas[2] - 1);
+        return (int) data.healthPointMax + (int)(datas[0] * 3 + datas[1] + datas[2] - 1);
     }
 
     public static int manaPointMaxCalc(PlayerData data)
@@ -105,7 +105,7 @@ public class Calculator
         datas[1] = data.level;
         datas[2] = 0; // data.manaPointEquipment;
 
-        return 100 + (int)(datas[0] * 3 + datas[1] + datas[2] - 1);
+        return (int)data.manaPointMax + (int)(datas[0] * 3 + datas[1] + datas[2] - 1);
     }
 
     public static string numberToFormatting(int num)

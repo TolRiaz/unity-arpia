@@ -75,7 +75,7 @@ public class QuestDatabase : MonoBehaviour
         string jsonData = JsonUtility.ToJson(questResource, true);
         Debug.Log(jsonData.Length);
 
-        File.WriteAllText(saveOrLoad(false, true, "QuestDatas"), jsonData);
+        File.WriteAllText(saveOrLoad(true, true, "QuestDatas"), jsonData);
     }
 
     public string saveOrLoad(bool isMobile, bool isSave, string fileName)

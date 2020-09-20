@@ -119,6 +119,8 @@ public class BattleEntity : MonoBehaviour
         this.charm = entityData.charm;
         this.expStack = entityData.expStack;
         this.sortingIndex = entityData.sortingIndex;
+
+        healthBar.fillAmount = healthPoint / healthPointMax;
     }
 
     public void setBattleEntityData(PlayerData playerData)
@@ -175,6 +177,8 @@ public class BattleEntity : MonoBehaviour
 
         this.expStack = playerData.expStack;
         this.sortingIndex = playerData.sortingIndex;
+
+        healthBar.fillAmount = healthPoint / healthPointMax;
     }
 
     public void sendThisGameObejct()

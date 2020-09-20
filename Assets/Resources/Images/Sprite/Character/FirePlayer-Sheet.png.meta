@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: 4e823d701c0191147904e1be0ee492ab
+guid: 8641dec2c3317464d90e1451495b7f65
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5051120114284579946
-    second: "UI \uCD94\uAC00_0"
+      213: -8945271465914948329
+    second: FirePlayer-Sheet_0
   - first:
-      213: -3933917795720234338
-    second: "UI \uCD94\uAC00_1"
+      213: -6781709630877666383
+    second: FirePlayer-Sheet_1
   - first:
-      213: -6974125508122642526
-    second: "UI \uCD94\uAC00_2"
+      213: 6812283696163758128
+    second: FirePlayer-Sheet_2
+  - first:
+      213: -905661359426584821
+    second: FirePlayer-Sheet_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -120,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "UI \uCD94\uAC00_0"
+      name: FirePlayer-Sheet_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 9
-        width: 40
-        height: 40
+        x: 0
+        y: 0
+        width: 83
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +137,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 693bc3e9401d6e9b0800000000000000
-      internalID: -5051120114284579946
+      spriteID: 715a3beeef20cd380800000000000000
+      internalID: -8945271465914948329
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "UI \uCD94\uAC00_1"
+      name: FirePlayer-Sheet_1
       rect:
         serializedVersion: 2
-        x: 57
-        y: 10
-        width: 38
-        height: 38
+        x: 83
+        y: 0
+        width: 83
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,20 +158,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9af18a8b9ae769c0800000000000000
-      internalID: -3933917795720234338
+      spriteID: 1b3f0b1950782e1a0800000000000000
+      internalID: -6781709630877666383
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "UI \uCD94\uAC00_2"
+      name: FirePlayer-Sheet_2
       rect:
         serializedVersion: 2
-        x: 104
-        y: 9
-        width: 40
-        height: 40
+        x: 166
+        y: 0
+        width: 83
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,8 +179,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a7fb550dcde63f90800000000000000
-      internalID: -6974125508122642526
+      spriteID: 030a60bbde71a8e50800000000000000
+      internalID: 6812283696163758128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FirePlayer-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 0
+        width: 83
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0fb490cac17e63f0800000000000000
+      internalID: -905661359426584821
       vertices: []
       indices: 
       edges: []

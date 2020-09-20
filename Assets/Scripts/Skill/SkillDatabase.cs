@@ -35,7 +35,7 @@ public class SkillDatabase : MonoBehaviour
         Debug.Log("저장 성공");
         skillDataFile.skillDatas = new List<Skill>();
 
-        skillDataFile.skillDatas.Add(new Skill(0, "허기인내", spritePath + "/" + 3000001, 100, 10000
+        skillDataFile.skillDatas.Add(new Skill(0, "파이어 볼", spritePath + "/" + 3000001, 100, 10000
             , "허기에 대한 저항력이 상승한다.\n\n포화수치가 20 % 미만을 유지하면 숙련도가 올라간다.\n\n포화 감소율 - 1 %\n최대 포화 + 1 % "));
         skillDataFile.skillDatas.Add(new Skill(1, "갈증인내", spritePath + "/" + 3000002, 100, 10000
             , "갈증에 대한 저항력이 상승한다.\n\n갈증수치가 20 % 미만을 유지하면 숙련도가 올라간다.\n\n갈증 감소율 - 1 %\n최대 갈증 + 1 % "));
@@ -48,7 +48,7 @@ public class SkillDatabase : MonoBehaviour
 
         Debug.Log(jsonData.Length);
 
-        File.WriteAllText(saveOrLoad(false, true, "SkillData"), jsonData);
+        File.WriteAllText(saveOrLoad(true, true, "SkillData"), jsonData);
     }
 
     [ContextMenu("From Json Data")]
@@ -73,7 +73,7 @@ public class SkillDatabase : MonoBehaviour
 
             string jsonData = JsonUtility.ToJson(skillDataFile, true);
 
-            File.WriteAllText(saveOrLoad(false, false, "SkillData"), jsonData);
+            File.WriteAllText(saveOrLoad(true, false, "SkillData"), jsonData);
             loadSkillData();
         }
     }

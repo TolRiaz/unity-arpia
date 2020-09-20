@@ -103,6 +103,7 @@ public class BattleManager : MonoBehaviour
         actionPivot = new Vector2(Screen.width / 4 * 3, Screen.height / 3);
     }
     
+    // 캐스팅 처리
     public void dealActionTeam()
     {
         for (int i = 0; i < teamCount; i++)
@@ -163,6 +164,8 @@ public class BattleManager : MonoBehaviour
                 }
             }
         }
+
+        applyResult();
     }
 
     public void dealActionEnemy()
@@ -227,6 +230,8 @@ public class BattleManager : MonoBehaviour
                 }
             }
         }
+
+        applyResult();
     }
 
     public void setArrowPosition()
@@ -400,52 +405,6 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void pushAttackButton(int index)
-    {
-        isTargetSelectingOn = true;
-        selectedObject = null;
-        actionIndex = index;
-        actionMenu[actionIndex].GetComponent<Animator>().SetBool("isActionMenuOn", false);
-        teams[actionIndex].GetComponent<BattleEntity>().action = Action.ATTACK;
-    }
-
-    public void pushAttackButtonEnemy(int index)
-    {
-        selectedObject = null;
-        actionIndex = index;
-        enemies[actionIndex].GetComponent<BattleEntity>().action = Action.ATTACK;
-
-        // 임시로 타겟은 플레이어
-        targetObject = teams[0].gameObject;
-
-        // 최종 타겟 선택
-        if (targetObject != null)
-        {
-            int transformIndex = targetObject.GetComponent<BattleEntity>().transformIndex;
-
-            // team 선택
-            if (transformIndex < 10)
-            {
-                Debug.Log(enemies[index].name + "이 타겟을 등록 : " + targetObject.name);
-                enemies[actionIndex].GetComponent<BattleEntity>().target = teams[transformIndex];
-            }
-            else // enemy 선택
-            {
-                transformIndex -= 10;
-                enemies[actionIndex].GetComponent<BattleEntity>().target = enemies[transformIndex];
-            }
-
-            targetObject = null;
-
-            enemies[actionIndex].GetComponent<BattleEntity>().isCasting = true;
-            isReachedCasting = false;
-
-            applyResult();
-
-            return;
-        }
-    }
-
     // 타겟 선택
     public void selectTargetMode()
     {
@@ -500,6 +459,107 @@ public class BattleManager : MonoBehaviour
                 targetObject.transform.GetChild(0).gameObject.SetActive(true);
                 selectedObject = null;
             }
+        }
+    }
+
+    // 버튼 처리
+    public void buttonCancel()
+    {
+        SoundManager.instance.playButtonEffectSound();
+        isTargetSelectingOn = false;
+        selectedObject = null;
+        actionMenu[actionIndex].GetComponent<Animator>().SetBool("isActionMenuOn", true);
+        actionMenu[actionIndex].GetComponent<Animator>().SetBool("isActionMagicOn", false);
+        actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellFire", false);
+        actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellIce", false);
+        actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellEarth", false);
+        actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellNone", false);
+        teams[actionIndex].GetComponent<BattleEntity>().action = Action.NONE;
+    }
+
+    public void buttonSpellCancel()
+    {
+        SoundManager.instance.playButtonEffectSound();
+        isTargetSelectingOn = false;
+        selectedObject = null;
+        actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellFire", false);
+        actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellIce", false);
+        actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellEarth", false);
+        actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellNone", false);
+        teams[actionIndex].GetComponent<BattleEntity>().action = Action.NONE;
+    }
+
+    public void buttonAttack(int index)
+    {
+        SoundManager.instance.playButtonEffectSound();
+        isTargetSelectingOn = true;
+        selectedObject = null;
+        actionIndex = index;
+        actionMenu[actionIndex].GetComponent<Animator>().SetBool("isActionMenuOn", false);
+        teams[actionIndex].GetComponent<BattleEntity>().action = Action.ATTACK;
+    }
+
+    public void buttonMagic(int index)
+    {
+        SoundManager.instance.playButtonEffectSound();
+        actionIndex = index;
+        actionMenu[actionIndex].GetComponent<Animator>().SetBool("isActionMagicOn", true);
+    }
+
+    public void buttonSpell(int spellType)
+    {
+        SoundManager.instance.playButtonEffectSound();
+        switch (spellType)
+        {
+            case 0:
+                actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellFire", true);
+                break;
+            case 1:
+                actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellIce", true);
+                break;
+            case 2:
+                actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellEarth", true);
+                break;
+            case 3:
+                actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellNone", true);
+                break;
+        }
+    }
+
+    public void pushAttackButtonEnemy(int index)
+    {
+        selectedObject = null;
+        actionIndex = index;
+        enemies[actionIndex].GetComponent<BattleEntity>().action = Action.ATTACK;
+
+        // 임시로 타겟은 플레이어
+        targetObject = teams[0].gameObject;
+
+        // 최종 타겟 선택
+        if (targetObject != null)
+        {
+            int transformIndex = targetObject.GetComponent<BattleEntity>().transformIndex;
+
+            // team 선택
+            if (transformIndex < 10)
+            {
+                Debug.Log(enemies[index].name + "이 타겟을 등록 : " + targetObject.name);
+                enemies[actionIndex].GetComponent<BattleEntity>().target = teams[transformIndex];
+            }
+            else // enemy 선택
+            {
+                transformIndex -= 10;
+                enemies[actionIndex].GetComponent<BattleEntity>().target = enemies[transformIndex];
+            }
+
+            targetObject = null;
+
+            enemies[actionIndex].GetComponent<BattleEntity>().isCasting = true;
+            isReachedCasting = false;
+
+            applyResult();
+
+            return;
         }
     }
 

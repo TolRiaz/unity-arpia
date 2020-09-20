@@ -58,3 +58,12 @@ TagManager:
   - name: MapUp
     uniqueID: 3355276799
     locked: 0
+  - name: ActionThird
+    uniqueID: 231765947
+    locked: 0
+  - name: ActionSecond
+    uniqueID: 3189895361
+    locked: 0
+  - name: ActionFirst
+    uniqueID: 3538570165
+    locked: 0

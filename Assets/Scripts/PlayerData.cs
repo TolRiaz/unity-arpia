@@ -58,6 +58,7 @@ public class PlayerData
     public float expStack;
     public int sortingIndex;
 
+    public List<Skill> skills;
 
     //Equipments
     /*    public int reinforce;
