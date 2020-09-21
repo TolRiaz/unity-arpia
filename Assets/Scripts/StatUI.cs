@@ -72,11 +72,11 @@ public class StatUI : MonoBehaviour
 
     private void FixedUpdate()
     {
-/*        if (isDataChanged)
+        if (isDataChanged)
         {
             refresh();
-        }*/
-        refresh();
+        }
+        // refresh();
     }
 
     public void uiOnOff()
@@ -100,6 +100,10 @@ public class StatUI : MonoBehaviour
             if (GetComponent<QuestUI>().questSet.activeSelf)
             {
                 GetComponent<QuestUI>().questSet.SetActive(false);
+            }
+            if (GetComponent<SkillUI>().skillSet.activeSelf)
+            {
+                GetComponent<SkillUI>().skillSet.SetActive(false);
             }
 
             refresh();

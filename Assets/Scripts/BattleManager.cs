@@ -351,7 +351,9 @@ public class BattleManager : MonoBehaviour
     {
         teams[0].SetActive(true);
         teams[0].GetComponent<BattleEntity>().setBattleEntityData(GameManager.instance.playerData);
+        setActionMenuSkill(0);
         teams[0].transform.GetChild(0).gameObject.SetActive(false); // Arrow
+        teams[0].GetComponent<BattleEntity>().isCasting = false;
 
         if (petDatas == null)
         {
@@ -370,6 +372,7 @@ public class BattleManager : MonoBehaviour
         {
             teams[i].SetActive(true);
             teams[i].GetComponent<BattleEntity>().setBattleEntityData(petDatas[i - 1]);
+            setActionMenuSkill(i);
             teams[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow
             teams[i].GetComponent<BattleEntity>().isCasting = false;
         }
@@ -402,6 +405,55 @@ public class BattleManager : MonoBehaviour
         for (int i = entityDatas.Count; i < enemies.Count; i++)
         {
             enemies[i].SetActive(false);
+        }
+    }
+
+    public void setActionMenuSkill(int index)
+    {
+        Transform spellMenu = actionMenu[index].transform.GetChild(1);
+        List<Skill> skills = teams[index].GetComponent<BattleEntity>().skills;
+        int spellMenuCount = 4;
+        int fire = 0;
+        int ice = 0;
+        int earth = 0;
+        int none = 0;
+
+        for (int i = 0; i < spellMenuCount; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                spellMenu.GetChild(i).GetChild(j).gameObject.SetActive(false);
+            }
+
+            for (int j = 0; j < skills.Count; j++)
+            {
+                // 불 마법 ( i 는 마법 탭 종류 )
+                if (i == 0 && skills[j].skillId < 100)
+                {
+                    spellMenu.GetChild(i).GetChild(fire).gameObject.SetActive(true);
+                    spellMenu.GetChild(i).GetChild(fire).gameObject.GetComponent<SpriteRenderer>().sprite = skills[j].sprite;
+                    fire++;
+                }
+                else if (i == 1 && skills[j].skillId >= 100 && skills[j].skillId < 200)
+                {
+                    spellMenu.GetChild(i).GetChild(ice).gameObject.SetActive(true);
+                    spellMenu.GetChild(i).GetChild(ice).gameObject.GetComponent<SpriteRenderer>().sprite = skills[j].sprite;
+                    ice++;
+                }
+                else if (i == 2 && skills[j].skillId >= 200 && skills[j].skillId < 300)
+                {
+                    spellMenu.GetChild(i).GetChild(earth).gameObject.SetActive(true);
+                    spellMenu.GetChild(i).GetChild(earth).gameObject.GetComponent<SpriteRenderer>().sprite = skills[j].sprite;
+                    earth++;
+                }
+                else if (i == 3 && skills[j].skillId >= 300 && skills[j].skillId < 400)
+                {
+                    spellMenu.GetChild(i).GetChild(none).gameObject.SetActive(true);
+                    spellMenu.GetChild(i).GetChild(none).gameObject.GetComponent<SpriteRenderer>().sprite = skills[j].sprite;
+                    none++;
+                }
+            }
+
         }
     }
 

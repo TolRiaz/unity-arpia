@@ -97,7 +97,7 @@ public class MouseMovement : MonoBehaviour
             }
         }
 
-        if (Mathf.Abs(GetComponent<RectTransform>().position.x - target.x) < 0.03f && Mathf.Abs(GetComponent<RectTransform>().position.y - target.y) < 0.03f)
+        if (Mathf.Abs(GetComponent<RectTransform>().position.x - target.x) < 0.01f && Mathf.Abs(GetComponent<RectTransform>().position.y - target.y) < 0.01f)
         {
             ObjectController.instance.SetAnimator(ViewDirection.NONE);
         }

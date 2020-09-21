@@ -37,7 +37,7 @@ public class SkillSet : MonoBehaviour
     {
         skill.skillName = SkillDatabase.instance.findSkillById(skillId).skillName;
         skill.level = SkillDatabase.instance.findSkillById(skillId).level;
-        skill.image = SkillDatabase.instance.findSkillById(skillId).image;
+        skill.sprite = SkillDatabase.instance.findSkillById(skillId).sprite;
         skill.experience = SkillDatabase.instance.findSkillById(skillId).experience;
         skill.imagePath = SkillDatabase.instance.findSkillById(skillId).imagePath;
         skill.information = SkillDatabase.instance.findSkillById(skillId).information;

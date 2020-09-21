@@ -69,6 +69,9 @@ public class GameManager : MonoBehaviour
     // Battle
     public bool isBattle;
 
+    // Game Environmemt
+    public Vector3 resolution;
+
     void Start()
     {
         isBattle = false;
@@ -80,6 +83,8 @@ public class GameManager : MonoBehaviour
         //loadSkillDataFromJson();
 
         loadExpTable();
+
+        resolution = new Vector3(Screen.width, Screen.height, 0);
 
         try
         {
@@ -977,6 +982,15 @@ public class GameManager : MonoBehaviour
     public void isDataChange()
     {
         isDataChanged = true;
+    }
+
+    public void applyResolutionScale(GameObject gameObject)
+    {
+        float x = resolution.x / 1920;
+        float y = resolution.y / 1080;
+        float z = 1;
+
+        gameObject.GetComponent<RectTransform>().localScale = new Vector3(x, y, z);
     }
 }
 

@@ -84,6 +84,10 @@ public class InventoryUI : MonoBehaviour
             {
                 GetComponent<QuestUI>().questSet.SetActive(false);
             }
+            if (GetComponent<SkillUI>().skillSet.activeSelf)
+            {
+                GetComponent<SkillUI>().skillSet.SetActive(false);
+            }
 
             inventorySet.SetActive(true);
         }

@@ -75,6 +75,9 @@ public class BattleEntity : MonoBehaviour
     public GameObject hudDamageText;
     public Transform hudPos;
 
+    // Skill
+    public List<Skill> skills;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -177,6 +180,8 @@ public class BattleEntity : MonoBehaviour
 
         this.expStack = playerData.expStack;
         this.sortingIndex = playerData.sortingIndex;
+
+        this.skills = playerData.skills;
 
         healthBar.fillAmount = healthPoint / healthPointMax;
     }

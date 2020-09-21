@@ -183,6 +183,11 @@ public class PlayerData
         this.expStack = battleEntity.expStack;
         this.sortingIndex = battleEntity.sortingIndex;
     }
+
+    public void addSkill(Skill skill)
+    {
+        skills.Add(skill);
+    }
 }
 
 [System.Serializable]
@@ -202,6 +207,7 @@ public enum Job
 [System.Serializable]
 public enum Element
 {
+    NONE,
     FIRE,
     ICE,
     EARTH,

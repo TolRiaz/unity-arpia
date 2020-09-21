@@ -103,6 +103,10 @@ public class CanvasManager : MonoBehaviour, IPointerClickHandler
         {
             GetComponent<QuestUI>().questSet.SetActive(false);
         }
+        if (GetComponent<SkillUI>().skillSet.activeSelf)
+        {
+            GetComponent<SkillUI>().skillSet.SetActive(false);
+        }
     }
 
     public void quitGame()

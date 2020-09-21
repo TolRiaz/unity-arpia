@@ -39,6 +39,8 @@ public class QuestUI : MonoBehaviour
 
     public void uiOnOff()
     {
+        SoundManager.instance.playButtonEffectSound();
+
         if (GameObject.Find("Canvas").GetComponent<ItemMenuSet>().isReinforceProgressing)
         {
             return;
@@ -64,6 +66,10 @@ public class QuestUI : MonoBehaviour
             {
                 GetComponent<InventoryUI>().inventorySet.SetActive(false);
             }
+            if (GetComponent<SkillUI>().skillSet.activeSelf)
+            {
+                GetComponent<SkillUI>().skillSet.SetActive(false);
+            }
 
             questSet.SetActive(true);
         }
@@ -77,6 +83,7 @@ public class QuestUI : MonoBehaviour
         }
     }
 
+
     public void setStartableQuest()
     {
         setQuestDestroy();
@@ -87,6 +94,8 @@ public class QuestUI : MonoBehaviour
             GameObject go = Instantiate(questTitlePanel);
             go.transform.SetParent(content.transform);
             go.GetComponent<QuestTitleButton>().questId = GameManager.instance.playerData.startQuest[i];
+            go.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            //GameManager.instance.applyResolutionScale(go);
 
             // 타이틀 제목
             GameObject title = go.transform.GetChild(0).gameObject;
@@ -104,6 +113,8 @@ public class QuestUI : MonoBehaviour
             GameObject go = Instantiate(questTitlePanel);
             go.transform.SetParent(content.transform);
             go.GetComponent<QuestTitleButton>().questId = GameManager.instance.playerData.currentQuest[i].questId;
+            go.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            //GameManager.instance.applyResolutionScale(go);
             //go.GetComponent<Text>().text = QuestDatabase.instance.questDB[dialogManager.playerData.currentQuest[i].questId].questTitle;
 
             // 타이틀 제목
@@ -122,6 +133,8 @@ public class QuestUI : MonoBehaviour
             GameObject go = Instantiate(questTitlePanel);
             go.transform.SetParent(content.transform);
             go.GetComponent<QuestTitleButton>().questId = GameManager.instance.playerData.clearQuest[i];
+            go.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            //GameManager.instance.applyResolutionScale(go);
             //go.GetComponent<Text>().text = QuestDatabase.instance.questDB[dialogManager.playerData.clearQuest[i]].questTitle;
 
             // 타이틀 제목
