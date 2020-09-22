@@ -40,6 +40,11 @@ public class BattleManager : MonoBehaviour
     public GameObject selectedObject;
     public GameObject targetObject;
     public bool readyToAction = false;
+    public int nowCastingTurn;
+
+    // Battle ending
+    public int surviveTeamCount;
+    public int surviveEnemyCount;
 
     //public GameObject mobPrefab;
 
@@ -91,6 +96,7 @@ public class BattleManager : MonoBehaviour
             dealActionTeam();
             dealActionEnemy();
             dealCooldown();
+            dealBattleEnd();
         }
     }
 
@@ -103,7 +109,7 @@ public class BattleManager : MonoBehaviour
         actionPivot = new Vector2(Screen.width / 4 * 3, Screen.height / 3);
     }
     
-    // 캐스팅 처리
+    // 캐스팅 처리, 공격 마법 처리, 행동 처리
     public void dealActionTeam()
     {
         for (int i = 0; i < teamCount; i++)
@@ -112,56 +118,64 @@ public class BattleManager : MonoBehaviour
             {
                 int transformIndex = teams[i].GetComponent<BattleEntity>().target.GetComponent<BattleEntity>().transformIndex;
 
+                // Action.ATTACK
                 if (transformIndex < 10 && teams[i].GetComponent<BattleEntity>().action == Action.ATTACK)
                 {
                     // TODO 공격 처리
-                    teams[transformIndex].GetComponent<BattleEntity>().takeDamage(10);
-
-                    Debug.Log(teams[transformIndex].name + "의 남은 체력 : " + teams[transformIndex].GetComponent<BattleEntity>().healthPoint + "/" + teams[transformIndex].GetComponent<BattleEntity>().healthPointMax);
+                    teams[transformIndex].GetComponent<BattleEntity>().takeDamage(teams[i].GetComponent<BattleEntity>(), Action.ATTACK);
 
                     // 캐스팅 시 취소
                     if (teams[transformIndex].GetComponent<BattleEntity>().isCasting)
                     {
-                        float previousPosition = teamArrows[transformIndex].transform.position.x;
-                        float cooldownAmount = teamArrows[transformIndex].transform.position.x - cooldownPivot.x;
-                        float newPosition = previousPosition - (cooldownAmount / 3 * 2);
-
-                        teamArrows[transformIndex].transform.position = new Vector2(newPosition, teamArrows[transformIndex].transform.position.y);
-                        teams[transformIndex].GetComponent<BattleEntity>().target = null;
-                        teams[transformIndex].GetComponent<BattleEntity>().isCasting = false;
+                        cancleCasting(transformIndex, true);
                     }
-                    teams[i].GetComponent<BattleEntity>().target = null;
 
-                    teams[i].GetComponent<BattleEntity>().isCasting = false;
-                    teams[i].GetComponent<BattleEntity>().action = Action.NONE;
-                    teamArrows[i].transform.position = new Vector2(cooldownPivot.x, teamArrows[i].transform.position.y);
+                    setAfterAction(i);
                 }
                 else if (transformIndex >= 10 && teams[i].GetComponent<BattleEntity>().action == Action.ATTACK)
                 {
                     transformIndex -= 10;
                     // TODO 공격 처리
-                    enemies[transformIndex].GetComponent<BattleEntity>().takeDamage(10);
-
-                    Debug.Log(enemies[transformIndex].name + "의 남은 체력 : " + enemies[transformIndex].GetComponent<BattleEntity>().healthPoint + "/" + enemies[transformIndex].GetComponent<BattleEntity>().healthPointMax);
+                    enemies[transformIndex].GetComponent<BattleEntity>().takeDamage(teams[i].GetComponent<BattleEntity>(), Action.ATTACK);
 
                     // 캐스팅 취소
                     if (enemies[transformIndex].GetComponent<BattleEntity>().isCasting)
                     {
-                        float previousPosition = enemyArrows[transformIndex].transform.position.x;
-                        float cooldownAmount = enemyArrows[transformIndex].transform.position.x - cooldownPivot.x;
-                        float newPosition = previousPosition - (cooldownAmount / 3 * 2);
-
-                        enemyArrows[transformIndex].transform.position = new Vector2(newPosition, enemyArrows[transformIndex].transform.position.y);
-                        enemies[transformIndex].GetComponent<BattleEntity>().target = null;
-                        enemies[transformIndex].GetComponent<BattleEntity>().isCasting = false;
+                        cancleCasting(transformIndex, false);
                     }
 
-                    teams[i].GetComponent<BattleEntity>().target = null; // 타겟 끄기
-
-                    teams[i].GetComponent<BattleEntity>().isCasting = false;
-                    teams[i].GetComponent<BattleEntity>().action = Action.NONE;
-                    teamArrows[i].transform.position = new Vector2(cooldownPivot.x, teamArrows[i].transform.position.y);
+                    setAfterAction(i);
                 }
+
+                // Action.MAGIC
+                if (transformIndex < 10 && teams[i].GetComponent<BattleEntity>().action == Action.MAGIC)
+                {
+                    // TODO 공격 처리
+                    teams[transformIndex].GetComponent<BattleEntity>().takeDamage(teams[i].GetComponent<BattleEntity>(), Action.MAGIC);
+
+                    // 캐스팅 시 취소
+                    if (teams[transformIndex].GetComponent<BattleEntity>().isCasting)
+                    {
+                        cancleCasting(transformIndex);
+                    }
+
+                    setAfterAction(i);
+                }
+                else if (transformIndex >= 10 && teams[i].GetComponent<BattleEntity>().action == Action.MAGIC)
+                {
+                    transformIndex -= 10;
+                    // TODO 공격 처리
+                    enemies[transformIndex].GetComponent<BattleEntity>().takeDamage(teams[i].GetComponent<BattleEntity>(), Action.MAGIC);
+
+                    // 캐스팅 취소
+                    if (enemies[transformIndex].GetComponent<BattleEntity>().isCasting)
+                    {
+                        cancleCasting(transformIndex, false);
+                    }
+
+                    setAfterAction(i);
+                }
+
             }
         }
 
@@ -181,52 +195,66 @@ public class BattleManager : MonoBehaviour
                 if (transformIndex < 10 && enemies[i].GetComponent<BattleEntity>().action == Action.ATTACK)
                 {
                     // TODO 공격 처리
-                    teams[transformIndex].GetComponent<BattleEntity>().takeDamage(10);
+                    teams[transformIndex].GetComponent<BattleEntity>().takeDamage(enemies[i].GetComponent<BattleEntity>(), Action.ATTACK);
 
                     Debug.Log(teams[transformIndex].name + "의 남은 체력 : " + teams[transformIndex].GetComponent<BattleEntity>().healthPoint + "/" + teams[transformIndex].GetComponent<BattleEntity>().healthPointMax);
 
                     // 캐스팅 시 취소
                     if (teams[transformIndex].GetComponent<BattleEntity>().isCasting)
                     {
-                        float previousPosition = teamArrows[transformIndex].transform.position.x;
-                        float cooldownAmount = teamArrows[transformIndex].transform.position.x - cooldownPivot.x;
-                        float newPosition = previousPosition - (cooldownAmount / 3 * 2);
-
-                        teamArrows[transformIndex].transform.position = new Vector2(newPosition, teamArrows[transformIndex].transform.position.y);
-                        teams[transformIndex].GetComponent<BattleEntity>().target = null;
-                        teams[transformIndex].GetComponent<BattleEntity>().isCasting = false;
+                        cancleCasting(transformIndex, true);
                     }
-                    enemies[i].GetComponent<BattleEntity>().target = null;
 
-                    enemies[i].GetComponent<BattleEntity>().isCasting = false;
-                    enemies[i].GetComponent<BattleEntity>().action = Action.NONE;
-                    enemyArrows[i].transform.position = new Vector2(cooldownPivot.x, enemyArrows[i].transform.position.y);
+                    setAfterAction(i, false);
                 }
                 else if (transformIndex >= 10 && teams[i].GetComponent<BattleEntity>().action == Action.ATTACK)
                 {
                     transformIndex -= 10;
                     // TODO 공격 처리
-                    enemies[transformIndex].GetComponent<BattleEntity>().takeDamage(10);
+                    enemies[transformIndex].GetComponent<BattleEntity>().takeDamage(enemies[i].GetComponent<BattleEntity>(), Action.ATTACK);
 
                     Debug.Log(enemies[transformIndex].name + "의 남은 체력 : " + enemies[transformIndex].GetComponent<BattleEntity>().healthPoint + "/" + enemies[transformIndex].GetComponent<BattleEntity>().healthPointMax);
 
                     // 캐스팅 취소
                     if (enemies[transformIndex].GetComponent<BattleEntity>().isCasting)
                     {
-                        float previousPosition = enemyArrows[transformIndex].transform.position.x;
-                        float cooldownAmount = enemyArrows[transformIndex].transform.position.x - cooldownPivot.x;
-                        float newPosition = previousPosition - (cooldownAmount / 3 * 2);
-
-                        enemyArrows[transformIndex].transform.position = new Vector2(newPosition, enemyArrows[transformIndex].transform.position.y);
-                        enemies[transformIndex].GetComponent<BattleEntity>().target = null;
-                        enemies[transformIndex].GetComponent<BattleEntity>().isCasting = false;
+                        cancleCasting(transformIndex, false);
                     }
 
-                    enemies[i].GetComponent<BattleEntity>().target = null; // 타겟 끄기
+                    setAfterAction(i, false);
+                }
 
-                    enemies[i].GetComponent<BattleEntity>().isCasting = false;
-                    enemies[i].GetComponent<BattleEntity>().action = Action.NONE;
-                    enemyArrows[i].transform.position = new Vector2(cooldownPivot.x, enemyArrows[i].transform.position.y);
+                // Action.MAGIC
+                if (transformIndex < 10 && enemies[i].GetComponent<BattleEntity>().action == Action.MAGIC)
+                {
+                    // TODO 공격 처리
+                    teams[transformIndex].GetComponent<BattleEntity>().takeDamage(enemies[i].GetComponent<BattleEntity>(), Action.ATTACK);
+
+                    Debug.Log(teams[transformIndex].name + "의 남은 체력 : " + teams[transformIndex].GetComponent<BattleEntity>().healthPoint + "/" + teams[transformIndex].GetComponent<BattleEntity>().healthPointMax);
+
+                    // 캐스팅 시 취소
+                    if (teams[transformIndex].GetComponent<BattleEntity>().isCasting)
+                    {
+                        cancleCasting(transformIndex, true);
+                    }
+
+                    setAfterAction(i, false);
+                }
+                else if (transformIndex >= 10 && teams[i].GetComponent<BattleEntity>().action == Action.MAGIC)
+                {
+                    transformIndex -= 10;
+                    // TODO 공격 처리
+                    enemies[transformIndex].GetComponent<BattleEntity>().takeDamage(enemies[i].GetComponent<BattleEntity>(), Action.ATTACK);
+
+                    Debug.Log(enemies[transformIndex].name + "의 남은 체력 : " + enemies[transformIndex].GetComponent<BattleEntity>().healthPoint + "/" + enemies[transformIndex].GetComponent<BattleEntity>().healthPointMax);
+
+                    // 캐스팅 취소
+                    if (enemies[transformIndex].GetComponent<BattleEntity>().isCasting)
+                    {
+                        cancleCasting(transformIndex, false);
+                    }
+
+                    setAfterAction(i, false);
                 }
             }
         }
@@ -234,7 +262,127 @@ public class BattleManager : MonoBehaviour
         applyResult();
     }
 
-    public void setArrowPosition()
+    // 액션 처리 부분, 캐스팅 취소
+    private void cancleCasting(int transformIndex, bool isTeam = true)
+    {
+        if (isTeam)
+        {
+            float previousPosition = teamArrows[transformIndex].transform.position.x;
+            float cooldownAmount = teamArrows[transformIndex].transform.position.x - cooldownPivot.x;
+            float newPosition = previousPosition - (cooldownAmount / 3 * 2);
+
+            teamArrows[transformIndex].transform.position = new Vector2(newPosition, teamArrows[transformIndex].transform.position.y);
+            teams[transformIndex].GetComponent<BattleEntity>().target = null;
+            teams[transformIndex].GetComponent<BattleEntity>().isCasting = false;
+        }
+        else
+        {
+            float previousPosition = enemyArrows[transformIndex].transform.position.x;
+            float cooldownAmount = enemyArrows[transformIndex].transform.position.x - cooldownPivot.x;
+            float newPosition = previousPosition - (cooldownAmount / 3 * 2);
+
+            enemyArrows[transformIndex].transform.position = new Vector2(newPosition, enemyArrows[transformIndex].transform.position.y);
+            enemies[transformIndex].GetComponent<BattleEntity>().target = null;
+            enemies[transformIndex].GetComponent<BattleEntity>().isCasting = false;
+        }
+    }
+
+    // 액션 처리 부분, 리셋
+    private void setAfterAction(int i, bool isTeam = true)
+    {
+        if (isTeam)
+        {
+            teams[i].GetComponent<BattleEntity>().target = null;
+
+            teams[i].GetComponent<BattleEntity>().isCasting = false;
+            teams[i].GetComponent<BattleEntity>().action = Action.NONE;
+            teamArrows[i].transform.position = new Vector2(cooldownPivot.x, teamArrows[i].transform.position.y);
+        }
+        else
+        {
+            enemies[i].GetComponent<BattleEntity>().target = null; // 타겟 끄기
+
+            enemies[i].GetComponent<BattleEntity>().isCasting = false;
+            enemies[i].GetComponent<BattleEntity>().action = Action.NONE;
+            enemyArrows[i].transform.position = new Vector2(cooldownPivot.x, enemyArrows[i].transform.position.y);
+        }
+    }
+
+    // 사망 처리
+    public void dealDeath(int index)
+    {
+        if (index < 10)
+        {
+            surviveTeamCount--;
+            teams[index].GetComponent<BattleEntity>().isDead = true;
+            teamArrows[index].gameObject.SetActive(false);
+        }
+        else
+        {
+            index -= 10;
+            surviveEnemyCount--;
+            enemies[index].GetComponent<BattleEntity>().isDead = true;
+
+            // TODO 사후 처리
+            enemies[index].gameObject.SetActive(false);
+            enemyArrows[index].gameObject.SetActive(false);
+        }
+    }
+
+    private void dealBattleEnd()
+    {
+        if (surviveTeamCount <= 0)
+        {
+            GameManager.instance.isBattle = false;
+            isBattle = false;
+            SoundManager.instance.stopAllSounds();
+            SoundManager.instance.playMusic(19);
+
+            GameObject.Find("Main Camera").GetComponent<MainCamera>().transform.position = 
+                new Vector2(GameManager.instance.playerData.playerX, GameManager.instance.playerData.playerY);
+
+            castingBar.SetActive(false);
+            battleSet.SetActive(false);
+        }
+        else if (surviveEnemyCount <= 0)
+        {
+            getExp();
+
+            GameManager.instance.isBattle = false;
+            isBattle = false;
+            SoundManager.instance.stopAllSounds();
+            SoundManager.instance.playMusic(19);
+
+            GameObject.Find("Main Camera").GetComponent<MainCamera>().transform.position =
+                new Vector2(GameManager.instance.playerData.playerX, GameManager.instance.playerData.playerY);
+
+            castingBar.SetActive(false);
+            battleSet.SetActive(false);
+        }
+    }
+
+    public void getExp()
+    {
+        for (int i = 0; i < teams.Count; i++)
+        {
+            if (teams[i].GetComponent<BattleEntity>().isDead)
+            {
+                continue;
+            }
+
+            teams[i].GetComponent<BattleEntity>().exp += (int)teams[i].GetComponent<BattleEntity>().expStack;
+            teams[i].GetComponent<BattleEntity>().expStack = 0;
+
+            GameManager.instance.levelUp();
+
+            if (i == 0)
+            {
+                GameManager.instance.setPlayerDataByEntityData(teams[0].GetComponent<BattleEntity>());
+            }
+        }
+    }
+
+    private void setArrowPosition()
     {
         for (int i = 0; i < teamArrows.Count; i++)
         {
@@ -250,7 +398,7 @@ public class BattleManager : MonoBehaviour
     }
 
     // 행동 쿨타임 컨트롤러
-    public void dealCooldown()
+    private void dealCooldown()
     {
         if (isReachedCasting)
         {
@@ -260,11 +408,19 @@ public class BattleManager : MonoBehaviour
         // 팀 캐스팅
         for (int i = 0; i < teamCount; i++)
         {
-            teamArrows[i].transform.position = new Vector2(teamArrows[i].transform.position.x + cooldownTeam[i], teamArrows[i].transform.position.y);
+            if (teamArrows[i].activeSelf)
+            {
+                teamArrows[i].transform.position = new Vector2(teamArrows[i].transform.position.x + cooldownTeam[i], teamArrows[i].transform.position.y);
+            }
+            else
+            {
+                continue;
+            }
 
             if (teamArrows[i].transform.position.x >= castingPivot.x && !teams[i].GetComponent<BattleEntity>().isCasting)
             {
                 isReachedCasting = true;
+                nowCastingTurn = i;
                 actionMenu[i].SetActive(true);
                 actionMenu[i].GetComponent<Animator>().SetBool("isActionMenuOn", true);
             }
@@ -273,7 +429,10 @@ public class BattleManager : MonoBehaviour
         // 적 캐스팅
         for (int i = 0; i < enemyCount; i++)
         {
-            enemyArrows[i].transform.position = new Vector2(enemyArrows[i].transform.position.x + cooldownEnemy[i], enemyArrows[i].transform.position.y);
+            if (enemyArrows[i].activeSelf)
+            {
+                enemyArrows[i].transform.position = new Vector2(enemyArrows[i].transform.position.x + cooldownEnemy[i], enemyArrows[i].transform.position.y);
+            }
 
             if (enemyArrows[i].transform.position.x >= castingPivot.x && !enemies[i].GetComponent<BattleEntity>().isCasting)
             {
@@ -342,14 +501,16 @@ public class BattleManager : MonoBehaviour
         {
             enemyArrows[i].SetActive(false);
         }
-
-
     }
 
     // 전투 시작 설정
     public void setFieldTeam(List<EntityData> petDatas = null)
     {
+        surviveTeamCount = 0;
+
         teams[0].SetActive(true);
+        surviveTeamCount++;
+        teams[0].GetComponent<BattleEntity>().isDead = false;
         teams[0].GetComponent<BattleEntity>().setBattleEntityData(GameManager.instance.playerData);
         setActionMenuSkill(0);
         teams[0].transform.GetChild(0).gameObject.SetActive(false); // Arrow
@@ -371,6 +532,8 @@ public class BattleManager : MonoBehaviour
         for (int i = 1; i < petDatas.Count + 1; i++)
         {
             teams[i].SetActive(true);
+            surviveTeamCount++;
+            teams[i].GetComponent<BattleEntity>().isDead = false;
             teams[i].GetComponent<BattleEntity>().setBattleEntityData(petDatas[i - 1]);
             setActionMenuSkill(i);
             teams[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow
@@ -389,12 +552,16 @@ public class BattleManager : MonoBehaviour
         /*        GameObject go = Instantiate(mobPrefab);
                 go.transform.position = new Vector2(dungeonLocation.x, dungeonLocation.y + 1f);*/
 
+        surviveEnemyCount = 0;
+
         this.fieldType = fieldType;
         enemyCount = entityDatas.Count;
 
         for (int i = 0; i < entityDatas.Count; i++)
         {
             enemies[i].SetActive(true);
+            surviveEnemyCount++;
+            enemies[i].GetComponent<BattleEntity>().isDead = false;
             enemies[i].GetComponent<BattleEntity>().setBattleEntityData(entityDatas[i]);
             enemies[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow
             enemies[i].GetComponent<BattleEntity>().isCasting = false;
@@ -432,24 +599,28 @@ public class BattleManager : MonoBehaviour
                 {
                     spellMenu.GetChild(i).GetChild(fire).gameObject.SetActive(true);
                     spellMenu.GetChild(i).GetChild(fire).gameObject.GetComponent<SpriteRenderer>().sprite = skills[j].sprite;
+                    spellMenu.GetChild(i).GetChild(fire).gameObject.GetComponent<ActionSlot>().skill = skills[j];
                     fire++;
                 }
                 else if (i == 1 && skills[j].skillId >= 100 && skills[j].skillId < 200)
                 {
                     spellMenu.GetChild(i).GetChild(ice).gameObject.SetActive(true);
                     spellMenu.GetChild(i).GetChild(ice).gameObject.GetComponent<SpriteRenderer>().sprite = skills[j].sprite;
+                    spellMenu.GetChild(i).GetChild(ice).gameObject.GetComponent<ActionSlot>().skill = skills[j];
                     ice++;
                 }
                 else if (i == 2 && skills[j].skillId >= 200 && skills[j].skillId < 300)
                 {
                     spellMenu.GetChild(i).GetChild(earth).gameObject.SetActive(true);
                     spellMenu.GetChild(i).GetChild(earth).gameObject.GetComponent<SpriteRenderer>().sprite = skills[j].sprite;
+                    spellMenu.GetChild(i).GetChild(earth).gameObject.GetComponent<ActionSlot>().skill = skills[j];
                     earth++;
                 }
                 else if (i == 3 && skills[j].skillId >= 300 && skills[j].skillId < 400)
                 {
                     spellMenu.GetChild(i).GetChild(none).gameObject.SetActive(true);
                     spellMenu.GetChild(i).GetChild(none).gameObject.GetComponent<SpriteRenderer>().sprite = skills[j].sprite;
+                    spellMenu.GetChild(i).GetChild(none).gameObject.GetComponent<ActionSlot>().skill = skills[j];
                     none++;
                 }
             }
@@ -473,6 +644,7 @@ public class BattleManager : MonoBehaviour
                     teams[actionIndex].GetComponent<BattleEntity>().target = teams[transformIndex];
 
                     targetObject.transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
+                    targetObject.GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
                 }
                 else // enemy 선택
                 {
@@ -480,6 +652,7 @@ public class BattleManager : MonoBehaviour
                     teams[actionIndex].GetComponent<BattleEntity>().target = enemies[transformIndex];
 
                     targetObject.transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
+                    targetObject.GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
                 }
 
                 readyToAction = true;
@@ -504,11 +677,13 @@ public class BattleManager : MonoBehaviour
                 if (targetObject != null)
                 {
                     targetObject.transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
+                    targetObject.GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
                 }
 
-                targetObject = selectedObject; // Arrow 켜기
+                targetObject = selectedObject;
 
-                targetObject.transform.GetChild(0).gameObject.SetActive(true);
+                targetObject.transform.GetChild(0).gameObject.SetActive(true); // Arrow 켜기
+                targetObject.GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", true); // Arrow UI 켜기
                 selectedObject = null;
             }
         }
@@ -519,7 +694,15 @@ public class BattleManager : MonoBehaviour
     {
         SoundManager.instance.playButtonEffectSound();
         isTargetSelectingOn = false;
-        selectedObject = null;
+
+        if (targetObject != null)
+        {
+            targetObject.transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
+            targetObject.GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
+            selectedObject = null;
+            targetObject = selectedObject;
+        }
+
         actionMenu[actionIndex].GetComponent<Animator>().SetBool("isActionMenuOn", true);
         actionMenu[actionIndex].GetComponent<Animator>().SetBool("isActionMagicOn", false);
         actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellFire", false);
@@ -533,7 +716,15 @@ public class BattleManager : MonoBehaviour
     {
         SoundManager.instance.playButtonEffectSound();
         isTargetSelectingOn = false;
-        selectedObject = null;
+
+        if (targetObject != null)
+        {
+            targetObject.transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
+            targetObject.GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
+            selectedObject = null;
+            targetObject = selectedObject;
+        }
+
         actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellFire", false);
         actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellIce", false);
         actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellEarth", false);
@@ -576,6 +767,40 @@ public class BattleManager : MonoBehaviour
                 actionMenu[actionIndex].GetComponent<Animator>().SetBool("isSpellNone", true);
                 break;
         }
+    }
+
+    public void buttonUseSkill(int index)
+    {
+        // TODO 버튼을 누른 슬롯을 추적하여 스킬정보를 가져와서 등록하기
+
+        Transform spellMenu = actionMenu[nowCastingTurn].transform.GetChild(1);
+
+        if (index < 10)
+        {
+            teams[nowCastingTurn].GetComponent<BattleEntity>().skill = spellMenu.GetChild(0).GetChild(index).gameObject.GetComponent<ActionSlot>().skill;
+        }
+        else if (index >= 100 && index < 200)
+        {
+            index -= 100;
+            teams[nowCastingTurn].GetComponent<BattleEntity>().skill = spellMenu.GetChild(1).GetChild(index).gameObject.GetComponent<ActionSlot>().skill;
+        }
+        else if (index >= 200 && index < 300)
+        {
+            index -= 200;
+            teams[nowCastingTurn].GetComponent<BattleEntity>().skill = spellMenu.GetChild(2).GetChild(index).gameObject.GetComponent<ActionSlot>().skill;
+        }
+        else if (index >= 300 && index < 400)
+        {
+            index -= 300;
+            teams[nowCastingTurn].GetComponent<BattleEntity>().skill = spellMenu.GetChild(3).GetChild(index).gameObject.GetComponent<ActionSlot>().skill;
+        }
+
+        SoundManager.instance.playButtonEffectSound();
+        isTargetSelectingOn = true;
+        selectedObject = null;
+        actionIndex = nowCastingTurn;
+        actionMenu[actionIndex].GetComponent<Animator>().SetBool("isActionMenuOn", false);
+        teams[actionIndex].GetComponent<BattleEntity>().action = Action.MAGIC;
     }
 
     public void pushAttackButtonEnemy(int index)
@@ -622,44 +847,6 @@ public class BattleManager : MonoBehaviour
         for (int i = 1; i < teamCount; i++)
         {
             // TODO 펫이 추가되면 펫에게도 실시간 정보 반송
-        }
-    }
-
-    // a : 메소드 행위의 주체자, b : 메소드 행위의 피격 대상자
-    public void doAttack(GameObject a, GameObject b)
-    {
-        dealDamage(a, b);
-    }
-
-    public void dealDamage(GameObject a, GameObject b, bool isMagicAttack = true)
-    {
-        float totalDamage = 0;
-
-        totalDamage += a.GetComponent<BattleEntity>().power - b.GetComponent<BattleEntity>().armor;
-
-        b.GetComponent<BattleEntity>().healthPoint -= totalDamage;
-
-        if (b.GetComponent<BattleEntity>().healthPoint < 1)
-        {
-            a.GetComponent<BattleEntity>().expStack += b.GetComponent<BattleEntity>().expStack;
-            dealDeath(b);
-        }
-    }
-
-    public void dealDeath(GameObject gameObject)
-    {
-        if (!gameObject.tag.Equals("Monster"))
-        {
-            gameObject.SetActive(false);
-        }
-    }
-
-    public void getExp()
-    {
-        for (int i = 0; i < teams.Count; i++)
-        {
-            teams[i].GetComponent<BattleEntity>().exp += (int) teams[i].GetComponent<BattleEntity>().expStack;
-            teams[i].GetComponent<BattleEntity>().expStack = 0;
         }
     }
 }

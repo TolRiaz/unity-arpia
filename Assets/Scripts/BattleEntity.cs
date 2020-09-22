@@ -5,13 +5,17 @@ using UnityEngine.UI;
 
 public class BattleEntity : MonoBehaviour
 {
+    public Animator arrowUI;
+
     public int transformIndex;
     public float cooldown;
     public float castingTimer;
     public bool isCasting;
     public Action action;
     public GameObject target;
+    public Skill skill;
     public GameObject[] targets;
+    public bool isDead;
 
     public float playerX;
     public float playerY;
@@ -192,40 +196,67 @@ public class BattleEntity : MonoBehaviour
         BattleManager.instance.selectTargetMode();
     }
 
-    public void takeDamage(int damage)
+    public void takeDamage(BattleEntity battleEntity, Action action)
     {
         GameObject hudText = Instantiate(hudDamageText);
         hudText.transform.position = hudPos.position;
 
-        //int avoidValue = avoid - playerdata.accuracy;
-        //int damage = -((armor - playerdata.power * Random.Range(600, 1010)) / 1000);
-
-        /*if (damage <= 0)
+        if (action == Action.ATTACK)
         {
-            hudText.GetComponent<DamageText>().damage = 0;
-            return;
-        }
+            int avoidValue = avoid - battleEntity.accuracy;
+            int damage = -((armor - battleEntity.power * Random.Range(600, 1010)) / 1000);
 
-        if (avoidValue > 0)
-        {
-            if (Random.Range(0, 30) < avoidValue)
+            if (damage <= 0)
             {
                 hudText.GetComponent<DamageText>().damage = 0;
                 return;
             }
-        }*/
 
-        healthPoint -= damage;
-        damagedTimer = 30;
-        //isDamaged = true;
-        Debug.Log("데미지 : " + damage + "  남은체력 : " + healthPoint);
-        healthBar.fillAmount = healthPoint / healthPointMax;
-        healthBarBackground.SetActive(true);
+            if (avoidValue > 0)
+            {
+                if (Random.Range(0, 30) < avoidValue)
+                {
+                    hudText.GetComponent<DamageText>().damage = 0;
+                    return;
+                }
+            }
 
-        hudText.GetComponent<DamageText>().damage = damage;
+            healthPoint -= damage;
+            damagedTimer = 30;
+            //isDamaged = true;
+            //Debug.Log("데미지 : " + damage + "  남은체력 : " + healthPoint);
+            healthBar.fillAmount = healthPoint / healthPointMax;
+            healthBarBackground.SetActive(true);
+
+            hudText.GetComponent<DamageText>().damage = damage;
+        }
+        else if (action == Action.MAGIC)
+        {
+
+        }
+
+        if (healthPoint <= 0 && !isDead)
+        {
+            battleEntity.expStack += exp;
+
+            BattleManager.instance.dealDeath(transformIndex);
+        }
 
         // 뒤집기
         // healthBar.transform.localScale = transform.localScale;
+    }
+
+    public Skill findSkillById(int id)
+    {
+        for (int i = 0; i < skills.Count; i++)
+        {
+            if (skills[i].skillId == id)
+            {
+                return skills[i];
+            }
+        }
+
+        return null;
     }
 
     public void getTransformIndex()

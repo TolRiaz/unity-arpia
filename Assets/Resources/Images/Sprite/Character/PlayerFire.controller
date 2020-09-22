@@ -199,7 +199,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isWalkingDown
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isWalkingLeft
+    m_ConditionEvent: isWalkingUp
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -9083148058916809720}
@@ -258,10 +258,10 @@ AnimatorStateTransition:
     m_ConditionEvent: isWalkingLeft
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isWalkingLeft
+    m_ConditionEvent: isWalkingDown
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isWalkingLeft
+    m_ConditionEvent: isWalkingUp
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 522675920309111109}

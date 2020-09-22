@@ -30,6 +30,7 @@ public class MouseMovement : MonoBehaviour
 
         if (GameManager.instance.isBattle)
         {
+            stopMovement();
             return;
         }
 

@@ -992,6 +992,64 @@ public class GameManager : MonoBehaviour
 
         gameObject.GetComponent<RectTransform>().localScale = new Vector3(x, y, z);
     }
+
+    public void setPlayerDataByEntityData(BattleEntity battleEntity)
+    {
+        playerData.playerX = battleEntity.playerX;
+        playerData.playerY = battleEntity.playerY;
+        playerData.questId = battleEntity.questId;
+        playerData.questActionIndex = battleEntity.questActionIndex;
+
+        playerData.job = battleEntity.job;
+        playerData.element = battleEntity.element;
+        playerData.level = battleEntity.level;
+        playerData.exp = battleEntity.exp;
+        playerData.nextExp = battleEntity.nextExp;
+        playerData.money = battleEntity.money;
+        playerData.gold = battleEntity.gold;
+        playerData.inventorySize = battleEntity.inventorySize;
+        //playerData.questInformation = battleEntity.questInformation;
+        playerData.items = battleEntity.items;
+        //playerData.Item[] equipments = battleEntity.equipments;
+
+        //Quest
+        playerData.startQuest = battleEntity.startQuest;
+        playerData.currentQuest = battleEntity.currentQuest;
+        playerData.clearQuest = battleEntity.clearQuest;
+
+        //Stats
+        playerData.statPoint = battleEntity.statPoint;
+        playerData.intellectPoint = battleEntity.intellectPoint;
+        playerData.wisdomPoint = battleEntity.wisdomPoint;
+        playerData.dexterityPoint = battleEntity.dexterityPoint;
+        playerData.concentrationPoint = battleEntity.concentrationPoint;
+
+        playerData.power = battleEntity.power;
+        playerData.armor = battleEntity.armor;
+        playerData.magicPower = battleEntity.magicPower;
+        playerData.magicArmor = battleEntity.magicArmor;
+        playerData.accuracy = battleEntity.accuracy;
+        playerData.avoid = battleEntity.avoid;
+        playerData.critRate = battleEntity.critRate;
+        playerData.critDam = battleEntity.critDam;
+
+        playerData.healthPoint = battleEntity.healthPoint;
+        playerData.healthPointMax = battleEntity.healthPointMax;
+        playerData.manaPoint = battleEntity.manaPoint;
+        playerData.manaPointMax = battleEntity.manaPointMax;
+
+        playerData.expEff = battleEntity.expEff;
+
+        playerData.fame = battleEntity.fame;
+        playerData.charm = battleEntity.charm;
+        playerData.weight = battleEntity.weight;
+        playerData.weightMax = battleEntity.weightMax;
+
+        playerData.expStack = battleEntity.expStack;
+        playerData.sortingIndex = battleEntity.sortingIndex;
+
+        //playerData.skills = battleEntity.skills;
+    }
 }
 
 [System.Serializable]

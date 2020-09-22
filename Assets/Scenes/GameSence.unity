@@ -740,14 +740,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e766b648cb05e574197b8b7513ef23fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowUI: {fileID: 1154927536}
   transformIndex: 11
   cooldown: 0
   castingTimer: 0
   isCasting: 0
   action: 0
   target: {fileID: 0}
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
   targets:
   - {fileID: 0}
+  isDead: 0
   playerX: 0
   playerY: 0
   questId: 0
@@ -1952,6 +1978,7 @@ GameObject:
   - component: {fileID: 73469333}
   - component: {fileID: 73469332}
   - component: {fileID: 73469331}
+  - component: {fileID: 73469335}
   m_Layer: 0
   m_Name: Spell (4)
   m_TagString: Untagged
@@ -2028,12 +2055,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 204
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -2089,6 +2116,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &73469335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73469329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &76857210
 GameObject:
   m_ObjectHideFlags: 0
@@ -3066,6 +3129,9 @@ MonoBehaviour:
   selectedObject: {fileID: 0}
   targetObject: {fileID: 0}
   readyToAction: 0
+  nowCastingTurn: 0
+  surviveTeamCount: 0
+  surviveEnemyCount: 0
 --- !u!1 &126331541
 GameObject:
   m_ObjectHideFlags: 0
@@ -4460,6 +4526,7 @@ GameObject:
   - component: {fileID: 195423516}
   - component: {fileID: 195423515}
   - component: {fileID: 195423514}
+  - component: {fileID: 195423518}
   m_Layer: 0
   m_Name: Spell (3)
   m_TagString: Untagged
@@ -4536,12 +4603,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 3
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -4597,6 +4664,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &195423518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195423512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &200372249
 GameObject:
   m_ObjectHideFlags: 0
@@ -9051,14 +9154,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e766b648cb05e574197b8b7513ef23fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowUI: {fileID: 1561265119}
   transformIndex: 12
   cooldown: 0
   castingTimer: 0
   isCasting: 0
   action: 0
   target: {fileID: 0}
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
   targets:
   - {fileID: 0}
+  isDead: 0
   playerX: 0
   playerY: 0
   questId: 0
@@ -9501,14 +9630,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e766b648cb05e574197b8b7513ef23fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowUI: {fileID: 1608145962}
   transformIndex: 3
   cooldown: 0
   castingTimer: 0
   isCasting: 0
   action: 0
   target: {fileID: 0}
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
   targets:
   - {fileID: 0}
+  isDead: 0
   playerX: 0
   playerY: 0
   questId: 0
@@ -10441,6 +10596,7 @@ GameObject:
   - component: {fileID: 449186460}
   - component: {fileID: 449186462}
   - component: {fileID: 449186461}
+  - component: {fileID: 449186463}
   m_Layer: 5
   m_Name: Arrow
   m_TagString: Untagged
@@ -10487,7 +10643,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e0fe7c361826fcb45bbb800f19dd3262, type: 3}
+  m_Sprite: {fileID: -8945271465914948329, guid: 8641dec2c3317464d90e1451495b7f65,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10505,6 +10662,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449186459}
   m_CullTransparentMesh: 0
+--- !u!95 &449186463
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449186459}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf4eb445ebaced24abae9f5cb7d5343b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &450467796
 GameObject:
   m_ObjectHideFlags: 0
@@ -10953,6 +11129,7 @@ GameObject:
   - component: {fileID: 459743648}
   - component: {fileID: 459743647}
   - component: {fileID: 459743646}
+  - component: {fileID: 459743650}
   m_Layer: 0
   m_Name: Spell (2)
   m_TagString: Untagged
@@ -11029,12 +11206,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 102
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -11090,6 +11267,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &459743650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459743644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &462419507
 GameObject:
   m_ObjectHideFlags: 0
@@ -11894,6 +12107,7 @@ GameObject:
   - component: {fileID: 481711541}
   - component: {fileID: 481711540}
   - component: {fileID: 481711539}
+  - component: {fileID: 481711543}
   m_Layer: 0
   m_Name: Spell (4)
   m_TagString: Untagged
@@ -11970,12 +12184,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 104
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -12031,6 +12245,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &481711543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481711537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &490097697
 GameObject:
   m_ObjectHideFlags: 0
@@ -12044,6 +12294,7 @@ GameObject:
   - component: {fileID: 490097701}
   - component: {fileID: 490097700}
   - component: {fileID: 490097699}
+  - component: {fileID: 490097703}
   m_Layer: 0
   m_Name: Spell (1)
   m_TagString: Untagged
@@ -12120,12 +12371,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 201
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -12181,6 +12432,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &490097703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490097697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &492653549
 GameObject:
   m_ObjectHideFlags: 0
@@ -12194,6 +12481,7 @@ GameObject:
   - component: {fileID: 492653553}
   - component: {fileID: 492653552}
   - component: {fileID: 492653551}
+  - component: {fileID: 492653555}
   m_Layer: 0
   m_Name: Spell
   m_TagString: Untagged
@@ -12270,12 +12558,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 200
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -12331,6 +12619,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &492653555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492653549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &499112874
 GameObject:
   m_ObjectHideFlags: 0
@@ -12534,14 +12858,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e766b648cb05e574197b8b7513ef23fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowUI: {fileID: 1977622951}
   transformIndex: 13
   cooldown: 0
   castingTimer: 0
   isCasting: 0
   action: 0
   target: {fileID: 0}
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
   targets:
   - {fileID: 0}
+  isDead: 0
   playerX: 0
   playerY: 0
   questId: 0
@@ -16305,6 +16655,7 @@ GameObject:
   - component: {fileID: 642628017}
   - component: {fileID: 642628016}
   - component: {fileID: 642628015}
+  - component: {fileID: 642628019}
   m_Layer: 0
   m_Name: Spell (2)
   m_TagString: Untagged
@@ -16381,12 +16732,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 202
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -16441,6 +16792,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &642628019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642628013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &650054901
 GameObject:
   m_ObjectHideFlags: 0
@@ -16757,6 +17144,7 @@ GameObject:
   - component: {fileID: 667535663}
   - component: {fileID: 667535665}
   - component: {fileID: 667535664}
+  - component: {fileID: 667535666}
   m_Layer: 5
   m_Name: Arrow (2)
   m_TagString: Untagged
@@ -16782,7 +17170,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 80}
-  m_SizeDelta: {x: 50, y: 86}
+  m_SizeDelta: {x: 83, y: 113}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &667535664
 MonoBehaviour:
@@ -16803,7 +17191,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8250287236387315692, guid: 4ec8e3b3d6468404db4d2671e91d397f,
+  m_Sprite: {fileID: -8945271465914948329, guid: 8641dec2c3317464d90e1451495b7f65,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -16822,6 +17210,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 667535662}
   m_CullTransparentMesh: 0
+--- !u!95 &667535666
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667535662}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8c730e721f6e52c41bcd5b19660490cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &668683965
 GameObject:
   m_ObjectHideFlags: 0
@@ -23273,6 +23680,7 @@ GameObject:
   - component: {fileID: 897336137}
   - component: {fileID: 897336136}
   - component: {fileID: 897336135}
+  - component: {fileID: 897336139}
   m_Layer: 0
   m_Name: Spell (3)
   m_TagString: Untagged
@@ -23354,7 +23762,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 303
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -23410,6 +23818,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &897336139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897336133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &899926788
 GameObject:
   m_ObjectHideFlags: 0
@@ -23811,14 +24255,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e766b648cb05e574197b8b7513ef23fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowUI: {fileID: 667535666}
   transformIndex: 2
   cooldown: 0
   castingTimer: 0
   isCasting: 0
   action: 0
   target: {fileID: 0}
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
   targets:
   - {fileID: 0}
+  isDead: 0
   playerX: 0
   playerY: 0
   questId: 0
@@ -24257,6 +24727,7 @@ GameObject:
   - component: {fileID: 944406858}
   - component: {fileID: 944406857}
   - component: {fileID: 944406856}
+  - component: {fileID: 944406860}
   m_Layer: 0
   m_Name: Spell (1)
   m_TagString: Untagged
@@ -24333,12 +24804,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 101
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -24394,6 +24865,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &944406860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944406854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &946885444
 GameObject:
   m_ObjectHideFlags: 0
@@ -24623,6 +25130,7 @@ GameObject:
   - component: {fileID: 955864755}
   - component: {fileID: 955864754}
   - component: {fileID: 955864753}
+  - component: {fileID: 955864757}
   m_Layer: 0
   m_Name: Spell
   m_TagString: Untagged
@@ -24699,12 +25207,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 100
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -24760,6 +25268,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &955864757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955864751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &958371317
 GameObject:
   m_ObjectHideFlags: 0
@@ -27239,7 +27783,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1082642211
 GameObject:
@@ -28983,6 +29527,7 @@ GameObject:
   - component: {fileID: 1153504062}
   - component: {fileID: 1153504061}
   - component: {fileID: 1153504060}
+  - component: {fileID: 1153504064}
   m_Layer: 0
   m_Name: Spell (1)
   m_TagString: Untagged
@@ -29064,7 +29609,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 301
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -29120,6 +29665,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1153504064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153504058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &1154927532
 GameObject:
   m_ObjectHideFlags: 0
@@ -29131,6 +29712,7 @@ GameObject:
   - component: {fileID: 1154927533}
   - component: {fileID: 1154927535}
   - component: {fileID: 1154927534}
+  - component: {fileID: 1154927536}
   m_Layer: 5
   m_Name: Arrow (1)
   m_TagString: Untagged
@@ -29177,7 +29759,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e0fe7c361826fcb45bbb800f19dd3262, type: 3}
+  m_Sprite: {fileID: -8945271465914948329, guid: 8641dec2c3317464d90e1451495b7f65,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -29195,6 +29778,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154927532}
   m_CullTransparentMesh: 0
+--- !u!95 &1154927536
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154927532}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf4eb445ebaced24abae9f5cb7d5343b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1163003460
 GameObject:
   m_ObjectHideFlags: 0
@@ -30283,14 +30885,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e766b648cb05e574197b8b7513ef23fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowUI: {fileID: 2047968470}
   transformIndex: 1
   cooldown: 0
   castingTimer: 0
   isCasting: 0
   action: 0
   target: {fileID: 0}
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
   targets:
   - {fileID: 0}
+  isDead: 0
   playerX: 0
   playerY: 0
   questId: 0
@@ -32480,6 +33108,7 @@ GameObject:
   - component: {fileID: 1278314941}
   - component: {fileID: 1278314940}
   - component: {fileID: 1278314939}
+  - component: {fileID: 1278314943}
   m_Layer: 0
   m_Name: Spell (2)
   m_TagString: Untagged
@@ -32561,7 +33190,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 302
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -32617,6 +33246,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1278314943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278314937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &1288108471
 GameObject:
   m_ObjectHideFlags: 0
@@ -32894,14 +33559,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e766b648cb05e574197b8b7513ef23fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowUI: {fileID: 1438436590}
   transformIndex: 0
   cooldown: 0
   castingTimer: 0
   isCasting: 0
   action: 0
   target: {fileID: 0}
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
   targets:
   - {fileID: 0}
+  isDead: 0
   playerX: 0
   playerY: 0
   questId: 0
@@ -34247,6 +34938,7 @@ GameObject:
   - component: {fileID: 1330436071}
   - component: {fileID: 1330436070}
   - component: {fileID: 1330436069}
+  - component: {fileID: 1330436073}
   m_Layer: 0
   m_Name: Spell (1)
   m_TagString: Untagged
@@ -34323,12 +35015,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 1
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -34384,6 +35076,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1330436073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330436067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &1338027649
 GameObject:
   m_ObjectHideFlags: 0
@@ -35750,6 +36478,7 @@ GameObject:
   - component: {fileID: 1388358414}
   - component: {fileID: 1388358413}
   - component: {fileID: 1388358412}
+  - component: {fileID: 1388358416}
   m_Layer: 0
   m_Name: Spell
   m_TagString: Untagged
@@ -35826,7 +36555,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -35887,6 +36616,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1388358416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388358410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &1389195390
 GameObject:
   m_ObjectHideFlags: 0
@@ -35983,6 +36748,7 @@ GameObject:
   - component: {fileID: 1390578460}
   - component: {fileID: 1390578459}
   - component: {fileID: 1390578458}
+  - component: {fileID: 1390578462}
   m_Layer: 0
   m_Name: Spell (3)
   m_TagString: Untagged
@@ -36059,12 +36825,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 203
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -36120,6 +36886,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1390578462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390578456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &1400405777
 GameObject:
   m_ObjectHideFlags: 0
@@ -36133,6 +36935,7 @@ GameObject:
   - component: {fileID: 1400405781}
   - component: {fileID: 1400405780}
   - component: {fileID: 1400405779}
+  - component: {fileID: 1400405783}
   m_Layer: 0
   m_Name: Spell (2)
   m_TagString: Untagged
@@ -36209,12 +37012,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 2
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -36270,6 +37073,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1400405783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400405777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &1400577065
 GameObject:
   m_ObjectHideFlags: 0
@@ -36889,6 +37728,7 @@ GameObject:
   - component: {fileID: 1438436587}
   - component: {fileID: 1438436589}
   - component: {fileID: 1438436588}
+  - component: {fileID: 1438436590}
   m_Layer: 5
   m_Name: Arrow
   m_TagString: Untagged
@@ -36914,7 +37754,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 80}
-  m_SizeDelta: {x: 54, y: 72}
+  m_SizeDelta: {x: 83, y: 113}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1438436588
 MonoBehaviour:
@@ -36935,7 +37775,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8250287236387315692, guid: 4ec8e3b3d6468404db4d2671e91d397f,
+  m_Sprite: {fileID: -8945271465914948329, guid: 8641dec2c3317464d90e1451495b7f65,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -36954,6 +37794,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438436586}
   m_CullTransparentMesh: 0
+--- !u!95 &1438436590
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438436586}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8c730e721f6e52c41bcd5b19660490cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1442667967
 GameObject:
   m_ObjectHideFlags: 0
@@ -40430,6 +41289,7 @@ GameObject:
   - component: {fileID: 1561265116}
   - component: {fileID: 1561265118}
   - component: {fileID: 1561265117}
+  - component: {fileID: 1561265119}
   m_Layer: 5
   m_Name: Arrow (2)
   m_TagString: Untagged
@@ -40476,7 +41336,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e0fe7c361826fcb45bbb800f19dd3262, type: 3}
+  m_Sprite: {fileID: -8945271465914948329, guid: 8641dec2c3317464d90e1451495b7f65,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -40494,6 +41355,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561265115}
   m_CullTransparentMesh: 0
+--- !u!95 &1561265119
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561265115}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf4eb445ebaced24abae9f5cb7d5343b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1563189125
 GameObject:
   m_ObjectHideFlags: 0
@@ -40861,8 +41741,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1793710035}
   - {fileID: 1841769819}
+  - {fileID: 1793710035}
   - {fileID: 1185012583}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -41061,6 +41941,7 @@ GameObject:
   - component: {fileID: 1608145959}
   - component: {fileID: 1608145961}
   - component: {fileID: 1608145960}
+  - component: {fileID: 1608145962}
   m_Layer: 5
   m_Name: Arrow (3)
   m_TagString: Untagged
@@ -41086,7 +41967,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 80}
-  m_SizeDelta: {x: 50, y: 86}
+  m_SizeDelta: {x: 83, y: 113}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1608145960
 MonoBehaviour:
@@ -41107,7 +41988,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8250287236387315692, guid: 4ec8e3b3d6468404db4d2671e91d397f,
+  m_Sprite: {fileID: -8945271465914948329, guid: 8641dec2c3317464d90e1451495b7f65,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -41126,6 +42007,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1608145958}
   m_CullTransparentMesh: 0
+--- !u!95 &1608145962
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608145958}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8c730e721f6e52c41bcd5b19660490cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1610314313
 GameObject:
   m_ObjectHideFlags: 0
@@ -44103,6 +45003,7 @@ GameObject:
   - component: {fileID: 1760865514}
   - component: {fileID: 1760865513}
   - component: {fileID: 1760865512}
+  - component: {fileID: 1760865516}
   m_Layer: 0
   m_Name: Spell (4)
   m_TagString: Untagged
@@ -44184,7 +45085,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 304
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -44240,6 +45141,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1760865516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760865510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &1763507857
 GameObject:
   m_ObjectHideFlags: 0
@@ -44633,7 +45570,7 @@ RectTransform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 1591451420}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -45859,6 +46796,7 @@ GameObject:
   - component: {fileID: 1836766909}
   - component: {fileID: 1836766908}
   - component: {fileID: 1836766907}
+  - component: {fileID: 1836766911}
   m_Layer: 0
   m_Name: Spell (4)
   m_TagString: Untagged
@@ -45935,12 +46873,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 4
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -45996,6 +46934,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1836766911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836766905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &1841769818
 GameObject:
   m_ObjectHideFlags: 0
@@ -46031,7 +47005,7 @@ RectTransform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 1591451420}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -49542,6 +50516,7 @@ GameObject:
   - component: {fileID: 1977622948}
   - component: {fileID: 1977622950}
   - component: {fileID: 1977622949}
+  - component: {fileID: 1977622951}
   m_Layer: 5
   m_Name: Arrow (3)
   m_TagString: Untagged
@@ -49588,7 +50563,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e0fe7c361826fcb45bbb800f19dd3262, type: 3}
+  m_Sprite: {fileID: -8945271465914948329, guid: 8641dec2c3317464d90e1451495b7f65,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -49606,6 +50582,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977622947}
   m_CullTransparentMesh: 0
+--- !u!95 &1977622951
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977622947}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf4eb445ebaced24abae9f5cb7d5343b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1979793976
 GameObject:
   m_ObjectHideFlags: 0
@@ -50579,6 +51574,7 @@ GameObject:
   - component: {fileID: 2035814258}
   - component: {fileID: 2035814257}
   - component: {fileID: 2035814256}
+  - component: {fileID: 2035814260}
   m_Layer: 0
   m_Name: Spell
   m_TagString: Untagged
@@ -50660,7 +51656,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 300
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -50716,6 +51712,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2035814260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035814254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &2047968466
 GameObject:
   m_ObjectHideFlags: 0
@@ -50727,6 +51759,7 @@ GameObject:
   - component: {fileID: 2047968467}
   - component: {fileID: 2047968469}
   - component: {fileID: 2047968468}
+  - component: {fileID: 2047968470}
   m_Layer: 5
   m_Name: Arrow (1)
   m_TagString: Untagged
@@ -50752,7 +51785,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 80}
-  m_SizeDelta: {x: 50, y: 86}
+  m_SizeDelta: {x: 83, y: 113}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2047968468
 MonoBehaviour:
@@ -50773,7 +51806,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8250287236387315692, guid: 4ec8e3b3d6468404db4d2671e91d397f,
+  m_Sprite: {fileID: -8945271465914948329, guid: 8641dec2c3317464d90e1451495b7f65,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -50792,6 +51825,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047968466}
   m_CullTransparentMesh: 0
+--- !u!95 &2047968470
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047968466}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8c730e721f6e52c41bcd5b19660490cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2048072287
 GameObject:
   m_ObjectHideFlags: 0
@@ -52590,6 +53642,7 @@ GameObject:
   - component: {fileID: 2109890224}
   - component: {fileID: 2109890223}
   - component: {fileID: 2109890222}
+  - component: {fileID: 2109890226}
   m_Layer: 0
   m_Name: Spell (3)
   m_TagString: Untagged
@@ -52666,12 +53719,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 118630803}
-          m_MethodName: buttonAttack
+          m_MethodName: buttonUseSkill
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 103
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -52727,6 +53780,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2109890226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109890220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814d8e1fbe9d37c42bf5fc59b4aefddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
 --- !u!1 &2114437284
 GameObject:
   m_ObjectHideFlags: 0
@@ -53323,14 +54412,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e766b648cb05e574197b8b7513ef23fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowUI: {fileID: 449186463}
   transformIndex: 10
   cooldown: 0
   castingTimer: 0
   isCasting: 0
   action: 0
   target: {fileID: 0}
+  skill:
+    skillId: 0
+    skillName: 
+    imagePath: 
+    level: 0
+    experience: 0
+    information: 
+    spriteNum: 0
+    sprite: {fileID: 0}
+    element: 0
+    castingTime: 0
+    costMP: 0
+    magicPower: 0
+    isTargetOne: 0
+    remainDamage: 0
+    heal: 0
+    fixedDamage: 0
+    sacrificeHP: 0
+    sacrificeMP: 0
+    power: 0
+    shield: 0
+    statusEffect: 0
+    duration: 0
+    costHP: 0
   targets:
   - {fileID: 0}
+  isDead: 0
   playerX: 0
   playerY: 0
   questId: 0
@@ -58700,7 +59815,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &3138941974148178916
 Camera:
