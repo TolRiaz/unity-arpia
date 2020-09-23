@@ -16,6 +16,7 @@ public class BattleManager : MonoBehaviour
     // battle UI, Arrow
     public GameObject battleSet;
     private GameObject castingBar;
+    private GameObject battlePanel;
     public List<GameObject> teamArrows = new List<GameObject>();
     public List<GameObject> enemyArrows = new List<GameObject>();
 
@@ -45,6 +46,7 @@ public class BattleManager : MonoBehaviour
     // Battle ending
     public int surviveTeamCount;
     public int surviveEnemyCount;
+    public int totalExp;
 
     //public GameObject mobPrefab;
 
@@ -83,6 +85,8 @@ public class BattleManager : MonoBehaviour
         setResolution();
 
         castingBar = battleSet.transform.Find("CastingBar").gameObject;
+        battlePanel = battleSet.transform.Find("BattlePanel").gameObject;
+        battlePanel.SetActive(false);
         setArrowPosition();
 
         battleSet.SetActive(false);
@@ -331,6 +335,35 @@ public class BattleManager : MonoBehaviour
 
     private void dealBattleEnd()
     {
+        if (surviveTeamCount == 0)
+        {
+            surviveTeamCount = -1;
+
+            for (int i = 0; i < teamCount; i++)
+            {
+                teamArrows[i].gameObject.SetActive(false);
+                enemyArrows[i].gameObject.SetActive(false);
+            }
+        }
+        else if (surviveEnemyCount == 0)
+        {
+            surviveEnemyCount = -1;
+
+            for (int i = 0; i < teamCount; i++)
+            {
+                teamArrows[i].gameObject.SetActive(false);
+                enemyArrows[i].gameObject.SetActive(false);
+            }
+
+            SoundManager.instance.stopAllSounds();
+            SoundManager.instance.playEffectSound(2);
+
+            getExp();
+        }
+    }
+
+    public void offBattleSet()
+    {
         if (surviveTeamCount <= 0)
         {
             GameManager.instance.isBattle = false;
@@ -338,31 +371,35 @@ public class BattleManager : MonoBehaviour
             SoundManager.instance.stopAllSounds();
             SoundManager.instance.playMusic(19);
 
-            GameObject.Find("Main Camera").GetComponent<MainCamera>().transform.position = 
-                new Vector2(GameManager.instance.playerData.playerX, GameManager.instance.playerData.playerY);
+            GameObject.Find("Main Camera").transform.position = new Vector2(
+                GameObject.Find("Main Camera").GetComponent<MainCamera>().playerTransform.position.x,
+                GameObject.Find("Main Camera").GetComponent<MainCamera>().playerTransform.position.y);
 
-            castingBar.SetActive(false);
             battleSet.SetActive(false);
         }
         else if (surviveEnemyCount <= 0)
         {
-            getExp();
-
             GameManager.instance.isBattle = false;
             isBattle = false;
             SoundManager.instance.stopAllSounds();
             SoundManager.instance.playMusic(19);
 
-            GameObject.Find("Main Camera").GetComponent<MainCamera>().transform.position =
-                new Vector2(GameManager.instance.playerData.playerX, GameManager.instance.playerData.playerY);
+            GameObject.Find("Main Camera").transform.position = new Vector2(
+                GameObject.Find("Main Camera").GetComponent<MainCamera>().playerTransform.position.x,
+                GameObject.Find("Main Camera").GetComponent<MainCamera>().playerTransform.position.y);
 
-            castingBar.SetActive(false);
             battleSet.SetActive(false);
         }
+
+        battlePanel.SetActive(false);
+
+        GameManager.instance.levelUp();
     }
 
     public void getExp()
     {
+        battlePanel.SetActive(true);
+
         for (int i = 0; i < teams.Count; i++)
         {
             if (teams[i].GetComponent<BattleEntity>().isDead)
@@ -371,15 +408,16 @@ public class BattleManager : MonoBehaviour
             }
 
             teams[i].GetComponent<BattleEntity>().exp += (int)teams[i].GetComponent<BattleEntity>().expStack;
+            totalExp += (int)teams[i].GetComponent<BattleEntity>().expStack;
             teams[i].GetComponent<BattleEntity>().expStack = 0;
-
-            GameManager.instance.levelUp();
 
             if (i == 0)
             {
                 GameManager.instance.setPlayerDataByEntityData(teams[0].GetComponent<BattleEntity>());
             }
         }
+
+        battlePanel.transform.GetChild(2).gameObject.GetComponent<Text>().text = "총 획득 경험치 : " + totalExp;
     }
 
     private void setArrowPosition()
@@ -400,7 +438,7 @@ public class BattleManager : MonoBehaviour
     // 행동 쿨타임 컨트롤러
     private void dealCooldown()
     {
-        if (isReachedCasting)
+        if (isReachedCasting || surviveTeamCount < 0 || surviveEnemyCount < 0)
         {
             return;
         }
@@ -467,11 +505,13 @@ public class BattleManager : MonoBehaviour
     public void setBattleField()
     {
         setCasting();
+
+        totalExp = 0;
     }
 
     public void setCasting()
     {
-        GameManager.instance.isBattle = true;
+        //GameManager.instance.isBattle = true;
         isBattle = true;
 
         battleSet.SetActive(true);
@@ -481,7 +521,7 @@ public class BattleManager : MonoBehaviour
         {
             teamArrows[i].SetActive(true);
             teamArrows[i].GetComponent<Image>().sprite = teams[i].GetComponent<SpriteRenderer>().sprite;
-            // teamArrows[i].transform.position = new Vector2(cooldownPivot.x, cooldownPivot.y + teamPivot);
+            teamArrows[i].transform.position = new Vector2(cooldownPivot.x, cooldownPivot.y + teamPivot);
         }
 
         for (int i = teamCount; i < teams.Count; i++)
@@ -494,7 +534,7 @@ public class BattleManager : MonoBehaviour
         {
             enemyArrows[i].SetActive(true);
             enemyArrows[i].GetComponent<Image>().sprite = enemies[i].GetComponent<SpriteRenderer>().sprite;
-            // enemyArrows[i].transform.position = new Vector2(cooldownPivot.x, cooldownPivot.y + enemyPivot);
+            enemyArrows[i].transform.position = new Vector2(cooldownPivot.x, cooldownPivot.y + enemyPivot);
         }
 
         for (int i = enemyCount; i < enemies.Count; i++)

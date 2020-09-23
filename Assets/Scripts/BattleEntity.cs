@@ -14,7 +14,7 @@ public class BattleEntity : MonoBehaviour
     public Action action;
     public GameObject target;
     public Skill skill;
-    public GameObject[] targets;
+    public List<GameObject> targets;
     public bool isDead;
 
     public float playerX;
@@ -232,7 +232,31 @@ public class BattleEntity : MonoBehaviour
         }
         else if (action == Action.MAGIC)
         {
+            int avoidValue = avoid - battleEntity.accuracy;
+            int damage = -((armor - (int) (battleEntity.skill.magicPower * Random.Range(600, 1010)) / 1000));
+            battleEntity.manaPoint -= battleEntity.skill.costMP;
 
+            if (damage <= 0)
+            {
+                hudText.GetComponent<DamageText>().damage = 0;
+                return;
+            }
+
+            if (avoidValue > 0)
+            {
+                if (Random.Range(0, 30) < avoidValue)
+                {
+                    hudText.GetComponent<DamageText>().damage = 0;
+                    return;
+                }
+            }
+
+            healthPoint -= damage;
+            damagedTimer = 30;
+            healthBar.fillAmount = healthPoint / healthPointMax;
+            healthBarBackground.SetActive(true);
+
+            hudText.GetComponent<DamageText>().damage = damage;
         }
 
         if (healthPoint <= 0 && !isDead)

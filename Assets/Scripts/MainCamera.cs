@@ -9,7 +9,7 @@ public class MainCamera : MonoBehaviour
     private float followSpeed = 1f;
     private float offsetX = 0f;
     private float offsetY = 0f;
-    private float offsetZ = -10f;
+    private float offsetZ = -12f;
 
     private Vector3 cameraPosition;
 
@@ -24,7 +24,7 @@ public class MainCamera : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (GameManager.instance.isBattle)
+        if (BattleManager.instance.isBattle)
         {
             FixCameraPositionBattle();
             return;
@@ -40,7 +40,7 @@ public class MainCamera : MonoBehaviour
 
     private void FixCameraPositionBattle()
     {
-        transform.position = new Vector3(180, 1399, -12);
+        transform.position = new Vector3(180, 1399, -10);
     }
 
     private void FixCameraPositionX()

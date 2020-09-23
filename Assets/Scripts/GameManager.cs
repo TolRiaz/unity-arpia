@@ -86,6 +86,8 @@ public class GameManager : MonoBehaviour
 
         resolution = new Vector3(Screen.width, Screen.height, 0);
 
+        playerManager = GameObject.Find("Player").GetComponent<PlayerManager>();
+
         try
         {
             talkManager = GameObject.Find("TalkManager").GetComponent<TalkManager>();
@@ -928,6 +930,8 @@ public class GameManager : MonoBehaviour
 
             playerData.healthPoint = playerData.healthPointMax;
             playerData.manaPoint = playerData.manaPointMax;
+
+            playerManager.isLevelUp = true;
         }
     }
 

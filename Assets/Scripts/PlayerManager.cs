@@ -126,8 +126,8 @@ public class PlayerManager : MonoBehaviour
         //levelUpSign
         if (isLevelUp)
         {
-            playerAudioSource.clip = clip[3];
-            playerAudioSource.Play();
+            Debug.Log("실행됨");
+            SoundManager.instance.playEffectSound(5);
             GameObject hudText = Instantiate(hudLevelUpText);
             hudText.transform.position = hudPos.position;
             isLevelUp = false;
