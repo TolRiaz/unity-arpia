@@ -47,6 +47,7 @@ public class BattleManager : MonoBehaviour
     public int surviveTeamCount;
     public int surviveEnemyCount;
     public int totalExp;
+    public float endingTimer;
 
     //public GameObject mobPrefab;
 
@@ -335,30 +336,40 @@ public class BattleManager : MonoBehaviour
 
     private void dealBattleEnd()
     {
-        if (surviveTeamCount == 0)
+        if (surviveTeamCount == 0 || surviveEnemyCount == 0)
         {
-            surviveTeamCount = -1;
-
-            for (int i = 0; i < teamCount; i++)
+            if (endingTimer < 2) 
             {
-                teamArrows[i].gameObject.SetActive(false);
-                enemyArrows[i].gameObject.SetActive(false);
+                endingTimer += Time.deltaTime;
             }
-        }
-        else if (surviveEnemyCount == 0)
-        {
-            surviveEnemyCount = -1;
-
-            for (int i = 0; i < teamCount; i++)
+            else
             {
-                teamArrows[i].gameObject.SetActive(false);
-                enemyArrows[i].gameObject.SetActive(false);
+                if (surviveTeamCount == 0)
+                {
+                    surviveTeamCount = -1;
+
+                    for (int i = 0; i < teamCount; i++)
+                    {
+                        teamArrows[i].gameObject.SetActive(false);
+                        enemyArrows[i].gameObject.SetActive(false);
+                    }
+                }
+                else if (surviveEnemyCount == 0)
+                {
+                    surviveEnemyCount = -1;
+
+                    for (int i = 0; i < teamCount; i++)
+                    {
+                        teamArrows[i].gameObject.SetActive(false);
+                        enemyArrows[i].gameObject.SetActive(false);
+                    }
+
+                    SoundManager.instance.stopAllSounds();
+                    SoundManager.instance.playEffectSound(2);
+
+                    getExp();
+                }
             }
-
-            SoundManager.instance.stopAllSounds();
-            SoundManager.instance.playEffectSound(2);
-
-            getExp();
         }
     }
 
@@ -596,6 +607,7 @@ public class BattleManager : MonoBehaviour
 
         this.fieldType = fieldType;
         enemyCount = entityDatas.Count;
+        endingTimer = 0;
 
         for (int i = 0; i < entityDatas.Count; i++)
         {
@@ -714,17 +726,65 @@ public class BattleManager : MonoBehaviour
             {
                 Debug.Log("선택한 오브젝트 : " + selectedObject.name);
 
-                if (targetObject != null)
+                // 스킬 타겟 단일
+                if (teams[nowCastingTurn].GetComponent<BattleEntity>().skill.isTargetOne || teams[nowCastingTurn].GetComponent<BattleEntity>().action == Action.ATTACK)
                 {
-                    targetObject.transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
-                    targetObject.GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
+                    if (targetObject != null)
+                    {
+                        for (int i = 0; i < teamCount; i++)
+                        {
+                            teams[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
+                            teams[i].GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
+                        }
+                        for (int i = 0; i < enemyCount; i++)
+                        {
+                            enemies[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
+                            enemies[i].GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
+                        }
+                    }
+
+                    targetObject = selectedObject;
+
+                    targetObject.transform.GetChild(0).gameObject.SetActive(true); // Arrow 켜기
+                    targetObject.GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", true); // Arrow UI 켜기
+                    selectedObject = null;
                 }
+                // 스킬 타겟 다중
+                else
+                {
+                    if (targetObject != null)
+                    {
+                        for (int i = 0; i < teamCount; i++)
+                        {
+                            teams[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
+                            teams[i].GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
+                        }
+                        for (int i = 0; i < enemyCount; i++)
+                        {
+                            enemies[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
+                            enemies[i].GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
+                        }
+                    }
 
-                targetObject = selectedObject;
+                    targetObject = selectedObject;
 
-                targetObject.transform.GetChild(0).gameObject.SetActive(true); // Arrow 켜기
-                targetObject.GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", true); // Arrow UI 켜기
-                selectedObject = null;
+                    if (targetObject.GetComponent<BattleEntity>().transformIndex < 10)
+                    {
+                        for (int i = 0; i < teamCount; i++)
+                        {
+                            teams[i].transform.GetChild(0).gameObject.SetActive(true); // Arrow 켜기
+                            teams[i].GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", true); // Arrow UI 켜기
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < enemyCount; i++)
+                        {
+                            enemies[i].transform.GetChild(0).gameObject.SetActive(true); // Arrow 켜기
+                            enemies[i].GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", true); // Arrow UI 켜기
+                        }
+                    }
+                }
             }
         }
     }
@@ -737,8 +797,17 @@ public class BattleManager : MonoBehaviour
 
         if (targetObject != null)
         {
-            targetObject.transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
-            targetObject.GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
+            for (int i = 0; i < teamCount; i++)
+            {
+                teams[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
+                teams[i].GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
+            }
+            for (int i = 0; i < enemyCount; i++)
+            {
+                enemies[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
+                enemies[i].GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
+            }
+
             selectedObject = null;
             targetObject = selectedObject;
         }

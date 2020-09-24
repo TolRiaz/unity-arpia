@@ -67,3 +67,6 @@ TagManager:
   - name: ActionFirst
     uniqueID: 3538570165
     locked: 0
+  - name: Effect
+    uniqueID: 72777421
+    locked: 0

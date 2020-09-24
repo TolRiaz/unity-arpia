@@ -74,6 +74,7 @@ public class BattleEntity : MonoBehaviour
     public int damagedTimer;
     public GameObject healthBarBackground;
     public Image healthBar;
+    public float delayHP;
 
     // Damage text
     public GameObject hudDamageText;
@@ -91,7 +92,7 @@ public class BattleEntity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, healthPoint / healthPointMax, Time.deltaTime * 3f);
     }
 
     public void setBattleEntityData(EntityData entityData)
@@ -127,6 +128,7 @@ public class BattleEntity : MonoBehaviour
         this.expStack = entityData.expStack;
         this.sortingIndex = entityData.sortingIndex;
 
+        delayHP = healthPoint;
         healthBar.fillAmount = healthPoint / healthPointMax;
     }
 
@@ -187,6 +189,7 @@ public class BattleEntity : MonoBehaviour
 
         this.skills = playerData.skills;
 
+        delayHP = healthPoint;
         healthBar.fillAmount = healthPoint / healthPointMax;
     }
 
@@ -225,7 +228,7 @@ public class BattleEntity : MonoBehaviour
             damagedTimer = 30;
             //isDamaged = true;
             //Debug.Log("데미지 : " + damage + "  남은체력 : " + healthPoint);
-            healthBar.fillAmount = healthPoint / healthPointMax;
+            //healthBar.fillAmount = healthPoint / healthPointMax;
             healthBarBackground.SetActive(true);
 
             hudText.GetComponent<DamageText>().damage = damage;
@@ -251,9 +254,22 @@ public class BattleEntity : MonoBehaviour
                 }
             }
 
+            // 임시 마법 이펙트
+            switch (battleEntity.skill.skillId)
+            {
+                case 0:
+                    EffectManager.instance.createEffect(transform.position, gameObject, 4);
+                    SoundManager.instance.playEffectSound(9);
+                    break;
+                case 100:
+                    EffectManager.instance.createEffect(transform.position, gameObject, 3);
+                    SoundManager.instance.playEffectSound(7);
+                    break;
+            }
+
             healthPoint -= damage;
             damagedTimer = 30;
-            healthBar.fillAmount = healthPoint / healthPointMax;
+            // healthBar.fillAmount = healthPoint / healthPointMax;
             healthBarBackground.SetActive(true);
 
             hudText.GetComponent<DamageText>().damage = damage;
