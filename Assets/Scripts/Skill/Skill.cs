@@ -38,6 +38,11 @@ public class Skill
 
     }
 
+    public Skill(int skillId)
+    {
+        this.skillId = skillId;
+    }
+
     public Skill(int skillId, string skillName, string imagePath, int level, int experience, string information, int spriteNum, Element element, float castingTime,
         float costMP, float magicPower, bool isTargetOne = true, float remainDamage = 0, float heal = 0, float fixedDamage = 0, float sacrificeHP = 0, float sacrificeMP = 0,
         float power = 0, float shield = 0, StatusEffect statusEffect = StatusEffect.NONE, int duration = 0, float costHP = 0)

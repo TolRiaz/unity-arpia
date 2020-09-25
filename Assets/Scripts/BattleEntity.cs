@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BattleEntity : MonoBehaviour
 {
     public Animator arrowUI;
+    public Animator animator;
 
     public int transformIndex;
     public float cooldown;
@@ -87,6 +88,7 @@ public class BattleEntity : MonoBehaviour
     void Start()
     {
         healthBar.fillAmount = 1.0f;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -224,6 +226,20 @@ public class BattleEntity : MonoBehaviour
                 }
             }
 
+            GameObject.Find("Main Camera").GetComponent<MainCamera>().setCameraShake();
+
+            try
+            {
+                // animator.SetTrigger("doDamaged");
+                animator.SetTrigger("doCriticalDamaged");
+            }
+            catch (System.Exception)
+            {
+                Debug.Log("등록되지 않은 동작입니다.");
+            }
+
+            summonEffect(battleEntity);
+
             healthPoint -= damage;
             damagedTimer = 30;
             //isDamaged = true;
@@ -232,6 +248,11 @@ public class BattleEntity : MonoBehaviour
             healthBarBackground.SetActive(true);
 
             hudText.GetComponent<DamageText>().damage = damage;
+
+            if (damage > 0 && isCasting)
+            {
+                BattleManager.instance.cancleCasting(transformIndex);
+            }
         }
         else if (action == Action.MAGIC)
         {
@@ -254,25 +275,33 @@ public class BattleEntity : MonoBehaviour
                 }
             }
 
-            // 임시 마법 이펙트
-            switch (battleEntity.skill.skillId)
+            GameObject.Find("Main Camera").GetComponent<MainCamera>().setCameraShake();
+            
+            try
             {
-                case 0:
-                    EffectManager.instance.createEffect(transform.position, gameObject, 4);
-                    SoundManager.instance.playEffectSound(9);
-                    break;
-                case 100:
-                    EffectManager.instance.createEffect(transform.position, gameObject, 3);
-                    SoundManager.instance.playEffectSound(7);
-                    break;
+                 animator.SetTrigger("doDamaged");
+                // animator.SetTrigger("doCriticalDamaged");
+            }
+            catch (System.Exception)
+            {
+                Debug.Log("등록되지 않은 동작입니다.");
             }
 
+            summonEffect(battleEntity);
+
+            damage = (int) Mathf.Round(damage * getElementResult(battleEntity.skill, this));
             healthPoint -= damage;
             damagedTimer = 30;
             // healthBar.fillAmount = healthPoint / healthPointMax;
             healthBarBackground.SetActive(true);
 
             hudText.GetComponent<DamageText>().damage = damage;
+
+            if (damage > 0 && isCasting)
+            {
+                Debug.Log("캐스팅 취소");
+                BattleManager.instance.cancleCasting(transformIndex);
+            }
         }
 
         if (healthPoint <= 0 && !isDead)
@@ -284,6 +313,71 @@ public class BattleEntity : MonoBehaviour
 
         // 뒤집기
         // healthBar.transform.localScale = transform.localScale;
+    }
+
+    public float getElementResult(Skill skill, BattleEntity entityData)
+    {
+        switch (skill.element)
+        {
+            case Element.FIRE:
+                if (entityData.element == Element.ICE)
+                {
+                    return 1.25f;
+                }
+                else if (entityData.element == Element.EARTH)
+                {
+                    return 0.75f;
+                }
+                break;
+
+            case Element.ICE:
+                if (entityData.element == Element.EARTH)
+                {
+                    return 1.25f;
+                }
+                else if (entityData.element == Element.FIRE)
+                {
+                    return 0.75f;
+                }
+                break;
+
+            case Element.EARTH:
+                if (entityData.element == Element.FIRE)
+                {
+                    return 1.25f;
+                }
+                else if (entityData.element == Element.ICE)
+                {
+                    return 0.75f;
+                }
+                break;
+        }
+
+        return 1f;
+    }
+
+    private void summonEffect(BattleEntity battleEntity)
+    {
+        // 임시 마법 이펙트
+        switch (battleEntity.skill.skillId)
+        {
+            case 0:
+                EffectManager.instance.createEffect(transform.position, gameObject, 4);
+                SoundManager.instance.playEffectSound(9);
+                break;
+            case 100:
+                EffectManager.instance.createEffect(transform.position, gameObject, 3);
+                SoundManager.instance.playEffectSound(7);
+                break;
+            case 103:
+                EffectManager.instance.createEffect(transform.position, gameObject, 5);
+                SoundManager.instance.playEffectSound(7);
+                break;
+            default:
+                EffectManager.instance.createEffect(transform.position, gameObject, 6);
+                SoundManager.instance.playEffectSound(12);
+                break;
+        }
     }
 
     public Skill findSkillById(int id)

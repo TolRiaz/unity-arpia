@@ -922,6 +922,9 @@ public class GameManager : MonoBehaviour
     {
         if (playerData.exp > expTable.expTable[playerData.level - 1] - 1)
         {
+            EffectManager.instance.createEffect(
+                new Vector2(PlayerManager.instance.transform.position.x, PlayerManager.instance.transform.position.y - 1f)
+                , PlayerManager.instance.gameObject, 7);
             playerData.exp -= expTable.expTable[playerData.level - 1];
             playerData.nextExp = expTable.expTable[playerData.level++];
             isLevelUp = true;

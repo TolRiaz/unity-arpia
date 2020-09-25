@@ -33,6 +33,7 @@ public class BattleManager : MonoBehaviour
     private float term = 50;
     public float[] cooldownTeam;
     public float[] cooldownEnemy;
+    private float castingTime;
     public bool isReachedCasting;
 
     // Targeting
@@ -80,8 +81,8 @@ public class BattleManager : MonoBehaviour
             cooldownEnemy[i] = (0.0625f * Screen.width) / term;
         }
 
-        cooldownEnemy[0] = (0.080f * Screen.width) / term;
-        cooldownEnemy[1] = (0.055f * Screen.width) / term;
+        cooldownEnemy[0] = (0.060f * Screen.width) / term;
+        cooldownEnemy[1] = (0.045f * Screen.width) / term;
 
         setResolution();
 
@@ -91,6 +92,8 @@ public class BattleManager : MonoBehaviour
         setArrowPosition();
 
         battleSet.SetActive(false);
+
+        castingTime = ((0.15625f * Screen.width) / term);
     }
 
     // Update is called once per frame
@@ -129,11 +132,11 @@ public class BattleManager : MonoBehaviour
                     // TODO 공격 처리
                     teams[transformIndex].GetComponent<BattleEntity>().takeDamage(teams[i].GetComponent<BattleEntity>(), Action.ATTACK);
 
-                    // 캐스팅 시 취소
+/*                    // 캐스팅 시 취소
                     if (teams[transformIndex].GetComponent<BattleEntity>().isCasting)
                     {
                         cancleCasting(transformIndex, true);
-                    }
+                    }*/
 
                     setAfterAction(i);
                 }
@@ -143,11 +146,11 @@ public class BattleManager : MonoBehaviour
                     // TODO 공격 처리
                     enemies[transformIndex].GetComponent<BattleEntity>().takeDamage(teams[i].GetComponent<BattleEntity>(), Action.ATTACK);
 
-                    // 캐스팅 취소
+/*                    // 캐스팅 취소
                     if (enemies[transformIndex].GetComponent<BattleEntity>().isCasting)
                     {
                         cancleCasting(transformIndex, false);
-                    }
+                    }*/
 
                     setAfterAction(i);
                 }
@@ -155,30 +158,51 @@ public class BattleManager : MonoBehaviour
                 // Action.MAGIC
                 if (transformIndex < 10 && teams[i].GetComponent<BattleEntity>().action == Action.MAGIC)
                 {
-                    // TODO 공격 처리
-                    teams[transformIndex].GetComponent<BattleEntity>().takeDamage(teams[i].GetComponent<BattleEntity>(), Action.MAGIC);
-
-                    // 캐스팅 시 취소
-                    if (teams[transformIndex].GetComponent<BattleEntity>().isCasting)
+                    // 단일 타겟
+                    if (teams[i].GetComponent<BattleEntity>().skill.isTargetOne)
                     {
-                        cancleCasting(transformIndex);
-                    }
+                        teams[transformIndex].GetComponent<BattleEntity>().takeDamage(teams[i].GetComponent<BattleEntity>(), Action.MAGIC);
 
-                    setAfterAction(i);
+                        setAfterAction(i);
+                    }
+                    // 다중 타겟
+                    else
+                    {
+                        for (int j = 0; j < enemyCount; j++)
+                        {
+                            if (teams[j].gameObject.activeSelf)
+                            {
+                                teams[j].GetComponent<BattleEntity>().takeDamage(teams[i].GetComponent<BattleEntity>(), Action.MAGIC);
+                            }
+                        }
+
+                        setAfterAction(i);
+                    }
                 }
                 else if (transformIndex >= 10 && teams[i].GetComponent<BattleEntity>().action == Action.MAGIC)
                 {
                     transformIndex -= 10;
-                    // TODO 공격 처리
-                    enemies[transformIndex].GetComponent<BattleEntity>().takeDamage(teams[i].GetComponent<BattleEntity>(), Action.MAGIC);
 
-                    // 캐스팅 취소
-                    if (enemies[transformIndex].GetComponent<BattleEntity>().isCasting)
+                    // 단일 타겟
+                    if (teams[i].GetComponent<BattleEntity>().skill.isTargetOne)
                     {
-                        cancleCasting(transformIndex, false);
-                    }
+                        enemies[transformIndex].GetComponent<BattleEntity>().takeDamage(teams[i].GetComponent<BattleEntity>(), Action.MAGIC);
 
-                    setAfterAction(i);
+                        setAfterAction(i);
+                    }
+                    // 다중 타겟
+                    else
+                    {
+                        for (int j = 0; j < enemyCount; j++)
+                        {
+                            if (enemies[j].gameObject.activeSelf)
+                            {
+                                enemies[j].GetComponent<BattleEntity>().takeDamage(teams[i].GetComponent<BattleEntity>(), Action.MAGIC);
+                            }
+                        }
+
+                        setAfterAction(i);
+                    }
                 }
 
             }
@@ -205,10 +229,10 @@ public class BattleManager : MonoBehaviour
                     Debug.Log(teams[transformIndex].name + "의 남은 체력 : " + teams[transformIndex].GetComponent<BattleEntity>().healthPoint + "/" + teams[transformIndex].GetComponent<BattleEntity>().healthPointMax);
 
                     // 캐스팅 시 취소
-                    if (teams[transformIndex].GetComponent<BattleEntity>().isCasting)
+/*                    if (teams[transformIndex].GetComponent<BattleEntity>().isCasting)
                     {
                         cancleCasting(transformIndex, true);
-                    }
+                    }*/
 
                     setAfterAction(i, false);
                 }
@@ -221,10 +245,10 @@ public class BattleManager : MonoBehaviour
                     Debug.Log(enemies[transformIndex].name + "의 남은 체력 : " + enemies[transformIndex].GetComponent<BattleEntity>().healthPoint + "/" + enemies[transformIndex].GetComponent<BattleEntity>().healthPointMax);
 
                     // 캐스팅 취소
-                    if (enemies[transformIndex].GetComponent<BattleEntity>().isCasting)
+/*                    if (enemies[transformIndex].GetComponent<BattleEntity>().isCasting)
                     {
                         cancleCasting(transformIndex, false);
-                    }
+                    }*/
 
                     setAfterAction(i, false);
                 }
@@ -238,10 +262,10 @@ public class BattleManager : MonoBehaviour
                     Debug.Log(teams[transformIndex].name + "의 남은 체력 : " + teams[transformIndex].GetComponent<BattleEntity>().healthPoint + "/" + teams[transformIndex].GetComponent<BattleEntity>().healthPointMax);
 
                     // 캐스팅 시 취소
-                    if (teams[transformIndex].GetComponent<BattleEntity>().isCasting)
+/*                    if (teams[transformIndex].GetComponent<BattleEntity>().isCasting)
                     {
                         cancleCasting(transformIndex, true);
-                    }
+                    }*/
 
                     setAfterAction(i, false);
                 }
@@ -254,10 +278,10 @@ public class BattleManager : MonoBehaviour
                     Debug.Log(enemies[transformIndex].name + "의 남은 체력 : " + enemies[transformIndex].GetComponent<BattleEntity>().healthPoint + "/" + enemies[transformIndex].GetComponent<BattleEntity>().healthPointMax);
 
                     // 캐스팅 취소
-                    if (enemies[transformIndex].GetComponent<BattleEntity>().isCasting)
+/*                    if (enemies[transformIndex].GetComponent<BattleEntity>().isCasting)
                     {
                         cancleCasting(transformIndex, false);
-                    }
+                    }*/
 
                     setAfterAction(i, false);
                 }
@@ -268,8 +292,14 @@ public class BattleManager : MonoBehaviour
     }
 
     // 액션 처리 부분, 캐스팅 취소
-    private void cancleCasting(int transformIndex, bool isTeam = true)
+    public void cancleCasting(int transformIndex, bool isTeam = true)
     {
+        if (transformIndex >= 10)
+        {
+            isTeam = false;
+            transformIndex -= 10;
+        }
+
         if (isTeam)
         {
             float previousPosition = teamArrows[transformIndex].transform.position.x;
@@ -459,7 +489,28 @@ public class BattleManager : MonoBehaviour
         {
             if (teamArrows[i].activeSelf)
             {
-                teamArrows[i].transform.position = new Vector2(teamArrows[i].transform.position.x + cooldownTeam[i], teamArrows[i].transform.position.y);
+                // 캐스팅
+                if (teams[i].GetComponent<BattleEntity>().isCasting)
+                {
+                    if (teams[i].GetComponent<BattleEntity>().action == Action.ATTACK)
+                    {
+                        cooldownTeam[i] = castingTime / 0.5f;
+                        teamArrows[i].transform.position = new Vector2(teamArrows[i].transform.position.x + cooldownTeam[i], teamArrows[i].transform.position.y);
+                    }
+                    // 스킬별 쿨타임 적용
+                    else if (teams[i].GetComponent<BattleEntity>().action == Action.MAGIC)
+                    {
+                        cooldownTeam[i] = castingTime / teams[i].GetComponent<BattleEntity>().skill.castingTime;
+                        teamArrows[i].transform.position = new Vector2(teamArrows[i].transform.position.x + cooldownTeam[i], teamArrows[i].transform.position.y);
+                    }
+
+                }
+                // 쿨타임
+                else
+                {
+                    cooldownTeam[i] = castingTime;
+                    teamArrows[i].transform.position = new Vector2(teamArrows[i].transform.position.x + cooldownTeam[i], teamArrows[i].transform.position.y);
+                }
             }
             else
             {
@@ -683,6 +734,13 @@ public class BattleManager : MonoBehaviour
     // 타겟 선택
     public void selectTargetMode()
     {
+        // 너무 빠른 타겟 클릭으로 다음 턴 액션 메뉴 애니메이션이 완벽하게 꺼지지 않은 상태가 되는 현상 방지
+        if (!(actionMenu[actionIndex].GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("ActionEnd")
+            && actionMenu[actionIndex].GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99f))
+        {
+            return;
+        }
+
         if (isTargetSelectingOn)
         {
             // 최종 타겟 선택
@@ -695,16 +753,14 @@ public class BattleManager : MonoBehaviour
                 {
                     teams[actionIndex].GetComponent<BattleEntity>().target = teams[transformIndex];
 
-                    targetObject.transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
-                    targetObject.GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
+                    offArrowUI();
                 }
                 else // enemy 선택
                 {
                     transformIndex -= 10;
                     teams[actionIndex].GetComponent<BattleEntity>().target = enemies[transformIndex];
 
-                    targetObject.transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
-                    targetObject.GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
+                    offArrowUI();
                 }
 
                 readyToAction = true;
@@ -731,16 +787,7 @@ public class BattleManager : MonoBehaviour
                 {
                     if (targetObject != null)
                     {
-                        for (int i = 0; i < teamCount; i++)
-                        {
-                            teams[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
-                            teams[i].GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
-                        }
-                        for (int i = 0; i < enemyCount; i++)
-                        {
-                            enemies[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
-                            enemies[i].GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
-                        }
+                        offArrowUI();
                     }
 
                     targetObject = selectedObject;
@@ -754,16 +801,7 @@ public class BattleManager : MonoBehaviour
                 {
                     if (targetObject != null)
                     {
-                        for (int i = 0; i < teamCount; i++)
-                        {
-                            teams[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
-                            teams[i].GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
-                        }
-                        for (int i = 0; i < enemyCount; i++)
-                        {
-                            enemies[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
-                            enemies[i].GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
-                        }
+                        offArrowUI();
                     }
 
                     targetObject = selectedObject;
@@ -789,9 +827,30 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private void offArrowUI()
+    {
+        for (int i = 0; i < teamCount; i++)
+        {
+            teams[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
+            teams[i].GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
+        }
+        for (int i = 0; i < enemyCount; i++)
+        {
+            enemies[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow 끄기
+            enemies[i].GetComponent<BattleEntity>().arrowUI.SetBool("isUIOn", false); // Arrow UI 끄기
+        }
+    }
+
     // 버튼 처리
     public void buttonCancel()
     {
+        if (! (!(actionMenu[actionIndex].GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("ActionMagic"))
+            || actionMenu[actionIndex].GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("ActionMagic")
+            && actionMenu[actionIndex].GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95f) )
+        {
+            return;
+        }
+
         SoundManager.instance.playButtonEffectSound();
         isTargetSelectingOn = false;
 
@@ -823,6 +882,8 @@ public class BattleManager : MonoBehaviour
 
     public void buttonSpellCancel()
     {
+        
+
         SoundManager.instance.playButtonEffectSound();
         isTargetSelectingOn = false;
 
@@ -849,6 +910,7 @@ public class BattleManager : MonoBehaviour
         actionIndex = index;
         actionMenu[actionIndex].GetComponent<Animator>().SetBool("isActionMenuOn", false);
         teams[actionIndex].GetComponent<BattleEntity>().action = Action.ATTACK;
+        teams[actionIndex].GetComponent<BattleEntity>().skill = new Skill(-1);
     }
 
     public void buttonMagic(int index)
@@ -917,6 +979,7 @@ public class BattleManager : MonoBehaviour
         selectedObject = null;
         actionIndex = index;
         enemies[actionIndex].GetComponent<BattleEntity>().action = Action.ATTACK;
+        enemies[actionIndex].GetComponent<BattleEntity>().skill = new Skill(-1);
 
         // 임시로 타겟은 플레이어
         targetObject = teams[0].gameObject;

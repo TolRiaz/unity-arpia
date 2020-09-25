@@ -15,6 +15,9 @@ public class MainCamera : MonoBehaviour
 
     private Map player_location;
     private Vector3 player_position;
+
+    public bool isDamaged;
+    public float cameraTimer;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +43,28 @@ public class MainCamera : MonoBehaviour
 
     private void FixCameraPositionBattle()
     {
+        if (isDamaged)
+        {
+            if (cameraTimer < 0.2f)
+            {
+                transform.position = new Vector3(Random.Range(179.8f, 180.2f), Random.Range(1398.8f, 1399.2f), -10);
+                cameraTimer += Time.deltaTime;
+
+                return;
+            }
+            else
+            {
+                isDamaged = false;
+            }
+        }
+
         transform.position = new Vector3(180, 1399, -10);
+    }
+
+    public void setCameraShake()
+    {
+        isDamaged = true;
+        cameraTimer = 0;
     }
 
     private void FixCameraPositionX()

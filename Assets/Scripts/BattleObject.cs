@@ -21,6 +21,7 @@ public class BattleObject : MonoBehaviour
         // 임시 테스트용
         setEntity(MonsterDatabase.instance.mobDB[0]);
         setEntity(MonsterDatabase.instance.mobDB[0]);
+        setEntity(MonsterDatabase.instance.mobDB[0]);
     }
 
     // Update is called once per frame
