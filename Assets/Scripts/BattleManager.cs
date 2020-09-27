@@ -81,8 +81,8 @@ public class BattleManager : MonoBehaviour
             cooldownEnemy[i] = (0.0625f * Screen.width) / term;
         }
 
-        cooldownEnemy[0] = (0.060f * Screen.width) / term;
-        cooldownEnemy[1] = (0.045f * Screen.width) / term;
+        cooldownEnemy[0] = (0.090f * Screen.width) / term;
+        cooldownEnemy[1] = (0.075f * Screen.width) / term;
 
         setResolution();
 
@@ -640,6 +640,19 @@ public class BattleManager : MonoBehaviour
             setActionMenuSkill(i);
             teams[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow
             teams[i].GetComponent<BattleEntity>().isCasting = false;
+
+/*            if (teams[i].transform.childCount > 3)
+            {
+                Destroy(teams[i].transform.GetChild(3).gameObject);
+            }
+
+            //enemies[i].GetComponent<SpriteRenderer>().sprite = entityDatas[i].loadSprite(entityDatas[i].spritePath);
+
+            GameObject enemyPrefab = entityDatas[i].loadPrefab(entityDatas[i].prefabPath);
+            GameObject go = Instantiate(enemyPrefab);
+            go.transform.SetParent(teams[i].transform);
+            go.GetComponent<Transform>().localScale = new Vector3(0.75f, 0.75f, 1);
+            go.transform.position = teams[i].transform.GetChild(2).position; // 이유는 모르겠지만 해당 위치가 0, -1 됨*/
         }
 
         for (int i = petDatas.Count + 1; i < teams.Count; i++)
@@ -669,7 +682,18 @@ public class BattleManager : MonoBehaviour
             enemies[i].transform.GetChild(0).gameObject.SetActive(false); // Arrow
             enemies[i].GetComponent<BattleEntity>().isCasting = false;
 
+            if (enemies[i].transform.childCount > 3)
+            {
+                Destroy(enemies[i].transform.GetChild(3).gameObject);
+            }
+
             enemies[i].GetComponent<SpriteRenderer>().sprite = entityDatas[i].loadSprite(entityDatas[i].spritePath);
+
+            GameObject enemyPrefab = entityDatas[i].loadPrefab(entityDatas[i].prefabPath);
+            GameObject go = Instantiate(enemyPrefab);
+            go.transform.SetParent(enemies[i].transform);
+            go.GetComponent<Transform>().localScale = new Vector3(0.75f, 0.75f, 1);
+            go.transform.position = enemies[i].transform.GetChild(2).position; // 이유는 모르겠지만 해당 위치가 0, -1 됨
         }
 
         for (int i = entityDatas.Count; i < enemies.Count; i++)

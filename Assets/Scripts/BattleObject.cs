@@ -19,9 +19,9 @@ public class BattleObject : MonoBehaviour
         animator = GetComponent<Animator>();
 
         // 임시 테스트용
-        setEntity(MonsterDatabase.instance.mobDB[0]);
-        setEntity(MonsterDatabase.instance.mobDB[0]);
-        setEntity(MonsterDatabase.instance.mobDB[0]);
+        setEntity(MonsterDatabase.instance.mobDB[1]);
+        setEntity(MonsterDatabase.instance.mobDB[1]);
+        setEntity(MonsterDatabase.instance.mobDB[1]);
     }
 
     // Update is called once per frame
@@ -59,6 +59,8 @@ public class BattleObject : MonoBehaviour
 
         SoundManager.instance.stopAllSounds();
         SoundManager.instance.playMusic(21);
+
+        CancelInvoke("changeScene");
 
         Destroy(gameObject);
     }

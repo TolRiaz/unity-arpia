@@ -13,7 +13,8 @@ public class MonsterDatabase : MonoBehaviour
 
     public List<EntityData> mobDB = new List<EntityData>();
 
-    public string spritePath = "Images/Items/Images/Mobs";
+    public string spritePath = "Images/Item/Image/Mob";
+    public string prefabPath = "Images/Sprite/Mob";
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +43,10 @@ public class MonsterDatabase : MonoBehaviour
         mobDataFile.mobDatas = new List<EntityData>();
 
         mobDataFile.mobDatas.Add(new EntityData
-            ("대지 버섯", 1, Job.NONE, Element.EARTH, 2, 5, 0, 5, 0, null, 0, 0, 0, 0, 0, 5, 5, 3, 3, 3, 2, 5, 30, 50, 50, 20, 20, spritePath + "/" + "mushroom_red_idle"));
+            ("대지 버섯", 0, Job.NONE, Element.EARTH, 1, 3, 0, 5, 0, null, 0, 0, 0, 0, 0, 5, 5, 3, 3, 3, 2, 5, 30, 100, 100, 20, 20, spritePath + "/" + "mushroom_red_idle"));
+        mobDataFile.mobDatas.Add(new EntityData
+            ("대지 연지비그", 1, Job.NONE, Element.EARTH, 3, 10, 0, 8, 0, null, 0, 0, 0, 0, 0, 7, 10, 5, 15, 5, 3, 3, 50, 200, 200, 100, 100,
+            spritePath + "/" + "FlowerMob", prefabPath + "/" + "FlowerMob"));
 
         string jsonData = JsonUtility.ToJson(mobDataFile, true);
 

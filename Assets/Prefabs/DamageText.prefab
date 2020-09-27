@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b74feef053bef4f952b7330c1ce930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  alphaSpeed: 2
-  destroyTimer: 5
+  speed: 0.5
+  alphaSpeed: 1
+  destroyTimer: 6
   damage: 0

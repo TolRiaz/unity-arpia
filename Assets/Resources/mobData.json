@@ -5,8 +5,8 @@
             "code": 0,
             "job": 0,
             "element": 3,
-            "level": 2,
-            "exp": 5,
+            "level": 1,
+            "exp": 3,
             "nextExp": 0,
             "money": 5,
             "gold": 0,
@@ -24,8 +24,8 @@
             "avoid": 2,
             "critRate": 5.0,
             "critDam": 30.0,
-            "healthPoint": 200.0,
-            "healthPointMax": 200.0,
+            "healthPoint": 100.0,
+            "healthPointMax": 100.0,
             "manaPoint": 20.0,
             "manaPointMax": 20.0,
             "fame": 0,
@@ -33,9 +33,54 @@
             "expStack": 0.0,
             "sortingIndex": 3,
             "sprite": {
-                "instanceID": 68002
+                "instanceID": 0
             },
-            "spritePath": "Images/Items/Images/Mobs/mushroom_red_idle"
+            "spritePath": "Images/Item/Image/Mob/mushroom_red_idle",
+            "prefab": {
+                "instanceID": 0
+            },
+            "prefabPath": ""
+        },
+        {
+            "entityName": "대지 연지비그",
+            "code": 1,
+            "job": 0,
+            "element": 3,
+            "level": 3,
+            "exp": 10,
+            "nextExp": 0,
+            "money": 8,
+            "gold": 0,
+            "items": [],
+            "statPoint": 0,
+            "intellectPoint": 0,
+            "wisdomPoint": 0,
+            "dexterityPoint": 0,
+            "concentrationPoint": 0,
+            "power": 15,
+            "armor": 10,
+            "magicPower": 5,
+            "magicArmor": 15,
+            "accuracy": 5,
+            "avoid": 3,
+            "critRate": 3.0,
+            "critDam": 50.0,
+            "healthPoint": 200.0,
+            "healthPointMax": 200.0,
+            "manaPoint": 100.0,
+            "manaPointMax": 100.0,
+            "fame": 0,
+            "charm": 0,
+            "expStack": 0.0,
+            "sortingIndex": 3,
+            "sprite": {
+                "instanceID": 0
+            },
+            "spritePath": "Images/Item/Image/Mob/FlowerMob",
+            "prefab": {
+                "instanceID": 0
+            },
+            "prefabPath": "Images/Sprite/Mob/FlowerMob"
         }
     ]
 }

@@ -46,6 +46,8 @@ public class EntityData
 
     public Sprite sprite;
     public string spritePath;
+    public GameObject prefab;
+    public string prefabPath;  // 스켈레톤 경로
 
     // Start is called before the first frame update
     void Start()
@@ -67,10 +69,11 @@ public class EntityData
     public EntityData(string name, int code, Job job, Element element, int level, int exp, int nextExp, int money, int gold,
         List<Item> items, int statPoint, int intellectPoint, int wisdomPoint, int dexterityPoint, int concentrationPoint, 
         int power, int armor, int magicPower, int magicArmor, int accuracy, int avoid, float critRate, float critDam,
-        float healthPoint, float healthPointMax, float manaPoint, float manaPointMax, string spritePath = null,
+        float healthPoint, float healthPointMax, float manaPoint, float manaPointMax, string spritePath = null, string prefabPath = null,
         int fame = 0, int charm = 0, float expStack = 0, int sortingIndex = 3)
     {
         this.entityName = name;
+        this.code = code;
         this.job = job;
         this.element = element;
         this.level = level;
@@ -103,15 +106,16 @@ public class EntityData
         this.expStack = expStack;
         this.sortingIndex = sortingIndex;
         this.spritePath = spritePath;
+        this.prefabPath = prefabPath;
 
-        this.spritePath = spritePath;
-
-        sprite = loadSprite(spritePath);
+        if (sprite != null) sprite = loadSprite(spritePath);
+        if (sprite != null) prefab = loadPrefab(prefabPath);
     }
 
     public void setEntityData(EntityData entityData)
     {
         this.entityName = entityData.entityName;
+        this.code = entityData.code;
         this.job = entityData.job;
         this.element = entityData.element;
         this.level = entityData.level;
@@ -145,13 +149,19 @@ public class EntityData
         this.sortingIndex = entityData.sortingIndex;
         this.spritePath = entityData.spritePath;
 
-        this.spritePath = entityData.spritePath;
-        sprite = loadSprite(spritePath);
+        if (sprite != null) sprite = loadSprite(spritePath);
+        if (sprite != null) prefab = loadPrefab(prefabPath);
     }
 
     [ContextMenu("From Json Data")]
     public Sprite loadSprite(string path)
     {
         return Resources.Load<Sprite>(path);
+    }
+
+    [ContextMenu("From Json Data")]
+    public GameObject loadPrefab(string path)
+    {
+        return Resources.Load<GameObject>(path);
     }
 }
